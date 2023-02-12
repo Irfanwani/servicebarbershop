@@ -3,12 +3,6 @@ import { Dimensions, StyleSheet } from "react-native";
 const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  button: {
-    borderRadius: 30,
-    position: "absolute",
-    bottom: 20,
-    right: 10,
-  },
   view: {
     flex: 1,
   },
@@ -30,10 +24,14 @@ const styles = StyleSheet.create({
   tagview: {
     justifyContent: "space-around",
     flex: 1,
-    backgroundColor: "#00000045",
+    backgroundColor: "#00000055",
     flexDirection: 'row',
     alignItems: 'center',
   },
+  iconbutton: {
+    position: 'absolute',
+
+  }
 });
 
 export default styles;

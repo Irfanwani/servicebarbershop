@@ -1,17 +1,45 @@
-import React, { FC } from "react";
-import { ScrollView, ImageBackground } from "react-native";
+import React, { FC, useRef, useState } from "react";
+import {
+  ScrollView,
+  ImageBackground,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from "react-native";
 
-import { Button, Icon, Text, View } from "native-base";
+import { Fab, Icon, Text, View } from "native-base";
 
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 
 const LandingPage: FC = () => {
+  const scroller = useRef<ScrollView>();
+
+  const [atEnd, setAtEnd] = useState(false);
+
+  const moveOn = () => {
+    scroller.current.scrollToEnd({ animated: true });
+    setAtEnd(true);
+  };
+
+  const changescroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (event.nativeEvent.contentOffset.x == 0) {
+      setAtEnd(false);
+    } else {
+      setAtEnd(true);
+    }
+  };
   return (
-    <ScrollView horizontal style={styles.view}>
+    <ScrollView
+      onScroll={changescroll}
+      ref={(ref) => (scroller.current = ref)}
+      horizontal
+      style={styles.view}
+      showsHorizontalScrollIndicator={false}
+      pagingEnabled={true}
+    >
       <ImageBackground
         style={styles.image}
-        source={require("../../assets/barbershop.jpg")}
+        source={require("../../assets/barbershop.jpeg")}
       >
         <View style={styles.tagview}>
           <Text style={styles.tagline}>
@@ -20,18 +48,15 @@ const LandingPage: FC = () => {
           <Text style={styles.tagline}>
             Join the Barbershop Services App to connect with new clients.
           </Text>
+
+          <Fab
+            onPress={moveOn}
+            colorScheme="rose"
+            label={atEnd ? `Let's Start` : ""}
+            endIcon={<Icon as={Ionicons} name="arrow-forward" size="lg" />}
+          />
         </View>
       </ImageBackground>
-
-      <Button
-        style={styles.button}
-        endIcon={<Icon as={Ionicons} name="arrow-forward" size="md" />}
-        padding="4"
-        colorScheme="rose"
-        shadow="9"
-      >
-        Let's Start
-      </Button>
     </ScrollView>
   );
 };
