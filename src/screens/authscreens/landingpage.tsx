@@ -1,9 +1,10 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   ImageBackground,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  useWindowDimensions,
 } from "react-native";
 
 import { Fab, Icon, Text, View } from "native-base";
@@ -12,19 +13,20 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 
 const LandingPage: FC = () => {
+  const { width } = useWindowDimensions();
+
   const scroller = useRef<ScrollView>();
 
   const [atEnd, setAtEnd] = useState(false);
 
   const moveOn = () => {
     scroller.current.scrollToEnd({ animated: true });
-    setAtEnd(true);
   };
 
   const changescroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (event.nativeEvent.contentOffset.x == 0) {
+    if (event.nativeEvent.contentOffset.x < width / 1.3) {
       setAtEnd(false);
-    } else {
+    } else if (event.nativeEvent.contentOffset.x >= width / 1.3) {
       setAtEnd(true);
     }
   };
