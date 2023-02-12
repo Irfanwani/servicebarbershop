@@ -5,9 +5,12 @@ import styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 import { LoginProps } from "./types";
 
-const Login: FC<LoginProps> = ({ navigation }) => {
+const Register: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [passwordagain, setPasswordAgain] = useState("");
 
   const [isSecure, setIsSecure] = useState(true);
 
@@ -15,8 +18,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     setIsSecure((prev) => !prev);
   };
 
-  const gotoRegister = () => {
-    navigation.navigate("register");
+  const gotoLogin = () => {
+    navigation.navigate("login");
   };
 
   return (
@@ -28,9 +31,9 @@ const Login: FC<LoginProps> = ({ navigation }) => {
       <Image
         style={styles.loginimg}
         source={require("../../assets/login2.png")}
-        alt="Login"
+        alt="Register"
       />
-      <Text style={styles.label}>Welcome Back!</Text>
+      <Text style={styles.label}>Let's Get Started!</Text>
       <Input
         placeholder="Username"
         value={username}
@@ -38,6 +41,15 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         marginY="1"
         size="md"
         variant="rounded"
+      />
+      <Input
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        marginY="1"
+        size="md"
+        variant="rounded"
+        keyboardType="email-address"
       />
       <Input
         autoCorrect={false}
@@ -59,27 +71,39 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         size="md"
         variant="rounded"
       />
+      <Input
+        autoCorrect={false}
+        placeholder="Password Again"
+        value={passwordagain}
+        onChangeText={setPasswordAgain}
+        secureTextEntry={isSecure}
+        keyboardType={isSecure ? undefined : "visible-password"}
+        marginY="1"
+        rightElement={
+          <Icon
+            onPress={changeSecure}
+            as={Ionicons}
+            name={isSecure ? "eye-off" : "eye"}
+            size="lg"
+            marginRight="3"
+          />
+        }
+        size="md"
+        variant="rounded"
+      />
 
-      <Button
-        variant="link"
-        padding="0"
-        colorScheme="teal"
-        alignSelf="flex-end"
-      >
-        Forgot Password?
-      </Button>
       <Button colorScheme="teal" size="lg" style={styles.button} padding="5">
-        LOGIN
+        REGISTER
       </Button>
 
       <Text style={styles.footer}>
-        Don't have an account?{" "}
-        <Text color="teal.600" onPress={gotoRegister}>
-          Register Here!
+        Already an account?{" "}
+        <Text color="teal.600" onPress={gotoLogin}>
+          Login Here!
         </Text>
       </Text>
     </ScrollView>
   );
 };
 
-export default Login;
+export default Register;

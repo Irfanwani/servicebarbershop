@@ -33,9 +33,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   loginscroll: {
-    paddingHorizontal: 20,
-    paddingVertical: 40,
-    // flex: 1
+    padding: 20,
   },
   label: {
     fontSize: 25,
@@ -54,7 +52,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignSelf: "center",
-    paddingTop: 50,
   },
 });
 

@@ -12,9 +12,9 @@ import { Fab, Icon, Text, View } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 import { useIsFocused } from "@react-navigation/native";
-import { LoginProps } from "./types";
+import { LandingPageProps } from "./types";
 
-const LandingPage: FC<LoginProps> = ({ navigation }) => {
+const LandingPage: FC<LandingPageProps> = ({ navigation }) => {
   const isFocused = useIsFocused();
   const { width } = useWindowDimensions();
 

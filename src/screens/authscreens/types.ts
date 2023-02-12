@@ -8,4 +8,9 @@ export type RootAuthStackProps = {
   verifyemail: undefined;
 };
 
+export type LandingPageProps = NativeStackScreenProps<
+  RootAuthStackProps,
+  "landingpage"
+>;
+
 export type LoginProps = NativeStackScreenProps<RootAuthStackProps, "login">;
