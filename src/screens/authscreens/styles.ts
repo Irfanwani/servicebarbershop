@@ -32,6 +32,30 @@ const styles = StyleSheet.create({
   iconbutton: {
     position: "absolute",
   },
+  loginscroll: {
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+    // flex: 1
+  },
+  label: {
+    fontSize: 25,
+    fontWeight: "bold",
+    lineHeight: 30,
+    alignSelf: "center",
+  },
+  loginimg: {
+    height: height / 2.5,
+    aspectRatio: 1,
+    alignSelf: "center",
+  },
+  button: {
+    borderRadius: 40,
+    margin: 20,
+  },
+  footer: {
+    alignSelf: "center",
+    paddingTop: 50,
+  },
 });
 
 export default styles;

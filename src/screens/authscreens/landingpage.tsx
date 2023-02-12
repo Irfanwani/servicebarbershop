@@ -11,8 +11,11 @@ import { Fab, Icon, Text, View } from "native-base";
 
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
+import { useIsFocused } from "@react-navigation/native";
+import { LoginProps } from "./types";
 
-const LandingPage: FC = () => {
+const LandingPage: FC<LoginProps> = ({ navigation }) => {
+  const isFocused = useIsFocused();
   const { width } = useWindowDimensions();
 
   const scroller = useRef<ScrollView>();
@@ -20,6 +23,9 @@ const LandingPage: FC = () => {
   const [atEnd, setAtEnd] = useState(false);
 
   const moveOn = () => {
+    if (atEnd) {
+      navigation.navigate("login");
+    }
     scroller.current.scrollToEnd({ animated: true });
   };
 
@@ -52,6 +58,7 @@ const LandingPage: FC = () => {
           </Text>
 
           <Fab
+            renderInPortal={isFocused}
             onPress={moveOn}
             colorScheme="rose"
             label={atEnd ? `Let's Start` : ""}
