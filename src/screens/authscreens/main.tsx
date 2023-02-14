@@ -7,6 +7,7 @@ import LandingPage from "./landingpage";
 import Login from "./login";
 import Register from "./register";
 import { RootAuthStackProps } from "./types";
+import VerifyEmail from "./verifyemail";
 
 const Stack = createNativeStackNavigator<RootAuthStackProps>();
 
@@ -15,12 +16,13 @@ const AuthMain: FC = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false, animation: "slide_from_right" }}
-        initialRouteName="landingpage"
+        initialRouteName="verifyemail"
       >
         <Stack.Screen name="landingpage" component={LandingPage} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="forgotpassword" component={ForgotPassword} />
+        <Stack.Screen name="verifyemail" component={VerifyEmail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

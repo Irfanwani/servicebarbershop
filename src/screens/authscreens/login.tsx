@@ -31,7 +31,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     >
       <Image
         style={styles.loginimg}
-        source={require("../../assets/login2.png")}
+        source={require("../../assets/login.png")}
         alt="Login"
       />
       <Text style={styles.label}>Welcome Back!</Text>

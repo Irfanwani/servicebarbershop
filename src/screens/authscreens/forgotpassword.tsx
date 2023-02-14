@@ -3,9 +3,8 @@ import { FC, useState } from "react";
 import styles from "./styles";
 
 import { Ionicons } from "@expo/vector-icons";
-import { LoginProps } from "./types";
 
-const ForgotPassword: FC<LoginProps> = ({ navigation }) => {
+const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
 
   const [email, setEmail] = useState("");

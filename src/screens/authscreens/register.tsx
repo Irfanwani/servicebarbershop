@@ -30,7 +30,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     >
       <Image
         style={styles.loginimg}
-        source={require("../../assets/login2.png")}
+        source={require("../../assets/login.png")}
         alt="Register"
       />
       <Text style={styles.label}>Let's Get Started!</Text>
