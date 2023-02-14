@@ -4,7 +4,7 @@ export type RootAuthStackProps = {
   landingpage: undefined;
   login: undefined;
   register: undefined;
-  resetpassword: undefined;
+  forgotpassword: undefined;
   verifyemail: undefined;
 };
 

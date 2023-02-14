@@ -5,21 +5,17 @@ import styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 import { LoginProps } from "./types";
 
-const Register: FC<LoginProps> = ({ navigation }) => {
-  const [username, setUsername] = useState("");
+const ForgotPassword: FC<LoginProps> = ({ navigation }) => {
+  const [isSecure, setIsSecure] = useState(true);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [passwordagain, setPasswordAgain] = useState("");
 
-  const [isSecure, setIsSecure] = useState(true);
+  const [code, setCode] = useState("");
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
-  };
-
-  const gotoLogin = () => {
-    navigation.navigate("login");
   };
 
   return (
@@ -30,30 +26,35 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     >
       <Image
         style={styles.loginimg}
-        source={require("../../assets/login2.png")}
-        alt="Register"
+        source={require("../../assets/forgot.png")}
+        alt="ForgotPassword"
       />
-      <Text style={styles.label}>Let's Get Started!</Text>
+      <Text style={styles.label}>Reset Password</Text>
       <Input
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-        marginY="1"
-        size="md"
-        variant="rounded"
-      />
-      <Input
-        placeholder="Email"
+        placeholder="Registered Email"
         value={email}
         onChangeText={setEmail}
         marginY="1"
         size="md"
         variant="rounded"
-        keyboardType="email-address"
       />
+
+      <Button variant="ghost" alignSelf="center" size="lg">
+        Get Verification Code
+      </Button>
+
+      <Input
+        placeholder="Verification code"
+        value={code}
+        onChangeText={setCode}
+        marginY="1"
+        size="md"
+        variant="rounded"
+      />
+
       <Input
         autoCorrect={false}
-        placeholder="Password"
+        placeholder="New Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry={isSecure}
@@ -71,6 +72,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         size="md"
         variant="rounded"
       />
+
       <Input
         autoCorrect={false}
         placeholder="Confirm Password"
@@ -93,17 +95,10 @@ const Register: FC<LoginProps> = ({ navigation }) => {
       />
 
       <Button colorScheme="teal" size="lg" style={styles.button} padding="5">
-        REGISTER
+        Reset Password
       </Button>
-
-      <Text style={styles.footer}>
-        Already an account?{" "}
-        <Text color="teal.600" onPress={gotoLogin}>
-          Login Here!
-        </Text>
-      </Text>
     </ScrollView>
   );
 };
 
-export default Register;
+export default ForgotPassword;

@@ -19,6 +19,10 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     navigation.navigate("register");
   };
 
+  const gotoForgotPassword = () => {
+    navigation.navigate("forgotpassword");
+  };
+
   return (
     <ScrollView
       contentContainerStyle={styles.loginscroll}
@@ -65,6 +69,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         padding="0"
         colorScheme="teal"
         alignSelf="flex-end"
+        onPress={gotoForgotPassword}
       >
         Forgot Password?
       </Button>
