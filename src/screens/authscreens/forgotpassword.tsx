@@ -38,7 +38,7 @@ const ForgotPassword: FC = () => {
         variant="rounded"
       />
 
-      <Button variant="ghost" alignSelf="center" size="lg">
+      <Button variant="ghost" colorScheme="teal" alignSelf="center" size="lg">
         Get Verification Code
       </Button>
 
