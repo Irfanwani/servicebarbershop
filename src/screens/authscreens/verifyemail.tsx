@@ -1,5 +1,7 @@
-import { Button, Image, Input, ScrollView, Text } from "native-base";
+import { Button, Input, ScrollView, Text } from "native-base";
 import { FC, useState } from "react";
+import { mail } from "../../assets/mail";
+import { CustomSvg } from "../../components/svgs/svg";
 import styles from "./styles";
 
 const VerifyEmail: FC = () => {
@@ -11,11 +13,7 @@ const VerifyEmail: FC = () => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="always"
     >
-      <Image
-        style={styles.loginimg}
-        source={require("../../assets/mail.png")}
-        alt="VerifyEmail"
-      />
+      <CustomSvg xml={mail} />
       <Text style={styles.label}>Verify Email</Text>
       <Input
         placeholder="Enter Verification Code"

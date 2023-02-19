@@ -1,9 +1,11 @@
-import { Button, Icon, Image, Input, ScrollView, Text } from "native-base";
+import { Button, Icon, Input, ScrollView, Text } from "native-base";
 import { FC, useState } from "react";
 import styles from "./styles";
 
 import { Ionicons } from "@expo/vector-icons";
 import { LoginProps } from "./types";
+import { CustomSvg } from "../../components/svgs/svg";
+import { login } from "../../assets/login";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -29,11 +31,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="always"
     >
-      <Image
-        style={styles.loginimg}
-        source={require("../../assets/login.png")}
-        alt="Login"
-      />
+      <CustomSvg xml={login} />
       <Text style={styles.label}>Welcome Back!</Text>
       <Input
         placeholder="Username"

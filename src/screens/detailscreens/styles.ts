@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   scroll: {
-    padding: 10
+    padding: 10,
   }
 });
 

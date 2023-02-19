@@ -40,11 +40,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     alignSelf: "center",
   },
-  loginimg: {
-    height: height / 2.5,
-    aspectRatio: 1,
-    alignSelf: "center",
-  },
   button: {
     borderRadius: 40,
     margin: 20,

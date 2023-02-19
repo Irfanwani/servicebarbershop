@@ -1,8 +1,10 @@
-import { Button, Icon, Image, Input, ScrollView, Text } from "native-base";
+import { Button, Icon, Input, ScrollView, Text } from "native-base";
 import { FC, useState } from "react";
 import styles from "./styles";
 
 import { Ionicons } from "@expo/vector-icons";
+import { CustomSvg } from "../../components/svgs/svg";
+import { forgot } from "../../assets/forgot";
 
 const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
@@ -23,11 +25,7 @@ const ForgotPassword: FC = () => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="always"
     >
-      <Image
-        style={styles.loginimg}
-        source={require("../../assets/forgot.png")}
-        alt="ForgotPassword"
-      />
+      <CustomSvg xml={forgot} />
       <Text style={styles.label}>Reset Password</Text>
       <Input
         placeholder="Registered Email"

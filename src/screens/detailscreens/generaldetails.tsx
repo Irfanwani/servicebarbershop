@@ -9,6 +9,9 @@ import {
   getCurrentLocation,
   reverseGeocode,
 } from "../../utils/location";
+import { SvgXml } from "react-native-svg";
+import { details } from "../../assets/details";
+import { CustomSvg } from "../../components/svgs/svg";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -96,6 +99,7 @@ const GeneralDetails: FC = () => {
       keyboardShouldPersistTaps="always"
       contentContainerStyle={styles.scroll}
     >
+      <CustomSvg xml={details} />
       <ActionAvatar image={image} onOpen={openImageSheet} />
 
       <Input
