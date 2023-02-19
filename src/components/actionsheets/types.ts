@@ -1,4 +1,4 @@
-import { Region } from "react-native-maps";
+import { LatLng, Region } from "react-native-maps";
 
 export type SheetProps = {
   isOpen: boolean;
@@ -15,4 +15,5 @@ export type MapSheetProps = {
   isOpen: boolean;
   onClose: () => void;
   location: Region;
+  selectLocation: (coords: LatLng) => Promise<void>;
 };

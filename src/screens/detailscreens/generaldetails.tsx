@@ -22,6 +22,7 @@ import { CustomSvg } from "../../components/svgs/svg";
 
 import authstyles from "../authscreens/styles";
 import { MapSheet } from "../../components/actionsheets/mapsheet";
+import { LatLng } from "react-native-maps";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -112,6 +113,12 @@ const GeneralDetails: FC = () => {
     setEditing(false);
   };
 
+  const selectLocation = async (coords: LatLng) => {
+    setCoords(coords);
+    const address = await reverseGeocode(coords);
+    setLocation(address);
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -145,6 +152,7 @@ const GeneralDetails: FC = () => {
         />
       ) : isMapSheet ? (
         <MapSheet
+          selectLocation={selectLocation}
           isOpen={isOpen}
           onClose={onClose}
           location={{ ...coords, latitudeDelta: 5, longitudeDelta: 5 }}
