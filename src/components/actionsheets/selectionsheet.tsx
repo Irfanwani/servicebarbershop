@@ -1,14 +1,17 @@
 import { Actionsheet, HStack, Icon, IconButton } from "native-base";
 import { FC } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { MediaSheetProps } from "./types";
+import { SheetProps } from "./types";
 
-export const MediaSheet: FC<MediaSheetProps> = ({
+export const Sheet: FC<SheetProps> = ({
   isOpen,
   onClose,
-  getCameraImage,
-  getImage,
-  removeImage,
+  firstIconCallback,
+  secondIconCallback,
+  thirdIconCallback,
+  icon1,
+  icon2,
+  icon3,
 }) => {
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
@@ -16,24 +19,24 @@ export const MediaSheet: FC<MediaSheetProps> = ({
         <HStack space={20} p={3}>
           <IconButton
             variant="solid"
-            icon={<Icon as={Ionicons} name="camera" size="2xl" />}
+            icon={<Icon as={Ionicons} name={icon1} size="2xl" />}
             colorScheme="teal"
             rounded="full"
-            onPress={getCameraImage}
+            onPress={firstIconCallback}
           />
           <IconButton
             variant="solid"
-            icon={<Icon as={Ionicons} name="image-sharp" size="2xl" />}
+            icon={<Icon as={Ionicons} name={icon2} size="2xl" />}
             colorScheme="rose"
             rounded="full"
-            onPress={getImage}
+            onPress={secondIconCallback}
           />
           <IconButton
             variant="solid"
-            icon={<Icon as={Ionicons} name="reload" size="2xl" />}
+            icon={<Icon as={Ionicons} name={icon3} size="2xl" />}
             colorScheme="red"
             rounded="full"
-            onPress={removeImage}
+            onPress={thirdIconCallback}
           />
         </HStack>
       </Actionsheet.Content>

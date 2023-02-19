@@ -11,7 +11,7 @@ export const getCameraImageAsync = async () => {
 
   if (status != "granted") {
     Alert.alert(
-      "Denied!",
+      "Permission Denied!",
       "Please provide the camera permissions to use camera within the app."
     );
     let { status: secondTime } = await requestCameraPermissionsAsync();

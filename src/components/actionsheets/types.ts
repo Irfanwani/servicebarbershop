@@ -1,7 +1,10 @@
-export type MediaSheetProps = {
+export type SheetProps = {
   isOpen: boolean;
   onClose: () => void;
-  getCameraImage: () => Promise<void>;
-  getImage: () => Promise<void>;
-  removeImage: () => void;
+  firstIconCallback: () => Promise<void>;
+  secondIconCallback: () => Promise<void>;
+  thirdIconCallback: () => void;
+  icon1: string;
+  icon2: string;
+  icon3: string;
 };
