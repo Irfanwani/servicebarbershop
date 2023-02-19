@@ -3,7 +3,7 @@ import AuthMain from "./authscreens/main";
 import DetailsMain from "./detailscreens/main";
 
 const Main: FC = () => {
-  return <AuthMain />;
+  return <DetailsMain />;
 };
 
 export default Main;

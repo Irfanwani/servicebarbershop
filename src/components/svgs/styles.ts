@@ -4,7 +4,7 @@ const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   svg: {
-    height: height / 2.5,
+    height: height / 2.6,
     aspectRatio: 1,
     alignSelf: "center",
   },

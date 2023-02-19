@@ -1,5 +1,12 @@
 import { FC, useState, useRef } from "react";
-import { Button, Input, ScrollView, TextArea, useDisclose } from "native-base";
+import {
+  Button,
+  HStack,
+  Input,
+  ScrollView,
+  TextArea,
+  useDisclose,
+} from "native-base";
 import styles from "./styles";
 import { getCameraImageAsync, getImageAsync } from "../../utils/getassets";
 import { Sheet } from "../../components/actionsheets/selectionsheet";
@@ -9,7 +16,6 @@ import {
   getCurrentLocation,
   reverseGeocode,
 } from "../../utils/location";
-import { SvgXml } from "react-native-svg";
 import { details } from "../../assets/details";
 import { CustomSvg } from "../../components/svgs/svg";
 
@@ -99,8 +105,10 @@ const GeneralDetails: FC = () => {
       keyboardShouldPersistTaps="always"
       contentContainerStyle={styles.scroll}
     >
-      <CustomSvg xml={details} />
-      <ActionAvatar image={image} onOpen={openImageSheet} />
+      <HStack>
+        <ActionAvatar image={image} onOpen={openImageSheet} />
+        <CustomSvg xml={details} />
+      </HStack>
 
       <Input
         ref={(ref) => (locationRef.current = ref)}
