@@ -1,4 +1,5 @@
 import {
+  geocodeAsync,
   getCurrentPositionAsync,
   getForegroundPermissionsAsync,
   LocationAccuracy,
@@ -60,4 +61,15 @@ export const reverseGeocode = async (location: {
   ].join(" ");
 
   return result;
+};
+
+export const geoCode = async (address: string) => {
+  let allowed = await getLocationPermission();
+
+  if (!allowed) return;
+
+  let coords = await geocodeAsync(address);
+
+  const { latitude, longitude } = coords[0];
+  return { latitude, longitude };
 };

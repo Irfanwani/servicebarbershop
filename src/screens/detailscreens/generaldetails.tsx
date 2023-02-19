@@ -1,11 +1,14 @@
-import { FC, useState, useRef, MutableRefObject } from "react";
+import { FC, useState, useRef } from "react";
 import { Button, Input, ScrollView, TextArea, useDisclose } from "native-base";
 import styles from "./styles";
 import { getCameraImageAsync, getImageAsync } from "../../utils/getassets";
 import { Sheet } from "../../components/actionsheets/selectionsheet";
 import { ActionAvatar } from "../../components/avatars/actionavatar";
-import { getCurrentLocation, reverseGeocode } from "../../utils/location";
-import { IInputComponentType } from "native-base/lib/typescript/components/primitives/Input/types";
+import {
+  geoCode,
+  getCurrentLocation,
+  reverseGeocode,
+} from "../../utils/location";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -26,6 +29,7 @@ const GeneralDetails: FC = () => {
   const locationRef = useRef(null);
 
   const [isLocationSheet, setIsLocationSheet] = useState(false);
+  const [isEditing, setEditing] = useState(false);
 
   const getCameraImage = async () => {
     const capturedImg = await getCameraImageAsync();
@@ -64,6 +68,28 @@ const GeneralDetails: FC = () => {
     locationRef.current?.blur();
   };
 
+  const focusLocationInput = () => {
+    onClose();
+    locationRef.current?.blur();
+    setTimeout(() => {
+      locationRef.current?.focus();
+    }, 100);
+  };
+
+  const changeLocation = (lc: string) => {
+    setEditing(true);
+    setLocation(lc);
+  };
+
+  const setAddress = async () => {
+    if (!isEditing) return;
+
+    let crds = await geoCode(location);
+
+    setCoords(crds);
+    setEditing(false);
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -77,7 +103,8 @@ const GeneralDetails: FC = () => {
         placeholder="Location"
         value={location}
         onPressIn={openLocationSheet}
-        onChangeText={setLocation}
+        onChangeText={changeLocation}
+        onEndEditing={setAddress}
       />
       {isLocationSheet ? (
         <Sheet
@@ -85,7 +112,7 @@ const GeneralDetails: FC = () => {
           onClose={onClose}
           firstIconCallback={getLocation}
           secondIconCallback={getImage}
-          thirdIconCallback={removeImage}
+          thirdIconCallback={focusLocationInput}
           icon1="location"
           icon2="map"
           icon3="pencil"
