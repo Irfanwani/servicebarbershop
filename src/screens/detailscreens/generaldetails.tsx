@@ -23,6 +23,10 @@ import { CustomSvg } from "../../components/svgs/svg";
 import authstyles from "../authscreens/styles";
 import { MapSheet } from "../../components/actionsheets/mapsheet";
 import { LatLng } from "react-native-maps";
+import {
+  DateTimePickerAndroid,
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -119,6 +123,32 @@ const GeneralDetails: FC = () => {
     setLocation(address);
   };
 
+  const onChange = (date: Date, type: string) => {
+    if (type == "start") {
+      setStartTime(date.toLocaleTimeString());
+    } else {
+      setEndTime(date.toLocaleTimeString());
+    }
+  };
+
+  const openDateTimePicker = (type: string) => {
+    const [hour, minute, second] =
+      type == "start" ? startTime.split(":") : endTime.split(":");
+
+    let value =
+      (type == "start" && startTime) || (type == "end" && endTime)
+        ? new Date(2023, 3, 3, +hour, +minute)
+        : new Date();
+    DateTimePickerAndroid.open({
+      value,
+      onChange: (event: DateTimePickerEvent, date: Date) => {
+        onChange(date, type);
+      },
+      mode: "time",
+      is24Hour: false,
+    });
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -170,6 +200,21 @@ const GeneralDetails: FC = () => {
         />
       )}
 
+      <Input
+        value={contact}
+        onChangeText={setContact}
+        placeholder="Contact (Another Email or Phone)"
+        keyboardType="email-address"
+        marginY="2"
+      />
+
+      <Input
+        value={employeeNo}
+        onChangeText={setEmployeeNo}
+        placeholder="Number of Employees"
+        keyboardType="numeric"
+      />
+
       <TextArea
         placeholder="Bio"
         value={bio}
@@ -180,22 +225,25 @@ const GeneralDetails: FC = () => {
         rightElement={<Text style={styles.affix}>{bio.length}/1000</Text>}
       />
 
-      <Input
-        value={contact}
-        onChangeText={setContact}
-        placeholder="Contact (Another Email or Phone)"
-        keyboardType="email-address"
-      />
+      <HStack justifyContent="space-evenly">
+        <Button
+          onPress={() => openDateTimePicker("start")}
+          variant="outline"
+          colorScheme="success"
+        >
+          {startTime ? startTime : "Start Time"}
+        </Button>
 
-      <Input
-        value={employeeNo}
-        onChangeText={setEmployeeNo}
-        placeholder="Number of Employees"
-        keyboardType="numeric"
-        marginY="2"
-      />
+        <Button
+          onPress={() => openDateTimePicker("end")}
+          variant="outline"
+          colorScheme="danger"
+        >
+          {endTime ? endTime : "End Time"}
+        </Button>
+      </HStack>
 
-      <Button colorScheme="teal" marginTop="5" padding="3">
+      <Button colorScheme="teal" marginTop="2" padding="3">
         Save Details
       </Button>
     </ScrollView>

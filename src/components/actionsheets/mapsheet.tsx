@@ -53,7 +53,12 @@ export const MapSheet: FC<MapSheetProps> = ({
           <Marker coordinate={coords} />
         </MapView>
 
-        <VStack space="3" marginRight="3" style={styles.iconbutton}>
+        <VStack
+          space="3"
+          marginRight="3"
+          marginBottom="10"
+          style={styles.iconbutton}
+        >
           <IconButton
             variant="solid"
             borderRadius="full"
