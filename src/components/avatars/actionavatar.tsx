@@ -1,7 +1,7 @@
 import { Avatar, Icon, IconButton, View } from "native-base";
 import { FC } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import styles from "./styles";
+import styles from "../styles";
 import { ActionAvatarProps } from "./types";
 
 export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {

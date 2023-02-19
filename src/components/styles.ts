@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const { height } = Dimensions.get("window");
+const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   svg: {
@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     alignSelf: "center",
   },
+  map: {
+    height,
+    width,
+  },
+  iconbutton: { borderRadius: 40, position: "absolute", bottom: 25, right: 0 },
 });
 
 export default styles;

@@ -9,6 +9,13 @@ export default {
     assetBundlePatterns: ["**/*"],
     extra: {
       BASE_URL: process.env.BASE_URL,
+    },
+    android: {
+      config: {
+        googleMaps: {
+          apiKey: process.env.GOOGLE_API_KEY
+        }
+      }
     }
   },
 };

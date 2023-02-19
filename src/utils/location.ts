@@ -70,6 +70,10 @@ export const geoCode = async (address: string) => {
 
   let coords = await geocodeAsync(address);
 
-  const { latitude, longitude } = coords[0];
-  return { latitude, longitude };
+  try {
+    const { latitude, longitude } = coords[0];
+    return { latitude, longitude };
+  } catch (err) {
+    return { latitude: 0, longitude: 0 };
+  }
 };

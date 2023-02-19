@@ -28,5 +28,9 @@
       </intent-filter>
     </activity>
     <activity android:screenOrientation="portrait" android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>
+
+    <meta-data
+     android:name="com.google.android.geo.API_KEY"
+     android:value="@string/GOOGLE_API_KEY"/>
   </application>
 </manifest>

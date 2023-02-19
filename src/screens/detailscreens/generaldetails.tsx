@@ -4,6 +4,7 @@ import {
   HStack,
   Input,
   ScrollView,
+  Text,
   TextArea,
   useDisclose,
 } from "native-base";
@@ -18,6 +19,9 @@ import {
 } from "../../utils/location";
 import { details } from "../../assets/details";
 import { CustomSvg } from "../../components/svgs/svg";
+
+import authstyles from "../authscreens/styles";
+import { MapSheet } from "../../components/actionsheets/mapsheet";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -38,6 +42,7 @@ const GeneralDetails: FC = () => {
   const locationRef = useRef(null);
 
   const [isLocationSheet, setIsLocationSheet] = useState(false);
+  const [isMapSheet, setIsMapSheet] = useState(false);
   const [isEditing, setEditing] = useState(false);
 
   const getCameraImage = async () => {
@@ -61,10 +66,18 @@ const GeneralDetails: FC = () => {
 
   const openImageSheet = () => {
     setIsLocationSheet(false);
+    setIsMapSheet(false);
     onOpen();
   };
   const openLocationSheet = () => {
     setIsLocationSheet(true);
+    setIsMapSheet(false);
+    onOpen();
+  };
+
+  const openMapSheet = () => {
+    setIsLocationSheet(false);
+    setIsMapSheet(true);
     onOpen();
   };
 
@@ -109,6 +122,7 @@ const GeneralDetails: FC = () => {
         <ActionAvatar image={image} onOpen={openImageSheet} />
         <CustomSvg xml={details} />
       </HStack>
+      <Text style={authstyles.label}>Please Fill these details</Text>
 
       <Input
         ref={(ref) => (locationRef.current = ref)}
@@ -123,11 +137,17 @@ const GeneralDetails: FC = () => {
           isOpen={isOpen}
           onClose={onClose}
           firstIconCallback={getLocation}
-          secondIconCallback={getImage}
+          secondIconCallback={openMapSheet}
           thirdIconCallback={focusLocationInput}
           icon1="location"
           icon2="map"
           icon3="pencil"
+        />
+      ) : isMapSheet ? (
+        <MapSheet
+          isOpen={isOpen}
+          onClose={onClose}
+          location={{ ...coords, latitudeDelta: 5, longitudeDelta: 5 }}
         />
       ) : (
         <Sheet
@@ -141,6 +161,7 @@ const GeneralDetails: FC = () => {
           icon3="reload"
         />
       )}
+
       <TextArea
         placeholder="Bio"
         value={bio}
@@ -148,6 +169,7 @@ const GeneralDetails: FC = () => {
         maxLength={1000}
         autoCompleteType={undefined}
         marginY="2"
+        rightElement={<Text style={styles.affix}>{bio.length}/1000</Text>}
       />
 
       <Input
