@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   map: {
-    height,
+    height: height / 1.3,
     width,
   },
   iconbutton: { borderRadius: 40, position: "absolute", bottom: 25, right: 0 },
