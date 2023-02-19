@@ -27,6 +27,7 @@ import {
   DateTimePickerAndroid,
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
+import { timeFormatter } from "../../utils/timeFormatter";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -132,7 +133,7 @@ const GeneralDetails: FC = () => {
   };
 
   const openDateTimePicker = (type: string) => {
-    const [hour, minute, second] =
+    const [hour, minute] =
       type == "start" ? startTime.split(":") : endTime.split(":");
 
     let value =
@@ -231,7 +232,7 @@ const GeneralDetails: FC = () => {
           variant="outline"
           colorScheme="success"
         >
-          {startTime ? startTime : "Start Time"}
+          {startTime ? timeFormatter(startTime) : "Start Time"}
         </Button>
 
         <Button
@@ -239,7 +240,7 @@ const GeneralDetails: FC = () => {
           variant="outline"
           colorScheme="danger"
         >
-          {endTime ? endTime : "End Time"}
+          {endTime ? timeFormatter(endTime) : "End Time"}
         </Button>
       </HStack>
 
