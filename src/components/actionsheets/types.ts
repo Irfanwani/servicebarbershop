@@ -17,3 +17,15 @@ export type MapSheetProps = {
   location: Region;
   selectLocation: (coords: LatLng) => Promise<void>;
 };
+
+export type DropdownProps = {
+  value: string;
+  onValueChange: (item: string) => void;
+  items: Array<BusinessItemType>;
+  placeholder: string;
+};
+
+export type BusinessItemType = {
+  label: string;
+  value: string;
+};

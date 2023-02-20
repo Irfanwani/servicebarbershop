@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     fontSize: 12,
   },
+  helpertext: {
+    fontSize: 12,
+    textAlign: "center",
+    lineHeight: 14,
+    color: "#00000090",
+  },
 });
 
 export default styles;
