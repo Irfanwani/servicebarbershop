@@ -1,4 +1,4 @@
-import { FC, useState, useRef } from "react";
+import { FC, useState, useRef, memo } from "react";
 import {
   Button,
   HStack,
@@ -250,4 +250,4 @@ const GeneralDetails: FC = () => {
     </ScrollView>
   );
 };
-export default GeneralDetails;
+export default memo(GeneralDetails);

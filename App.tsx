@@ -1,5 +1,5 @@
 import { NativeBaseProvider } from "native-base";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { StatusBar } from "react-native";
 import Main from "./src/screens/main";
 
@@ -31,4 +31,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export default memo(App);

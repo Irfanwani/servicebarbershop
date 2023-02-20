@@ -1,5 +1,5 @@
 import { Button, Icon, Input, ScrollView, Text } from "native-base";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import styles from "./styles";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -104,4 +104,4 @@ const Register: FC<LoginProps> = ({ navigation }) => {
   );
 };
 
-export default Register;
+export default memo(Register);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import AuthMain from "./authscreens/main";
 import DetailsMain from "./detailscreens/main";
 
@@ -6,4 +6,4 @@ const Main: FC = () => {
   return <DetailsMain />;
 };
 
-export default Main;
+export default memo(Main);

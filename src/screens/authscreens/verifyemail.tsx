@@ -1,5 +1,5 @@
 import { Button, Input, ScrollView, Text } from "native-base";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { mail } from "../../assets/mail";
 import { CustomSvg } from "../../components/svgs/svg";
 import styles from "./styles";
@@ -34,4 +34,4 @@ const VerifyEmail: FC = () => {
   );
 };
 
-export default VerifyEmail;
+export default memo(VerifyEmail);

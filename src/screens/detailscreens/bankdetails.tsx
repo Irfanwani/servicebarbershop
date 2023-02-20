@@ -4,10 +4,9 @@ import {
   Heading,
   Input,
   ScrollView,
-  Select,
   Text,
 } from "native-base";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import styles from "./styles";
 import authstyles from "../authscreens/styles";
 import { CustomSvg } from "../../components/svgs/svg";
@@ -103,4 +102,4 @@ const BankDetails: FC = () => {
   );
 };
 
-export default BankDetails;
+export default memo(BankDetails);

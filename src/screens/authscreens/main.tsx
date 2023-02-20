@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, memo } from "react";
 import ForgotPassword from "./forgotpassword";
 import LandingPage from "./landingpage";
 import Login from "./login";
@@ -28,4 +28,4 @@ const AuthMain: FC = () => {
   );
 };
 
-export default AuthMain;
+export default memo(AuthMain);

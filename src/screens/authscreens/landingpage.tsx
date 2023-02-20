@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, memo, useRef, useState } from "react";
 import {
   ScrollView,
   ImageBackground,
@@ -70,4 +70,4 @@ const LandingPage: FC<LandingPageProps> = ({ navigation }) => {
   );
 };
 
-export default LandingPage;
+export default memo(LandingPage);
