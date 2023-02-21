@@ -1,3 +1,4 @@
+import { FC, useEffect, useRef, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -9,20 +10,52 @@ import {
   Text,
   View,
 } from "native-base";
-import { FC } from "react";
 import { services } from "../../assets/services";
 import { servicetype } from "../../screens/detailscreens/constants";
 import { CustomSelect } from "../actionsheets/dropdownsheet";
 import { CustomSvg } from "../svgs/svg";
-import { serviceHeaderProps, serviceItemProps } from "./types";
+import {
+  serviceFooterProps,
+  serviceHeaderProps,
+  serviceItemProps,
+} from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
 
-export const renderItem = ({ item }) => {
-  return <RenderItem item={item} />;
+export const renderItem = ({ item, selectItem }) => {
+  return <RenderItem item={item} selectItem={selectItem} />;
 };
 
-const RenderItem: FC<serviceItemProps> = ({ item }) => {
+const RenderItem: FC<serviceItemProps> = ({ item, selectItem }) => {
+  const [selected, setSelected] = useState(null);
+  const [cost, setCost] = useState("");
+
+  const inputref = useRef(null);
+
+  useEffect(() => {
+    if (typeof selected != "boolean") return;
+
+    if (selected) {
+      setTimeout(() => {
+        inputref.current.focus();
+      }, 10);
+    }
+    setItem();
+  }, [selected]);
+
+  const setItem = () => {
+    selectItem(item, Number(cost), selected);
+  };
+
+  const changeCost = (val: string) => {
+    if (!val) {
+      setCost("");
+      return;
+    }
+    if (+val) {
+      setCost(val);
+    }
+  };
+
   return (
     <Checkbox
       rounded="full"
@@ -30,13 +63,21 @@ const RenderItem: FC<serviceItemProps> = ({ item }) => {
       colorScheme="teal"
       value={item}
       justifyContent="space-between"
+      onChange={setSelected}
     >
-      <Text textAlign='center' flexWrap="wrap" maxW="3xs">
+      <Text textAlign="center" flexWrap="wrap" maxW="3xs">
         {item}
       </Text>
       <Input
-      placeholder='Price'
-      size='md'
+        borderColor={!cost && selected ? "red.600" : undefined}
+        ref={(ref) => (inputref.current = ref)}
+        onBlur={setItem}
+        value={selected ? cost : ""}
+        onChangeText={changeCost}
+        keyboardType="numeric"
+        isDisabled={!selected}
+        placeholder="Price"
+        size="md"
         width="20"
         leftElement={
           <Icon as={MaterialCommunityIcons} name="currency-inr" size="md" />
@@ -72,9 +113,14 @@ export const ListHeader: FC<serviceHeaderProps> = ({
   );
 };
 
-export const ListFooter: FC = () => {
+export const ListFooter: FC<serviceFooterProps> = ({ disabled }) => {
   return (
-    <Button colorScheme="teal" p="3" mt="5">
+    <Button
+      disabled={disabled}
+      colorScheme={disabled ? "muted" : "teal"}
+      p="3"
+      mt="5"
+    >
       Complete Registration
     </Button>
   );
