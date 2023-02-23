@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   affix: {
-    color: "#00000065",
+    opacity: 0.5,
     marginRight: 5,
     marginTop: 5,
     alignSelf: "flex-start",
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "center",
     lineHeight: 14,
-    color: "#00000090",
+    opacity: 0.6,
   },
 });
 

@@ -5,7 +5,13 @@ export const theme = extendTheme({
     FlatList: {
       baseStyle: {
         _light: { backgroundColor: "white" },
-        _dark: { backgroundColor: "#27273a" },
+        _dark: { backgroundColor: "#27272f" },
+      },
+    },
+    ScrollView: {
+      baseStyle: {
+        _light: { backgroundColor: "white" },
+        _dark: { backgroundColor: "#27272f" },
       },
     },
     Button: {

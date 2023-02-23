@@ -8,7 +8,7 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
   return (
     <View alignSelf="center" paddingY="30">
       <Avatar size="2xl" source={{ uri: image ? image : undefined }}>
-        <Icon as={Ionicons} name="person" size="2xl" />
+        <Icon as={Ionicons} name="person" size="2xl" color="blueGray.700" />
       </Avatar>
       <IconButton
         variant="solid"

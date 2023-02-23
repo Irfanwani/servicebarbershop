@@ -169,6 +169,7 @@ const GeneralDetails: FC = () => {
         onPressIn={openLocationSheet}
         onChangeText={changeLocation}
         onEndEditing={setAddress}
+        marginY="2"
       />
       {isLocationSheet ? (
         <Sheet
@@ -206,7 +207,6 @@ const GeneralDetails: FC = () => {
         onChangeText={setContact}
         placeholder="Contact (Another Email or Phone)"
         keyboardType="email-address"
-        marginY="2"
       />
 
       <Input
@@ -214,6 +214,7 @@ const GeneralDetails: FC = () => {
         onChangeText={setEmployeeNo}
         placeholder="Number of Employees"
         keyboardType="numeric"
+        marginY="2"
       />
 
       <TextArea
@@ -222,11 +223,10 @@ const GeneralDetails: FC = () => {
         onChangeText={setBio}
         maxLength={1000}
         autoCompleteType={undefined}
-        marginY="2"
         rightElement={<Text style={styles.affix}>{bio.length}/1000</Text>}
       />
 
-      <HStack justifyContent="space-evenly">
+      <HStack justifyContent="space-evenly" my="2">
         <Button
           onPress={() => openDateTimePicker("start")}
           variant="outline"
@@ -244,9 +244,7 @@ const GeneralDetails: FC = () => {
         </Button>
       </HStack>
 
-      <Button marginTop="2" padding="3">
-        Save Details
-      </Button>
+      <Button padding="3">Save Details</Button>
     </ScrollView>
   );
 };

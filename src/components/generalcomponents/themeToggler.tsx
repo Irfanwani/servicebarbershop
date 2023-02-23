@@ -6,6 +6,9 @@ export const themeToggler = () => {
 
   return (
     <IconButton
+      variant="solid"
+      rounded="full"
+      colorScheme="rose"
       icon={
         <Icon
           as={Ionicons}
