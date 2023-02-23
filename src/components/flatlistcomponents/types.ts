@@ -8,4 +8,3 @@ export type serviceHeaderProps = {
   onValueChange: (item: string) => void;
 };
 
-export type serviceFooterProps = { disabled?: boolean };

@@ -20,7 +20,6 @@ export const Sheet: FC<SheetProps> = ({
           <IconButton
             variant="solid"
             icon={<Icon as={Ionicons} name={icon1} size="2xl" />}
-            colorScheme="teal"
             rounded="full"
             onPress={firstIconCallback}
           />

@@ -14,7 +14,6 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
         variant="solid"
         icon={<Icon as={Ionicons} name="camera" size="2xl" />}
         style={styles.iconbutton}
-        colorScheme="teal"
         onPress={onOpen}
       />
     </View>

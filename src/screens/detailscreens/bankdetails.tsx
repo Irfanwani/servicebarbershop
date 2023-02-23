@@ -86,7 +86,6 @@ const BankDetails: FC = () => {
       />
 
       <Checkbox
-        colorScheme="teal"
         alignSelf="center"
         my="3"
         value={agreed.toString()}
@@ -95,9 +94,7 @@ const BankDetails: FC = () => {
         I agree to the Terms and Conditions.
       </Checkbox>
 
-      <Button p="3" colorScheme="teal">
-        Save Details
-      </Button>
+      <Button p="3">Save Details</Button>
     </ScrollView>
   );
 };

@@ -31,6 +31,7 @@ const ServiceDetails: FC = () => {
   return (
     <FlatList
       keyboardShouldPersistTaps="always"
+      removeClippedSubviews={false}
       data={services}
       contentContainerStyle={styles.scroll}
       renderItem={singleItem}

@@ -36,7 +36,7 @@ const ForgotPassword: FC = () => {
         variant="rounded"
       />
 
-      <Button variant="ghost" colorScheme="teal" alignSelf="center" size="lg">
+      <Button variant="ghost" alignSelf="center" size="lg">
         Get Verification Code
       </Button>
 
@@ -91,7 +91,7 @@ const ForgotPassword: FC = () => {
         variant="rounded"
       />
 
-      <Button colorScheme="teal" size="lg" style={styles.button} padding="5">
+      <Button size="lg" style={styles.button} padding="5">
         Reset Password
       </Button>
     </ScrollView>

@@ -23,7 +23,7 @@ const VerifyEmail: FC = () => {
         size="md"
         variant="rounded"
       />
-      <Button colorScheme="teal" size="lg" style={styles.button} padding="5">
+      <Button size="lg" style={styles.button} padding="5">
         Verify Email
       </Button>
 

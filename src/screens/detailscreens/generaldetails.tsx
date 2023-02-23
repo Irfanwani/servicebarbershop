@@ -244,7 +244,7 @@ const GeneralDetails: FC = () => {
         </Button>
       </HStack>
 
-      <Button colorScheme="teal" marginTop="2" padding="3">
+      <Button marginTop="2" padding="3">
         Save Details
       </Button>
     </ScrollView>

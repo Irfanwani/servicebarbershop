@@ -14,11 +14,7 @@ import { services } from "../../assets/services";
 import { servicetype } from "../../screens/detailscreens/constants";
 import { CustomSelect } from "../actionsheets/dropdownsheet";
 import { CustomSvg } from "../svgs/svg";
-import {
-  serviceFooterProps,
-  serviceHeaderProps,
-  serviceItemProps,
-} from "./types";
+import { serviceHeaderProps, serviceItemProps } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const renderItem = ({ item, selectItem }) => {
@@ -60,7 +56,6 @@ const RenderItem: FC<serviceItemProps> = ({ item, selectItem }) => {
     <Checkbox
       rounded="full"
       size="lg"
-      colorScheme="teal"
       value={item}
       justifyContent="space-between"
       onChange={setSelected}
@@ -113,14 +108,9 @@ export const ListHeader: FC<serviceHeaderProps> = ({
   );
 };
 
-export const ListFooter: FC<serviceFooterProps> = ({ disabled }) => {
+export const ListFooter: FC = () => {
   return (
-    <Button
-      disabled={disabled}
-      colorScheme={disabled ? "muted" : "teal"}
-      p="3"
-      mt="5"
-    >
+    <Button p="3" mt="5">
       Complete Registration
     </Button>
   );

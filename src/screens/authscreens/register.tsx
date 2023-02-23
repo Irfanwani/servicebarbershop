@@ -90,7 +90,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         variant="rounded"
       />
 
-      <Button colorScheme="teal" size="lg" style={styles.button} padding="5">
+      <Button size="lg" style={styles.button} padding="5">
         REGISTER
       </Button>
 

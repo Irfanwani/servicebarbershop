@@ -65,13 +65,12 @@ const Login: FC<LoginProps> = ({ navigation }) => {
       <Button
         variant="link"
         padding="0"
-        colorScheme="teal"
         alignSelf="flex-end"
         onPress={gotoForgotPassword}
       >
         Forgot Password?
       </Button>
-      <Button colorScheme="teal" size="lg" style={styles.button} padding="5">
+      <Button size="lg" style={styles.button} padding="5">
         LOGIN
       </Button>
 
