@@ -6,12 +6,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { LoginProps } from "./types";
 import { CustomSvg } from "../../components/svgs/svg";
 import { login } from "../../assets/login";
+import { useLoginMutation } from "../../store/apislices/authapislices";
+import ErrorMessage from "../../components/generalcomponents/error";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState({ username: null, password: null });
 
   const [isSecure, setIsSecure] = useState(true);
+
+  const [loginMutation, { isLoading }] = useLoginMutation();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
@@ -25,6 +30,19 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     navigation.navigate("forgotpassword");
   };
 
+  const submit = async () => {
+    if (!username) {
+      setError({ username: "Please provide a valid username", password: null });
+      return;
+    }
+    if (!password) {
+      setError({ username: null, password: "Please provide a valid password" });
+      return;
+    }
+
+    setError({ username: null, password: null });
+  };
+
   return (
     <ScrollView
       contentContainerStyle={styles.loginscroll}
@@ -34,6 +52,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
       <CustomSvg xml={login} />
       <Text style={styles.label}>Welcome Back!</Text>
       <Input
+        isInvalid={!!error.username}
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
@@ -41,6 +60,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         variant="rounded"
       />
       <Input
+        isInvalid={!!error.password}
         autoCorrect={false}
         placeholder="Password"
         value={password}
@@ -68,7 +88,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
       >
         Forgot Password?
       </Button>
-      <Button size="lg" style={styles.button} padding="5">
+      <ErrorMessage error={error.username ?? error.password} />
+      <Button size="lg" style={styles.button} padding="5" onPress={submit}>
         LOGIN
       </Button>
 

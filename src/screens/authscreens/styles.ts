@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 40,
-    margin: 20,
+    marginHorizontal: 20,
+    marginBottom: 20,
   },
   footer: {
     alignSelf: "center",

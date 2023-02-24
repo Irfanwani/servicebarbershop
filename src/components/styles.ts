@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     width,
   },
   iconbutton: { borderRadius: 40, position: "absolute", bottom: 25, right: 0 },
+  error: {
+    fontSize: 12,
+    textAlign: "center",
+    marginTop: 10
+  },
 });
 
 export default styles;
