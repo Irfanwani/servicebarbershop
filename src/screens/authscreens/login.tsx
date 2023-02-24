@@ -41,6 +41,13 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     }
 
     setError({ username: null, password: null });
+    try {
+      let res = await loginMutation({ username, password }).unwrap();
+      console.log(res);
+    } catch (err) {
+      // ADD AN ERROR HANDLER
+      console.log(err);
+    }
   };
 
   return (
@@ -89,7 +96,14 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         Forgot Password?
       </Button>
       <ErrorMessage error={error.username ?? error.password} />
-      <Button size="lg" style={styles.button} padding="5" onPress={submit}>
+      <Button
+        isLoading={isLoading}
+        isLoadingText="Logging In"
+        size="lg"
+        style={styles.button}
+        padding="5"
+        onPress={submit}
+      >
         LOGIN
       </Button>
 
