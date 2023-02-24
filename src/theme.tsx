@@ -29,5 +29,20 @@ export const theme = extendTheme({
         colorScheme: "teal",
       },
     },
+    Input: {
+      defaultProps: {
+        size: "md",
+      },
+    },
+    Heading: {
+      defaultProps: {
+        size: "md",
+      },
+    },
+    TextArea: {
+      defaultProps: {
+        size: "md",
+      },
+    },
   },
 });

@@ -20,7 +20,6 @@ const VerifyEmail: FC = () => {
         value={code}
         onChangeText={setCode}
         marginY="1"
-        size="md"
         variant="rounded"
       />
       <Button size="lg" style={styles.button} padding="5">

@@ -72,7 +72,6 @@ const RenderItem: FC<serviceItemProps> = ({ item, selectItem }) => {
         keyboardType="numeric"
         isDisabled={!selected}
         placeholder="Price"
-        size="md"
         width="20"
         leftElement={
           <Icon as={MaterialCommunityIcons} name="currency-inr" size="md" />
@@ -101,8 +100,8 @@ export const ListHeader: FC<serviceHeaderProps> = ({
       />
 
       <HStack justifyContent="space-between" mt="5" mb="3">
-        <Heading size="md">Service</Heading>
-        <Heading size="md">Cost (Rs.)</Heading>
+        <Heading>Service</Heading>
+        <Heading>Cost (Rs.)</Heading>
       </HStack>
     </View>
   );

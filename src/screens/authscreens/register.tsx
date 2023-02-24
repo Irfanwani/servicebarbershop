@@ -37,7 +37,6 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         value={username}
         onChangeText={setUsername}
         marginY="1"
-        size="md"
         variant="rounded"
       />
       <Input
@@ -45,7 +44,6 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         value={email}
         onChangeText={setEmail}
         marginY="1"
-        size="md"
         variant="rounded"
         keyboardType="email-address"
       />
@@ -66,7 +64,6 @@ const Register: FC<LoginProps> = ({ navigation }) => {
             marginRight="3"
           />
         }
-        size="md"
         variant="rounded"
       />
       <Input
@@ -86,7 +83,6 @@ const Register: FC<LoginProps> = ({ navigation }) => {
             marginRight="3"
           />
         }
-        size="md"
         variant="rounded"
       />
 

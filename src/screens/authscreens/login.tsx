@@ -38,7 +38,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         value={username}
         onChangeText={setUsername}
         marginY="1"
-        size="md"
         variant="rounded"
       />
       <Input
@@ -58,7 +57,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
             marginRight="3"
           />
         }
-        size="md"
         variant="rounded"
       />
 

@@ -32,7 +32,6 @@ const ForgotPassword: FC = () => {
         value={email}
         onChangeText={setEmail}
         marginY="1"
-        size="md"
         variant="rounded"
       />
 
@@ -45,7 +44,6 @@ const ForgotPassword: FC = () => {
         value={code}
         onChangeText={setCode}
         marginY="1"
-        size="md"
         variant="rounded"
       />
 
@@ -66,7 +64,6 @@ const ForgotPassword: FC = () => {
             marginRight="3"
           />
         }
-        size="md"
         variant="rounded"
       />
 
@@ -87,7 +84,6 @@ const ForgotPassword: FC = () => {
             marginRight="3"
           />
         }
-        size="md"
         variant="rounded"
       />
 
