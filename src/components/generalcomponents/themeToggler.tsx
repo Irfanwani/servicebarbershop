@@ -1,7 +1,8 @@
 import { Icon, IconButton, useColorMode } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import { FC } from "react";
 
-export const themeToggler = () => {
+export const ThemeToggler: FC = () => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
@@ -9,12 +10,9 @@ export const themeToggler = () => {
       variant="solid"
       rounded="full"
       colorScheme="rose"
+      onPress={toggleColorMode}
       icon={
-        <Icon
-          as={Ionicons}
-          name={colorMode == "dark" ? "md-sunny" : "moon"}
-          onPress={toggleColorMode}
-        />
+        <Icon as={Ionicons} name={colorMode == "dark" ? "md-sunny" : "moon"} />
       }
     />
   );

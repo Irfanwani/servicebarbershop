@@ -8,6 +8,7 @@ import { CustomSvg } from "../../components/svgs/svg";
 import { login } from "../../assets/login";
 import { useLoginMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
+import * as SecureStore from "expo-secure-store";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -43,7 +44,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     setError({ username: null, password: null });
     try {
       let res = await loginMutation({ username, password }).unwrap();
-      console.log(res);
+      await SecureStore.setItemAsync("token", res.token);
+      console.log(res.token);
     } catch (err) {
       // ADD AN ERROR HANDLER
       console.log(err);

@@ -14,6 +14,12 @@ export const theme = extendTheme({
         _dark: { backgroundColor: "#27272f" },
       },
     },
+    View: {
+      baseStyle: {
+        _light: { backgroundColor: "white" },
+        _dark: { backgroundColor: "#27272f" },
+      },
+    },
     Button: {
       defaultProps: {
         colorScheme: "teal",
