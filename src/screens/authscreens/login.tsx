@@ -10,6 +10,7 @@ import { useLoginMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
 import * as SecureStore from "expo-secure-store";
 import { CustomAlert } from "../../components/generalcomponents/alerts";
+import { errorHandler } from "../../utils/errorhandler";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -54,8 +55,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         ),
       });
     } catch (err) {
-      // ADD AN ERROR HANDLER
-      console.log(err);
+      errorHandler(err);
     }
   };
 

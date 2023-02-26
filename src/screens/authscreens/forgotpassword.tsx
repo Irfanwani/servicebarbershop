@@ -14,6 +14,7 @@ import ErrorMessage from "../../components/generalcomponents/error";
 import { passwordResetErrorType } from "./types";
 import * as SecureStore from "expo-secure-store";
 import { CustomAlert } from "../../components/generalcomponents/alerts";
+import { errorHandler } from "../../utils/errorhandler";
 
 const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
@@ -68,7 +69,7 @@ const ForgotPassword: FC = () => {
         ),
       });
     } catch (err) {
-      console.log(err);
+      errorHandler(err);
     }
   };
 
@@ -104,7 +105,9 @@ const ForgotPassword: FC = () => {
           />
         ),
       });
-    } catch (err) {}
+    } catch (err) {
+      errorHandler(err);
+    }
   };
 
   return (

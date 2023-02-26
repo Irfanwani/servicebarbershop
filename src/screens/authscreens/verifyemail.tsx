@@ -8,6 +8,7 @@ import {
   useLazyGetsignupcodeQuery,
   useVerifyemailMutation,
 } from "../../store/apislices/authapislices";
+import { errorHandler } from "../../utils/errorhandler";
 import styles from "./styles";
 
 const VerifyEmail: FC = () => {
@@ -33,7 +34,7 @@ const VerifyEmail: FC = () => {
         ),
       });
     } catch (err) {
-      console.log(err, "new code error");
+      errorHandler(err);
     }
   };
 
@@ -54,7 +55,7 @@ const VerifyEmail: FC = () => {
         ),
       });
     } catch (err) {
-      console.log(err);
+      errorHandler(err);
     }
   };
 

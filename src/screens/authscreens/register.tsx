@@ -11,6 +11,7 @@ import ErrorMessage from "../../components/generalcomponents/error";
 import { credsvalidator } from "../../utils/credsvalidator";
 import * as SecureStore from "expo-secure-store";
 import { CustomAlert } from "../../components/generalcomponents/alerts";
+import { errorHandler } from "../../utils/errorhandler";
 
 const Register: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -58,7 +59,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         ),
       });
     } catch (err) {
-      console.log(err);
+      errorHandler(err);
     }
   };
   return (
