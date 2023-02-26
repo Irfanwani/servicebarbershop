@@ -5,6 +5,14 @@ import styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 import { CustomSvg } from "../../components/svgs/svg";
 import { forgot } from "../../assets/forgot";
+import {
+  useGetresetcodeMutation,
+  useResetpasswordMutation,
+} from "../../store/apislices/authapislices";
+import { credsvalidator, emailvalidator } from "../../utils/credsvalidator";
+import ErrorMessage from "../../components/generalcomponents/error";
+import { passwordResetErrorType } from "./types";
+import * as SecureStore from "expo-secure-store";
 
 const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
@@ -14,9 +22,72 @@ const ForgotPassword: FC = () => {
   const [passwordagain, setPasswordAgain] = useState("");
 
   const [code, setCode] = useState("");
+  const [error, setError] = useState<passwordResetErrorType>({
+    email: null,
+    password: null,
+    passwordagain: null,
+  });
+
+  const [getcodeMutation, { isLoading: gettingCode }] =
+    useGetresetcodeMutation();
+
+  const [resetMutation, { isLoading }] = useResetpasswordMutation();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
+  };
+
+  const getcode = async () => {
+    if (!emailvalidator(email)) {
+      setError((prev) => ({
+        ...prev,
+        email: "Please provide a valid and registered email",
+      }));
+
+      return;
+    }
+
+    setError((prev) => ({
+      email: null,
+      password: null,
+      code: null,
+      passwordagain: null,
+    }));
+
+    try {
+      let res = await getcodeMutation({ email }).unwrap();
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const resetPassword = async () => {
+    if (!code) {
+      setError({
+        email: null,
+        password: null,
+        passwordagain: null,
+        code: "Please enter a Verification Code",
+      });
+      return;
+    }
+    if (
+      !credsvalidator({
+        username: "null",
+        email,
+        password,
+        passwordagain,
+        setError,
+      })
+    )
+      return;
+
+    try {
+      let res = await resetMutation({ code, password, email }).unwrap();
+      await SecureStore.setItemAsync("token", res.token);
+      console.log(res);
+    } catch (err) {}
   };
 
   return (
@@ -28,6 +99,7 @@ const ForgotPassword: FC = () => {
       <CustomSvg xml={forgot} />
       <Text style={styles.label}>Reset Password</Text>
       <Input
+        isInvalid={!!error.email}
         placeholder="Registered Email"
         value={email}
         onChangeText={setEmail}
@@ -35,11 +107,19 @@ const ForgotPassword: FC = () => {
         variant="rounded"
       />
 
-      <Button variant="ghost" alignSelf="center" size="lg">
+      <Button
+        onPress={getcode}
+        isLoading={gettingCode}
+        isLoadingText="Sending code"
+        variant="ghost"
+        alignSelf="center"
+        size="lg"
+      >
         Get Verification Code
       </Button>
 
       <Input
+        isInvalid={!!error.code}
         placeholder="Verification code"
         value={code}
         onChangeText={setCode}
@@ -48,6 +128,7 @@ const ForgotPassword: FC = () => {
       />
 
       <Input
+        isInvalid={!!error.password}
         autoCorrect={false}
         placeholder="New Password"
         value={password}
@@ -68,6 +149,7 @@ const ForgotPassword: FC = () => {
       />
 
       <Input
+        isInvalid={!!error.passwordagain}
         autoCorrect={false}
         placeholder="Confirm Password"
         value={passwordagain}
@@ -87,7 +169,19 @@ const ForgotPassword: FC = () => {
         variant="rounded"
       />
 
-      <Button size="lg" style={styles.button} padding="5">
+      <ErrorMessage
+        error={
+          error.email ?? error.code ?? error.password ?? error.passwordagain
+        }
+      />
+      <Button
+        onPress={resetPassword}
+        isLoading={isLoading}
+        isLoadingText="Logging In"
+        size="lg"
+        style={styles.button}
+        padding="5"
+      >
         Reset Password
       </Button>
     </ScrollView>

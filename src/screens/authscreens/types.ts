@@ -14,3 +14,10 @@ export type LandingPageProps = NativeStackScreenProps<
 >;
 
 export type LoginProps = NativeStackScreenProps<RootAuthStackProps, "login">;
+
+export type passwordResetErrorType = {
+  email: string;
+  password: string;
+  passwordagain: string;
+  code?: string;
+};

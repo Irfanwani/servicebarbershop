@@ -9,6 +9,7 @@ import { login } from "../../assets/login";
 import { useRegisterMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { credsvalidator } from "../../utils/credsvalidator";
+import * as SecureStore from "expo-secure-store";
 
 const Register: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -44,7 +45,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         email,
         password,
       }).unwrap();
-      console.log(res);
+      await SecureStore.setItemAsync("token", res.token);
     } catch (err) {
       console.log(err);
     }
@@ -120,7 +121,14 @@ const Register: FC<LoginProps> = ({ navigation }) => {
           error.username ?? error.email ?? error.password ?? error.passwordagain
         }
       />
-      <Button isLoading={isLoading} isLoadingText='Registering' onPress={submit} size="lg" style={styles.button} padding="5">
+      <Button
+        isLoading={isLoading}
+        isLoadingText="Registering"
+        onPress={submit}
+        size="lg"
+        style={styles.button}
+        padding="5"
+      >
         REGISTER
       </Button>
 

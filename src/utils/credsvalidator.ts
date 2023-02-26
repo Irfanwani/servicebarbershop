@@ -3,6 +3,7 @@ interface CredProps {
   email: string;
   password: string;
   passwordagain: string;
+  code?: string;
 }
 interface CallBackProps {
   setError: (props: CredProps) => void;

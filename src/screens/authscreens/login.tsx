@@ -45,7 +45,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     try {
       let res = await loginMutation({ username, password }).unwrap();
       await SecureStore.setItemAsync("token", res.token);
-      console.log(res.token);
     } catch (err) {
       // ADD AN ERROR HANDLER
       console.log(err);
