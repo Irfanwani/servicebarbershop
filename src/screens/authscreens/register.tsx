@@ -6,6 +6,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { LoginProps } from "./types";
 import { CustomSvg } from "../../components/svgs/svg";
 import { login } from "../../assets/login";
+import { useRegisterMutation } from "../../store/apislices/authapislices";
+import ErrorMessage from "../../components/generalcomponents/error";
+import { credsvalidator } from "../../utils/credsvalidator";
 
 const Register: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -15,6 +18,14 @@ const Register: FC<LoginProps> = ({ navigation }) => {
   const [passwordagain, setPasswordAgain] = useState("");
 
   const [isSecure, setIsSecure] = useState(true);
+  const [error, setError] = useState({
+    username: null,
+    email: null,
+    password: null,
+    passwordagain: null,
+  });
+
+  const [registerMutation, { isLoading }] = useRegisterMutation();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
@@ -24,6 +35,20 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     navigation.navigate("login");
   };
 
+  const submit = async () => {
+    if (!credsvalidator({ username, email, password, passwordagain, setError }))
+      return;
+    try {
+      let res = await registerMutation({
+        username,
+        email,
+        password,
+      }).unwrap();
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ScrollView
       contentContainerStyle={styles.loginscroll}
@@ -33,6 +58,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
       <CustomSvg xml={login} />
       <Text style={styles.label}>Let's Get Started!</Text>
       <Input
+        isInvalid={!!error.username}
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
@@ -40,6 +66,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         variant="rounded"
       />
       <Input
+        isInvalid={!!error.email}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -48,6 +75,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         keyboardType="email-address"
       />
       <Input
+        isInvalid={!!error.password}
         autoCorrect={false}
         placeholder="Password"
         value={password}
@@ -67,6 +95,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         variant="rounded"
       />
       <Input
+        isInvalid={!!error.passwordagain}
         autoCorrect={false}
         placeholder="Confirm Password"
         value={passwordagain}
@@ -86,7 +115,12 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         variant="rounded"
       />
 
-      <Button size="lg" style={styles.button} padding="5">
+      <ErrorMessage
+        error={
+          error.username ?? error.email ?? error.password ?? error.passwordagain
+        }
+      />
+      <Button isLoading={isLoading} isLoadingText='Registering' onPress={submit} size="lg" style={styles.button} padding="5">
         REGISTER
       </Button>
 
