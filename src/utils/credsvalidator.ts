@@ -66,3 +66,72 @@ export const emailvalidator = (email: string) => {
   }
   return true;
 };
+
+interface GenProps {
+  image: string;
+  location: string;
+  employeeNo: string;
+  startend: boolean | string;
+}
+
+interface CallBProps {
+  setError: (props: GenProps) => void;
+}
+
+export const generalDetailsValidator = ({
+  image,
+  location,
+  employeeNo,
+  startend,
+  setError,
+}: GenProps & CallBProps) => {
+  if (!image) {
+    setError({
+      image: "Please select a profile picture",
+      location: null,
+      employeeNo: null,
+      startend: null,
+    });
+    return false;
+  }
+
+  if (!location) {
+    setError({
+      image: null,
+      location: "Please select your location",
+      employeeNo: null,
+      startend: null,
+    });
+    return false;
+  }
+
+  if (!employeeNo) {
+    setError({
+      image: null,
+      location: null,
+      employeeNo: "Please provide the number of employees",
+      startend: null,
+    });
+
+    return false;
+  }
+
+  if (!startend) {
+    setError({
+      image: null,
+      location: null,
+      employeeNo: null,
+      startend: "Please provide both start and end time for a day",
+    });
+    return false;
+  }
+
+  setError({
+    image: null,
+    location: null,
+    employeeNo: null,
+    startend: null,
+  });
+
+  return true;
+};

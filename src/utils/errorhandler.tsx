@@ -5,8 +5,9 @@ export const errorHandler = (err: any) => {
   console.log(JSON.stringify(err), "error");
   const { status, data } = err;
 
-  let errorString = Object.values(data).join(" ");
   try {
+    let errorString = Object.values(data).join(" ");
+
     if (!Number(status)) throw new Error();
     if (Number(status) == 401) {
       Toast.show({

@@ -1,9 +1,21 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import AuthMain from "./authscreens/main";
 import DetailsMain from "./detailscreens/main";
+import { getItemAsync } from "expo-secure-store";
+import Loader from "../components/generalcomponents/loader";
 
 const Main: FC = () => {
-  return <AuthMain />;
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  getItemAsync("token").then((token) => {
+    setToken(token);
+    setLoading(false);
+  });
+
+  if (loading) return <Loader />;
+
+  return token ? <DetailsMain /> : <AuthMain />;
 };
 
 export default memo(Main);

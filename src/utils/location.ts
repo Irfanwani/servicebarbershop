@@ -56,6 +56,8 @@ export const reverseGeocode = async (location: {
 
   let address = await reverseGeocodeAsync(location);
 
+  if (!address?.length) return "";
+
   let result = [
     ...new Set(Object.values(address[0]).filter((item: string) => item)),
   ].join(" ");

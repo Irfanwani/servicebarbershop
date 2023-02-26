@@ -28,6 +28,11 @@ import {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { timeFormatter } from "../../utils/timeFormatter";
+import { useAddgeneraldetailsMutation } from "../../store/apislices/detailsapislice";
+import { errorHandler } from "../../utils/errorhandler";
+import { generalDetailsValidator } from "../../utils/credsvalidator";
+import { getFormData } from "../../utils/formdata";
+import ErrorMessage from "../../components/generalcomponents/error";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -45,11 +50,20 @@ const GeneralDetails: FC = () => {
     longitude: 0,
   });
 
+  const [error, setError] = useState({
+    image: null,
+    location: null,
+    employeeNo: null,
+    startend: null,
+  });
+
   const locationRef = useRef(null);
 
   const [isLocationSheet, setIsLocationSheet] = useState(false);
   const [isMapSheet, setIsMapSheet] = useState(false);
   const [isEditing, setEditing] = useState(false);
+
+  const [detailsMutation, { isLoading }] = useAddgeneraldetailsMutation();
 
   const getCameraImage = async () => {
     const capturedImg = await getCameraImageAsync();
@@ -126,9 +140,9 @@ const GeneralDetails: FC = () => {
 
   const onChange = (date: Date, type: string) => {
     if (type == "start") {
-      setStartTime(date.toLocaleTimeString());
+      setStartTime(date.toLocaleTimeString().slice(0, 5));
     } else {
-      setEndTime(date.toLocaleTimeString());
+      setEndTime(date.toLocaleTimeString().slice(0, 5));
     }
   };
 
@@ -150,6 +164,38 @@ const GeneralDetails: FC = () => {
     });
   };
 
+  const submit = async () => {
+    if (
+      !generalDetailsValidator({
+        image,
+        location,
+        employeeNo,
+        startend: !!(startTime && endTime),
+        setError,
+      })
+    )
+      return;
+
+    let body = getFormData(image, {
+      lat: coords.latitude,
+      lng: coords.longitude,
+      location,
+      about: bio,
+      contact,
+      employee_count: employeeNo,
+      start_time: startTime,
+      end_time: endTime,
+    });
+
+    console.log(body)
+
+    try {
+      await detailsMutation(body).unwrap();
+    } catch (err) {
+      errorHandler(err);
+    }
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -163,6 +209,7 @@ const GeneralDetails: FC = () => {
       <Text style={authstyles.label}>Please Fill these details</Text>
 
       <Input
+        isInvalid={!!error.location}
         ref={(ref) => (locationRef.current = ref)}
         placeholder="Location"
         value={location}
@@ -210,6 +257,7 @@ const GeneralDetails: FC = () => {
       />
 
       <Input
+        isInvalid={!!error.employeeNo}
         value={employeeNo}
         onChangeText={setEmployeeNo}
         placeholder="Number of Employees"
@@ -244,7 +292,20 @@ const GeneralDetails: FC = () => {
         </Button>
       </HStack>
 
-      <Button padding="3">Save Details</Button>
+      <ErrorMessage
+        error={
+          error.image ?? error.location ?? error.employeeNo ?? error.startend
+        }
+      />
+
+      <Button
+        isLoading={isLoading}
+        isLoadingText="Saving details"
+        onPress={submit}
+        padding="3"
+      >
+        Save Details
+      </Button>
     </ScrollView>
   );
 };

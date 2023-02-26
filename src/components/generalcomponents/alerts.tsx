@@ -4,7 +4,7 @@ import { CustomAlertProps } from "./types";
 
 export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
   return (
-    <Alert variant='left-accent' status={status}>
+    <Alert maxW='98%' variant='left-accent' status={status}>
       <HStack space="2" alignItems="center">
         <Alert.Icon />
         <Text>{message}</Text>
