@@ -1,6 +1,7 @@
-import { Button, Input, ScrollView, Text } from "native-base";
+import { Button, Input, ScrollView, Text, useToast } from "native-base";
 import { FC, memo, useState } from "react";
 import { mail } from "../../assets/mail";
+import { CustomAlert } from "../../components/generalcomponents/alerts";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { CustomSvg } from "../../components/svgs/svg";
 import {
@@ -13,6 +14,8 @@ const VerifyEmail: FC = () => {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
+  let toast = useToast();
+
   const [getCodeQuery, { isLoading: gettingCode }] =
     useLazyGetsignupcodeQuery();
 
@@ -20,8 +23,15 @@ const VerifyEmail: FC = () => {
 
   const getcode = async () => {
     try {
-      let res = await getCodeQuery(null).unwrap();
-      console.log(res, "new code");
+      await getCodeQuery(null).unwrap();
+      toast.show({
+        render: () => (
+          <CustomAlert
+            status="success"
+            message="OTP sent! Please check your inbox"
+          />
+        ),
+      });
     } catch (err) {
       console.log(err, "new code error");
     }
@@ -34,8 +44,15 @@ const VerifyEmail: FC = () => {
     }
 
     try {
-      let res = await verifyemailMutation({ code }).unwrap();
-      console.log(res);
+      await verifyemailMutation({ code }).unwrap();
+      toast.show({
+        render: () => (
+          <CustomAlert
+            status="success"
+            message="Email Verified! Please complete the remaining steps"
+          />
+        ),
+      });
     } catch (err) {
       console.log(err);
     }

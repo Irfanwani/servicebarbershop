@@ -1,4 +1,4 @@
-import { Button, Icon, Input, ScrollView, Text } from "native-base";
+import { Button, Icon, Input, ScrollView, Text, useToast } from "native-base";
 import { FC, memo, useState } from "react";
 import styles from "./styles";
 
@@ -13,6 +13,7 @@ import { credsvalidator, emailvalidator } from "../../utils/credsvalidator";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { passwordResetErrorType } from "./types";
 import * as SecureStore from "expo-secure-store";
+import { CustomAlert } from "../../components/generalcomponents/alerts";
 
 const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
@@ -27,6 +28,8 @@ const ForgotPassword: FC = () => {
     password: null,
     passwordagain: null,
   });
+
+  const toast = useToast();
 
   const [getcodeMutation, { isLoading: gettingCode }] =
     useGetresetcodeMutation();
@@ -47,16 +50,23 @@ const ForgotPassword: FC = () => {
       return;
     }
 
-    setError((prev) => ({
+    setError({
       email: null,
       password: null,
       code: null,
       passwordagain: null,
-    }));
+    });
 
     try {
-      let res = await getcodeMutation({ email }).unwrap();
-      console.log(res);
+      await getcodeMutation({ email }).unwrap();
+      toast.show({
+        render: () => (
+          <CustomAlert
+            status="success"
+            message="OTP sent! Please check your inbox"
+          />
+        ),
+      });
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +96,14 @@ const ForgotPassword: FC = () => {
     try {
       let res = await resetMutation({ code, password, email }).unwrap();
       await SecureStore.setItemAsync("token", res.token);
-      console.log(res);
+      toast.show({
+        render: () => (
+          <CustomAlert
+            status="success"
+            message="Password Reset! Logged in successfully"
+          />
+        ),
+      });
     } catch (err) {}
   };
 
