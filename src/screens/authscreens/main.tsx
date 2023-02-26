@@ -16,7 +16,7 @@ const AuthMain: FC = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false, animation: "slide_from_right" }}
-        initialRouteName="landingpage"
+        initialRouteName="verifyemail"
       >
         <Stack.Screen name="landingpage" component={LandingPage} />
         <Stack.Screen name="login" component={Login} />
