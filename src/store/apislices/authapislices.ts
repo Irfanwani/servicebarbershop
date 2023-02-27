@@ -27,6 +27,12 @@ const authApiSlice = createApi({
         method: "POST",
         body,
       }),
+      async transformResponse(baseQueryReturnValue: any, meta, arg) {
+        let res = { ...baseQueryReturnValue };
+        res.token = null;
+        await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
+        return res;
+      },
     }),
     register: builder.mutation({
       query: (body) => ({

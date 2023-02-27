@@ -12,10 +12,7 @@ import {
 import { credsvalidator, emailvalidator } from "../../utils/credsvalidator";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { passwordResetErrorType } from "./types";
-import * as SecureStore from "expo-secure-store";
-import {
-  showToast,
-} from "../../components/generalcomponents/alerts";
+import { showToast } from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 
 const ForgotPassword: FC = () => {
@@ -88,8 +85,7 @@ const ForgotPassword: FC = () => {
       return;
 
     try {
-      let res = await resetMutation({ code, password, email }).unwrap();
-      await SecureStore.setItemAsync("token", res.token);
+      await resetMutation({ code, password, email }).unwrap();
       showToast("success", '"Password Reset! Logged in successfully"');
     } catch (err) {
       errorHandler(err);

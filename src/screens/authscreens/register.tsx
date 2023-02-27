@@ -9,10 +9,7 @@ import { login } from "../../assets/login";
 import { useRegisterMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { credsvalidator } from "../../utils/credsvalidator";
-import * as SecureStore from "expo-secure-store";
-import {
-  showToast,
-} from "../../components/generalcomponents/alerts";
+import { showToast } from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 
 const Register: FC<LoginProps> = ({ navigation }) => {
@@ -44,12 +41,11 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     if (!credsvalidator({ username, email, password, passwordagain, setError }))
       return;
     try {
-      let res = await registerMutation({
+      await registerMutation({
         username,
         email,
         password,
       }).unwrap();
-      await SecureStore.setItemAsync("token", res.token);
       showToast("success", "Account Created Successfully!");
     } catch (err) {
       errorHandler(err);
