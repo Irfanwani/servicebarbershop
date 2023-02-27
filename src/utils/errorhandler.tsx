@@ -15,10 +15,8 @@ export const errorHandler = (err: any) => {
       store.dispatch(authApiSlice.util.resetApiState());
     } else {
       showToast("error", errorString);
-      return { type: null };
     }
   } catch (error) {
     showToast("warning", "Please check your internet connection and try again");
-    return { type: null };
   }
 };

@@ -22,10 +22,9 @@ const Main: FC = () => {
   const logout = async () => {
     try {
       await lg(null).unwrap();
-      dispatch(authApiSlice.util.resetApiState());
       await deleteItemAsync("token");
-
-      showToast('info', 'Logged out successful')
+      dispatch(authApiSlice.util.resetApiState());
+      showToast("info", "Logged out successfully");
     } catch (err) {
       errorHandler(err);
     }
