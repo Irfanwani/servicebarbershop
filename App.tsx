@@ -1,4 +1,4 @@
-import { Button, ColorMode, NativeBaseProvider, StorageManager } from "native-base";
+import { ColorMode, NativeBaseProvider, StorageManager } from "native-base";
 import { FC, memo } from "react";
 import { StatusBar } from "react-native";
 import Main from "./src/screens/main";
@@ -13,7 +13,6 @@ import Loader from "./src/components/generalcomponents/loader";
 import { LogBox } from "react-native";
 import { theme } from "./src/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { deleteItemAsync } from "expo-secure-store";
 
 LogBox.ignoreLogs([
   'Key "cancelled" in the image picker result is deprecated and will be removed in SDK 48, use "canceled" instead',
@@ -37,10 +36,6 @@ const colorModeManager: StorageManager = {
   },
 };
 
-const logout = async () => {
-  await deleteItemAsync('token');
-}
-
 const App: FC = () => {
   return (
     <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
@@ -48,7 +43,6 @@ const App: FC = () => {
         <PersistGate persistor={persistor} loading={<Loader />}>
           <StatusBar backgroundColor="transparent" translucent />
           <Main />
-          <Button onPress={logout}>logout</Button>
         </PersistGate>
       </Provider>
     </NativeBaseProvider>

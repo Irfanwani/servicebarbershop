@@ -40,6 +40,12 @@ const authApiSlice = createApi({
         method: "POST",
         body,
       }),
+      async transformResponse(baseQueryReturnValue: any, meta, arg) {
+        let res = { ...baseQueryReturnValue };
+        res.token = null;
+        await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
+        return res;
+      },
     }),
     getresetcode: builder.mutation({
       query: (body) => ({
@@ -54,6 +60,12 @@ const authApiSlice = createApi({
         method: "PUT",
         body,
       }),
+      async transformResponse(baseQueryReturnValue: any, meta, arg) {
+        let res = { ...baseQueryReturnValue };
+        res.token = null;
+        await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
+        return res;
+      },
     }),
     getsignupcode: builder.query({
       query: () => "/api/accounts/verifyemail",
@@ -63,6 +75,22 @@ const authApiSlice = createApi({
         url: "/api/accounts/verifyemail",
         method: "POST",
         body,
+      }),
+      onCacheEntryAdded(arg, api) {
+        console.log(api, 'api')
+      },
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/api/accounts/logout/",
+        method: "POST",
+      }),
+    }),
+
+    logoutall: builder.mutation({
+      query: () => ({
+        url: "/api/accounts/logoutall/",
+        method: "POST",
       }),
     }),
   }),
@@ -75,6 +103,8 @@ export const {
   useResetpasswordMutation,
   useLazyGetsignupcodeQuery,
   useVerifyemailMutation,
+  useLogoutMutation,
+  useLogoutallMutation,
 } = authApiSlice;
 
 export default authApiSlice;

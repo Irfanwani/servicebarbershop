@@ -27,7 +27,9 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     passwordagain: null,
   });
 
-  const [registerMutation, { isLoading }] = useRegisterMutation();
+  const [registerMutation, { isLoading }] = useRegisterMutation({
+    fixedCacheKey: "logindata",
+  });
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);

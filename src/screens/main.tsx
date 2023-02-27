@@ -1,24 +1,32 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import AuthMain from "./authscreens/main";
 import DetailsMain from "./detailscreens/main";
-import { getItemAsync } from "expo-secure-store";
-import Loader from "../components/generalcomponents/loader";
+import { deleteItemAsync } from "expo-secure-store";
+import { useSelector } from "react-redux";
+import { Button } from "native-base";
+import { useLogoutMutation } from "../store/apislices/authapislices";
 
 const Main: FC = () => {
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { verified } = useSelector((state: any) => ({
+    verified: state.authApiSlice?.mutations?.logindata?.data?.verified,
+  }));
 
-  useEffect(() => {
-    getItemAsync("token").then((token) => {
-      setToken(token);
-      alert(token);
-      setLoading(false);
-    });
-  }, []);
+  const [lg, { isLoading }] = useLogoutMutation();
 
-  if (loading) return <Loader />;
+  const logout = async () => {
+    await lg(null).unwrap();
 
-  return token ? <DetailsMain /> : <AuthMain />;
+    await deleteItemAsync("token");
+  };
+
+  return (
+    <>
+      {verified ? <DetailsMain /> : <AuthMain />}
+      <Button isLoading={isLoading} onPress={logout}>
+        logout
+      </Button>
+    </>
+  );
 };
 
 export default memo(Main);

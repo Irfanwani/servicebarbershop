@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
+import { useSelector } from "react-redux";
 import ForgotPassword from "./forgotpassword";
 import LandingPage from "./landingpage";
 import Login from "./login";
@@ -12,17 +13,26 @@ import VerifyEmail from "./verifyemail";
 const Stack = createNativeStackNavigator<RootAuthStackProps>();
 
 const AuthMain: FC = () => {
+  const { data } = useSelector((state: any) => ({
+    data: state.authApiSlice?.mutations?.logindata?.data,
+  }));
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false, animation: "slide_from_right" }}
-        initialRouteName="landingpage"
+        initialRouteName={!data ? "landingpage" : "verifyemail"}
       >
-        <Stack.Screen name="landingpage" component={LandingPage} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="forgotpassword" component={ForgotPassword} />
-        <Stack.Screen name="verifyemail" component={VerifyEmail} />
+        {!data ? (
+          <>
+            <Stack.Screen name="landingpage" component={LandingPage} />
+            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="register" component={Register} />
+            <Stack.Screen name="forgotpassword" component={ForgotPassword} />
+          </>
+        ) : (
+          <Stack.Screen name="verifyemail" component={VerifyEmail} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

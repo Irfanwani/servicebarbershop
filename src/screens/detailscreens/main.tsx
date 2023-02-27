@@ -9,13 +9,13 @@ import { RootDetailsParmasList } from "./types";
 
 const Stack = createNativeStackNavigator<RootDetailsParmasList>();
 
-let detailsadded = true;
-let bankadded = false;
-
-
 const DetailsMain: FC = () => {
-  const state = useSelector(state => state)
-  console.log(JSON.stringify(state))
+  const { details_added, account_added } = useSelector((state: any) => ({
+    details_added: state.authApiSlice?.mutations?.logindata?.data?.details,
+    account_added:
+      state.authApiSlice?.mutations?.logindata?.data?.account_added,
+  }));
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -24,9 +24,9 @@ const DetailsMain: FC = () => {
           animation: "slide_from_right",
         }}
       >
-        {!detailsadded ? (
+        {!details_added ? (
           <Stack.Screen name="generaldetails" component={GeneralDetails} />
-        ) : !bankadded ? (
+        ) : !account_added ? (
           <Stack.Screen name="bankdetails" component={BankDetails} />
         ) : (
           <Stack.Screen name="servicedetails" component={ServiceDetails} />

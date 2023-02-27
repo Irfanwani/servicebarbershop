@@ -32,7 +32,9 @@ const ForgotPassword: FC = () => {
   const [getcodeMutation, { isLoading: gettingCode }] =
     useGetresetcodeMutation();
 
-  const [resetMutation, { isLoading }] = useResetpasswordMutation();
+  const [resetMutation, { isLoading }] = useResetpasswordMutation({
+    fixedCacheKey: "logindata",
+  });
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
