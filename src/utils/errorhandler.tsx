@@ -1,4 +1,6 @@
 import { showToast } from "../components/generalcomponents/alerts";
+import authApiSlice from "../store/apislices/authapislices";
+import { store } from "../store/store";
 
 export const errorHandler = (err: any) => {
   console.log(JSON.stringify(err), "error");
@@ -10,10 +12,13 @@ export const errorHandler = (err: any) => {
     if (!Number(status)) throw new Error();
     if (Number(status) == 401) {
       showToast("info", "Token Expired! Please login again");
+      store.dispatch(authApiSlice.util.resetApiState());
     } else {
       showToast("error", errorString);
+      return { type: null };
     }
   } catch (error) {
     showToast("warning", "Please check your internet connection and try again");
+    return { type: null };
   }
 };

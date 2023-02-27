@@ -2,9 +2,13 @@ import { FC, memo } from "react";
 import AuthMain from "./authscreens/main";
 import DetailsMain from "./detailscreens/main";
 import { deleteItemAsync } from "expo-secure-store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "native-base";
-import { useLogoutMutation } from "../store/apislices/authapislices";
+import authApiSlice, {
+  useLogoutMutation,
+} from "../store/apislices/authapislices";
+import { errorHandler } from "../utils/errorhandler";
+import { showToast } from "../components/generalcomponents/alerts";
 
 const Main: FC = () => {
   const { verified } = useSelector((state: any) => ({
@@ -13,10 +17,18 @@ const Main: FC = () => {
 
   const [lg, { isLoading }] = useLogoutMutation();
 
-  const logout = async () => {
-    await lg(null).unwrap();
+  const dispatch = useDispatch();
 
-    await deleteItemAsync("token");
+  const logout = async () => {
+    try {
+      await lg(null).unwrap();
+      dispatch(authApiSlice.util.resetApiState());
+      await deleteItemAsync("token");
+
+      showToast('info', 'Logged out successful')
+    } catch (err) {
+      errorHandler(err);
+    }
   };
 
   return (
