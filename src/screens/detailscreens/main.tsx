@@ -16,7 +16,7 @@ const DetailsMain: FC = () => {
           headerShown: false,
           animation: "slide_from_right",
         }}
-        initialRouteName="bankdetails"
+        initialRouteName="servicedetails"
       >
         <Stack.Screen name="generaldetails" component={GeneralDetails} />
         <Stack.Screen name="bankdetails" component={BankDetails} />

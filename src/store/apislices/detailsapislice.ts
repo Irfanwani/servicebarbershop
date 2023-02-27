@@ -19,8 +19,18 @@ const detailsApiSlice = authApiSlice.injectEndpoints({
         body,
       }),
     }),
+    addserviceDetails: builder.mutation({
+      query: (body) => ({
+        url: "/api/accounts/addservices",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useAddgeneraldetailsMutation, useAddbankdetailsMutation } =
-  detailsApiSlice;
+export const {
+  useAddgeneraldetailsMutation,
+  useAddbankdetailsMutation,
+  useAddserviceDetailsMutation,
+} = detailsApiSlice;

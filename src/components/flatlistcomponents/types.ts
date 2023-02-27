@@ -8,3 +8,8 @@ export type serviceHeaderProps = {
   onValueChange: (item: string) => void;
 };
 
+export type FooterProps = {
+  onPress: () => Promise<void>;
+  isLoading: boolean;
+  error: string;
+};

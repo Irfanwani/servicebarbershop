@@ -14,8 +14,9 @@ import { services } from "../../assets/services";
 import { servicetype } from "../../screens/detailscreens/constants";
 import { CustomSelect } from "../actionsheets/dropdownsheet";
 import { CustomSvg } from "../svgs/svg";
-import { serviceHeaderProps, serviceItemProps } from "./types";
+import { FooterProps, serviceHeaderProps, serviceItemProps } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ErrorMessage from "../generalcomponents/error";
 
 export const renderItem = ({ item, selectItem }) => {
   return <RenderItem item={item} selectItem={selectItem} />;
@@ -107,10 +108,18 @@ export const ListHeader: FC<serviceHeaderProps> = ({
   );
 };
 
-export const ListFooter: FC = () => {
+export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error }) => {
   return (
-    <Button p="3" mt="5">
-      Complete Registration
-    </Button>
+    <>
+    <ErrorMessage error={error} />
+      <Button
+        p="3"
+        onPress={onPress}
+        isLoading={isLoading}
+        isLoadingText="Saving details"
+      >
+        Complete Registration
+      </Button>
+    </>
   );
 };

@@ -198,3 +198,39 @@ export const bankDetailsValidator: BankProps = (
   setError({ error: null, type: null });
   return true;
 };
+
+interface ServiceProps {
+  (
+    servicetype: string,
+    services: { service: string; cost: number }[],
+    setError: (error: string) => void
+  ): boolean;
+}
+
+export const serviceDetailsValidator: ServiceProps = (
+  servicetype,
+  services,
+  setError
+) => {
+  if (!servicetype) {
+    setError("Please provide a service type");
+    return false;
+  }
+
+  if (!services.length) {
+    setError("Please select atleast one service to continue");
+    return false;
+  }
+
+  for (let service of services) {
+    if (!service.cost) {
+      setError(
+        "Please provide a cost for each service selected (make sure to submit the input by clicking submit button on keyboard (Check Button in bottom right corner of keyboard) to save the input before pressing Complete Registration)"
+      );
+      return false;
+    }
+  }
+
+  setError(null);
+  return true;
+};

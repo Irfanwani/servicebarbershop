@@ -6,12 +6,18 @@ import {
   ListHeader,
   renderItem,
 } from "../../components/flatlistcomponents/servicedetail";
+import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
+import { serviceDetailsValidator } from "../../utils/credsvalidator";
+import { errorHandler } from "../../utils/errorhandler";
 import { services } from "./constants";
 import styles from "./styles";
 
 const ServiceDetails: FC = () => {
   const [servicetype, setServiceType] = useState("");
   const [selectedServices, setSelectedServices] = useState({});
+  const [error, setError] = useState(null);
+
+  const [servicesMutation, { isLoading }] = useAddserviceDetailsMutation();
 
   const selectItem = (item: string, cost: number, selected: boolean) => {
     if (selected) {
@@ -28,6 +34,23 @@ const ServiceDetails: FC = () => {
     return renderItem({ item, selectItem });
   };
 
+  const submit = async () => {
+    let selservices: any = Object.values(selectedServices).filter(
+      (item) => item
+    );
+    if (!serviceDetailsValidator(servicetype, selservices, setError)) return;
+    try {
+      let body = {
+        service_type: servicetype,
+        services_list: selservices,
+      };
+
+      await servicesMutation(body).unwrap();
+    } catch (err) {
+      errorHandler(err);
+    }
+  };
+
   return (
     <FlatList
       keyboardShouldPersistTaps="always"
@@ -41,7 +64,9 @@ const ServiceDetails: FC = () => {
       ListHeaderComponent={
         <ListHeader value={servicetype} onValueChange={setServiceType} />
       }
-      ListFooterComponent={<ListFooter />}
+      ListFooterComponent={
+        <ListFooter onPress={submit} isLoading={isLoading} error={error} />
+      }
     />
   );
 };
