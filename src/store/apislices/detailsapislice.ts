@@ -12,7 +12,15 @@ const detailsApiSlice = authApiSlice.injectEndpoints({
         },
       }),
     }),
+    addbankdetails: builder.mutation({
+      query: (body) => ({
+        url: "/api/accounts/createbank",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useAddgeneraldetailsMutation } = detailsApiSlice;
+export const { useAddgeneraldetailsMutation, useAddbankdetailsMutation } =
+  detailsApiSlice;

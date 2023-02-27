@@ -7,10 +7,7 @@ export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
     <Alert maxW="98%" variant="left-accent" status={status}>
       <HStack space="2" alignItems="center">
         <Alert.Icon size="md" />
-        <Text>
-          {message}
-          {"\n"}
-        </Text>
+        <Text>{message}</Text>
       </HStack>
     </Alert>
   );

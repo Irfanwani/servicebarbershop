@@ -5,6 +5,7 @@ interface CredProps {
   passwordagain: string;
   code?: string;
 }
+
 interface CallBackProps {
   setError: (props: CredProps) => void;
 }
@@ -133,5 +134,67 @@ export const generalDetailsValidator = ({
     startend: null,
   });
 
+  return true;
+};
+
+interface BankProps {
+  (
+    b_name: string,
+    b_type: string,
+    ben_name: string,
+    acc_number: string,
+    ifsc_code: string,
+    acc_type: string,
+    t_c: boolean,
+    setError: ({ error, type }: { error: string; type: string }) => void
+  ): boolean;
+}
+
+export const bankDetailsValidator: BankProps = (
+  b_name,
+  b_type,
+  ben_name,
+  acc_number,
+  ifsc_code,
+  acc_type,
+  t_c,
+  setError
+) => {
+  if (!b_name) {
+    setError({ error: "Please provide a business name", type: "b_name" });
+    return false;
+  }
+  if (!b_type) {
+    setError({ error: "Please select a business type", type: "b_type" });
+    return false;
+  }
+  if (!ben_name) {
+    setError({
+      error: "Please Provide the beneficiary name (same as in bank)",
+      type: "ben_name",
+    });
+    return false;
+  }
+  if (!acc_number) {
+    setError({
+      error: "Please Provide a valid account number",
+      type: "acc_number",
+    });
+    return false;
+  }
+  if (!ifsc_code) {
+    setError({ error: "Please Provide a valid IFSC code", type: "ifsc_code" });
+    return false;
+  }
+  if (!acc_type) {
+    setError({ error: "Please select an account type", type: "acc_type" });
+    return false;
+  }
+  if (!t_c) {
+    setError({ error: "Please accecpt the terms and conditions", type: "t_c" });
+    return false;
+  }
+
+  setError({ error: null, type: null });
   return true;
 };
