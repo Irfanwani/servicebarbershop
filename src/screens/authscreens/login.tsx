@@ -1,4 +1,4 @@
-import { Button, Icon, Input, ScrollView, Text, useToast } from "native-base";
+import { Button, Icon, Input, ScrollView, Text } from "native-base";
 import { FC, memo, useState } from "react";
 import styles from "./styles";
 
@@ -9,7 +9,9 @@ import { login } from "../../assets/login";
 import { useLoginMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
 import * as SecureStore from "expo-secure-store";
-import { CustomAlert } from "../../components/generalcomponents/alerts";
+import {
+  showToast,
+} from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
@@ -20,8 +22,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
   const [isSecure, setIsSecure] = useState(true);
 
   const [loginMutation, { isLoading }] = useLoginMutation();
-
-  const toast = useToast();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
@@ -49,11 +49,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     try {
       let res = await loginMutation({ username, password }).unwrap();
       await SecureStore.setItemAsync("token", res.token);
-      toast.show({
-        render: () => (
-          <CustomAlert status="success" message="Logged in successfully" />
-        ),
-      });
+      showToast("success", "Logged in successfully");
     } catch (err) {
       errorHandler(err);
     }
@@ -65,7 +61,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="always"
     >
-      {/* <CustomAlert status="success" message="Logged in successfully" /> */}
       <CustomSvg xml={login} />
       <Text style={styles.label}>Welcome Back!</Text>
       <Input

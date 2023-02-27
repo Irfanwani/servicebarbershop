@@ -4,7 +4,7 @@ import mime from "mime";
 export const getFormData = (image: string, data: any) => {
   let body = new FormData();
   body.append("image", {
-    url: image,
+    uri: image,
     name: image.split("/").pop(),
     type: mime.getType(image),
   });

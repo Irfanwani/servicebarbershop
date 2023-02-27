@@ -1,36 +1,19 @@
-import { Toast } from "native-base";
-import { CustomAlert } from "../components/generalcomponents/alerts";
+import { showToast } from "../components/generalcomponents/alerts";
 
 export const errorHandler = (err: any) => {
   console.log(JSON.stringify(err), "error");
   const { status, data } = err;
 
   try {
-    let errorString = Object.values(data).join(" ");
+    let errorString = Object.values(data).join("\n");
 
     if (!Number(status)) throw new Error();
     if (Number(status) == 401) {
-      Toast.show({
-        render: () => (
-          <CustomAlert
-            status="info"
-            message="Token Expired! Please login again"
-          />
-        ),
-      });
+      showToast("info", "Token Expired! Please login again");
     } else {
-      Toast.show({
-        render: () => <CustomAlert status="error" message={errorString} />,
-      });
+      showToast("error", errorString);
     }
   } catch (error) {
-    Toast.show({
-      render: () => (
-        <CustomAlert
-          status="warning"
-          message="Please check your internet connection and try again"
-        />
-      ),
-    });
+    showToast("warning", "Please check your internet connection and try again");
   }
 };

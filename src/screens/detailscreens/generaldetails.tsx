@@ -33,6 +33,7 @@ import { errorHandler } from "../../utils/errorhandler";
 import { generalDetailsValidator } from "../../utils/credsvalidator";
 import { getFormData } from "../../utils/formdata";
 import ErrorMessage from "../../components/generalcomponents/error";
+import { showToast } from "../../components/generalcomponents/alerts";
 
 const GeneralDetails: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclose();
@@ -187,10 +188,9 @@ const GeneralDetails: FC = () => {
       end_time: endTime,
     });
 
-    console.log(body)
-
     try {
       await detailsMutation(body).unwrap();
+      showToast("success", "Details saved successfully!");
     } catch (err) {
       errorHandler(err);
     }

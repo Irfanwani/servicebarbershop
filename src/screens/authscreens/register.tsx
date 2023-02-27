@@ -1,4 +1,4 @@
-import { Button, Icon, Input, ScrollView, Text, useToast } from "native-base";
+import { Button, Icon, Input, ScrollView, Text } from "native-base";
 import { FC, memo, useState } from "react";
 import styles from "./styles";
 
@@ -10,7 +10,9 @@ import { useRegisterMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { credsvalidator } from "../../utils/credsvalidator";
 import * as SecureStore from "expo-secure-store";
-import { CustomAlert } from "../../components/generalcomponents/alerts";
+import {
+  showToast,
+} from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 
 const Register: FC<LoginProps> = ({ navigation }) => {
@@ -27,8 +29,6 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     password: null,
     passwordagain: null,
   });
-
-  const toast = useToast();
 
   const [registerMutation, { isLoading }] = useRegisterMutation();
 
@@ -50,14 +50,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
         password,
       }).unwrap();
       await SecureStore.setItemAsync("token", res.token);
-      toast.show({
-        render: () => (
-          <CustomAlert
-            status="success"
-            message="Account Created Successfully!"
-          />
-        ),
-      });
+      showToast("success", "Account Created Successfully!");
     } catch (err) {
       errorHandler(err);
     }
