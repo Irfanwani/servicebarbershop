@@ -27,7 +27,7 @@ const authApiSlice = createApi({
         method: "POST",
         body,
       }),
-      async transformResponse(baseQueryReturnValue: any, meta, arg) {
+      async transformResponse(baseQueryReturnValue: any) {
         let res = { ...baseQueryReturnValue };
         res.token = null;
         await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
@@ -76,9 +76,6 @@ const authApiSlice = createApi({
         method: "POST",
         body,
       }),
-      onCacheEntryAdded(arg, api) {
-        console.log(api, 'api')
-      },
     }),
     logout: builder.mutation({
       query: () => ({

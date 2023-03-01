@@ -224,9 +224,7 @@ export const serviceDetailsValidator: ServiceProps = (
 
   for (let service of services) {
     if (!service.cost) {
-      setError(
-        "Please provide a cost for each service selected (make sure to submit the input by clicking submit button on keyboard (Check Button in bottom right corner of keyboard) to save the input before pressing Complete Registration)"
-      );
+      setError("Please provide a cost for each service selected");
       return false;
     }
   }

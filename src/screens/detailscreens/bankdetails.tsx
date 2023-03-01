@@ -18,8 +18,13 @@ import { showToast } from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { bankDetailsValidator } from "../../utils/credsvalidator";
+import { useSelector } from "react-redux";
 
 const BankDetails: FC = () => {
+  const { email } = useSelector((state: any) => ({
+    email: state.authApiSlice?.mutations?.logindata?.data?.user?.email,
+  }));
+
   const [business_name, setBusinessName] = useState("");
   const [business_type, setBusinessType] = useState("");
 
@@ -50,7 +55,7 @@ const BankDetails: FC = () => {
     try {
       let body = {
         name: account_name,
-        email: "email",
+        email,
         tnc_accepted: agreed,
         account_details: {
           business_name,

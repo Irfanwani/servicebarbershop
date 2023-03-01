@@ -1,13 +1,16 @@
 import { FlatList } from "native-base";
 import { FC, memo, useState } from "react";
+import { Keyboard } from "react-native";
 import {
   ItemSeparator,
   ListFooter,
   ListHeader,
   renderItem,
 } from "../../components/flatlistcomponents/servicedetail";
+import { showToast } from "../../components/generalcomponents/alerts";
 import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
 import { serviceDetailsValidator } from "../../utils/credsvalidator";
+import { useKeyboardVisible } from "../../utils/customhooks";
 import { errorHandler } from "../../utils/errorhandler";
 import { services } from "./constants";
 import styles from "./styles";
@@ -34,7 +37,14 @@ const ServiceDetails: FC = () => {
     return renderItem({ item, selectItem });
   };
 
+  const keyboardOn = useKeyboardVisible();
+
   const submit = async () => {
+    if (keyboardOn) {
+      Keyboard.dismiss();
+      return;
+    }
+
     let selservices: any = Object.values(selectedServices).filter(
       (item) => item
     );
@@ -46,6 +56,7 @@ const ServiceDetails: FC = () => {
       };
 
       await servicesMutation(body).unwrap();
+      showToast("success", "Registration Completed!");
     } catch (err) {
       errorHandler(err);
     }

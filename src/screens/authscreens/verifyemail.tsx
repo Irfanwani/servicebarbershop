@@ -1,9 +1,7 @@
 import { Button, Input, ScrollView, Text } from "native-base";
 import { FC, memo, useState } from "react";
 import { mail } from "../../assets/mail";
-import {
-  showToast,
-} from "../../components/generalcomponents/alerts";
+import { showToast } from "../../components/generalcomponents/alerts";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { CustomSvg } from "../../components/svgs/svg";
 import {
@@ -17,7 +15,7 @@ const VerifyEmail: FC = () => {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
-  const [getCodeQuery, { isLoading: gettingCode }] =
+  const [getCodeQuery, { isFetching: gettingCode }] =
     useLazyGetsignupcodeQuery();
 
   const [verifyemailMutation, { isLoading }] = useVerifyemailMutation();
@@ -37,6 +35,7 @@ const VerifyEmail: FC = () => {
       return;
     }
 
+    setError(null);
     try {
       await verifyemailMutation({ code }).unwrap();
       showToast(
