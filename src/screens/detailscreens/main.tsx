@@ -1,4 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
@@ -22,28 +21,26 @@ const DetailsMain: FC = () => {
   const [logout, isLoading] = useLogout();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          title: null,
-          headerShown: true,
-          headerTransparent: true,
-          headerLeft: () => <ThemeToggler />,
-          headerRight: () => (
-            <LogoutButton isLoading={isLoading} onPress={logout} />
-          ),
-          animation: "slide_from_right",
-        }}
-      >
-        {!details_added ? (
-          <Stack.Screen name="generaldetails" component={GeneralDetails} />
-        ) : !account_added ? (
-          <Stack.Screen name="bankdetails" component={BankDetails} />
-        ) : (
-          <Stack.Screen name="servicedetails" component={ServiceDetails} />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        title: null,
+        headerShown: true,
+        headerTransparent: true,
+        headerLeft: () => <ThemeToggler />,
+        headerRight: () => (
+          <LogoutButton isLoading={isLoading} onPress={logout} />
+        ),
+        animation: "slide_from_right",
+      }}
+    >
+      {!details_added ? (
+        <Stack.Screen name="generaldetails" component={GeneralDetails} />
+      ) : !account_added ? (
+        <Stack.Screen name="bankdetails" component={BankDetails} />
+      ) : (
+        <Stack.Screen name="servicedetails" component={ServiceDetails} />
+      )}
+    </Stack.Navigator>
   );
 };
 

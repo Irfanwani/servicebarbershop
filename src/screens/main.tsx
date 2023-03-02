@@ -2,6 +2,8 @@ import { FC, memo } from "react";
 import AuthMain from "./authscreens/main";
 import DetailsMain from "./detailscreens/main";
 import { useSelector } from "react-redux";
+import MainApp from "./mainscreens/main";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Main: FC = () => {
   const { verified, services_added } = useSelector((state: any) => ({
@@ -10,7 +12,11 @@ const Main: FC = () => {
       state.authApiSlice?.mutations?.logindata?.data?.services_added,
   }));
 
-  return verified ? services_added ? <></> : <DetailsMain /> : <AuthMain />;
+  return (
+    <NavigationContainer>
+      {verified ? services_added ? <MainApp /> : <DetailsMain /> : <AuthMain />}
+    </NavigationContainer>
+  );
 };
 
 export default memo(Main);
