@@ -2,6 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FC } from "react";
 import { useWindowDimensions } from "react-native";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
+import { ThemeToggler } from "../../components/generalcomponents/themeToggler";
 import { useLogout } from "../../utils/customhooks";
 import Appointments from "./appointments";
 import { DrawerProps } from "./types";
@@ -14,14 +15,22 @@ const MainApp: FC = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
+        drawerType: "slide",
         swipeEdgeWidth: width / 5,
         headerRight: () => (
-          <LogoutButton isLoading={isLoading} onPress={logout} />
+          <>
+            <LogoutButton isLoading={isLoading} onPress={logout} />
+            <ThemeToggler />
+          </>
         ),
       }}
       initialRouteName="appointments"
     >
-      <Drawer.Screen name="appointments" component={Appointments} />
+      <Drawer.Screen
+        options={{ headerTitle: "Appointments" }}
+        name="appointments"
+        component={Appointments}
+      />
     </Drawer.Navigator>
   );
 };
