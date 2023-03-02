@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
+import { RoundButton } from "../../components/generalcomponents/roundbutton";
+import { useLogout } from "../../utils/customhooks";
 import ForgotPassword from "./forgotpassword";
 import LandingPage from "./landingpage";
 import Login from "./login";
@@ -17,6 +19,7 @@ const AuthMain: FC = () => {
     data: state.authApiSlice?.mutations?.logindata?.data,
   }));
 
+  const [logout, isLoading] = useLogout();
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -31,7 +34,18 @@ const AuthMain: FC = () => {
             <Stack.Screen name="forgotpassword" component={ForgotPassword} />
           </>
         ) : (
-          <Stack.Screen name="verifyemail" component={VerifyEmail} />
+          <Stack.Screen
+            options={{
+              title: null,
+              headerShown: true,
+              headerTransparent: true,
+              headerRight: () => (
+                <RoundButton isLoading={isLoading} onPress={logout} />
+              ),
+            }}
+            name="verifyemail"
+            component={VerifyEmail}
+          />
         )}
       </Stack.Navigator>
     </NavigationContainer>

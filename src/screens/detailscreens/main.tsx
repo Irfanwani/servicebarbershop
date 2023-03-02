@@ -2,6 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
+import { RoundButton } from "../../components/generalcomponents/roundbutton";
+import { useLogout } from "../../utils/customhooks";
 import BankDetails from "./bankdetails";
 import GeneralDetails from "./generaldetails";
 import ServiceDetails from "./servicedetails";
@@ -16,11 +18,18 @@ const DetailsMain: FC = () => {
       state.authApiSlice?.mutations?.logindata?.data?.account_added,
   }));
 
+  const [logout, isLoading] = useLogout();
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
+          title: null,
+          headerShown: true,
+          headerTransparent: true,
+          headerRight: () => (
+            <RoundButton isLoading={isLoading} onPress={logout} />
+          ),
           animation: "slide_from_right",
         }}
       >
