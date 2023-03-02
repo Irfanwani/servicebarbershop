@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
+import { ThemeToggler } from "../../components/generalcomponents/themeToggler";
 import { useLogout } from "../../utils/customhooks";
 import ForgotPassword from "./forgotpassword";
 import LandingPage from "./landingpage";
@@ -39,6 +40,7 @@ const AuthMain: FC = () => {
               title: null,
               headerShown: true,
               headerTransparent: true,
+              headerLeft: () => <ThemeToggler />,
               headerRight: () => (
                 <LogoutButton isLoading={isLoading} onPress={logout} />
               ),

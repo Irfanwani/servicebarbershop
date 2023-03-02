@@ -15,7 +15,7 @@ export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
     >
       <HStack space="2" alignItems="center">
         <Alert.Icon size="md" />
-        <Text>{message}</Text>
+        <Text color="black">{message}</Text>
       </HStack>
     </Alert>
   );
@@ -35,7 +35,7 @@ export const CustomAlertDialog: FC<CustomAlertDialogProps> = ({
   message,
   cancelText,
   confirmText,
-  confirmColor
+  confirmColor,
 }) => {
   const cancelRef = useRef(null);
   return (
