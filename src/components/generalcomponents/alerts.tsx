@@ -3,8 +3,16 @@ import { FC } from "react";
 import { CustomAlertProps } from "./types";
 
 export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
+  const closeAllToasts = () => {
+    Toast.closeAll();
+  };
   return (
-    <Alert maxW="98%" variant="left-accent" status={status}>
+    <Alert
+      onTouchEnd={closeAllToasts}
+      maxW="99%"
+      variant="left-accent"
+      status={status}
+    >
       <HStack space="2" alignItems="center">
         <Alert.Icon size="md" />
         <Text>{message}</Text>
