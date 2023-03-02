@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
-import { RoundButton } from "../../components/generalcomponents/roundbutton";
+import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import { useLogout } from "../../utils/customhooks";
 import BankDetails from "./bankdetails";
 import GeneralDetails from "./generaldetails";
@@ -28,7 +28,7 @@ const DetailsMain: FC = () => {
           headerShown: true,
           headerTransparent: true,
           headerRight: () => (
-            <RoundButton isLoading={isLoading} onPress={logout} />
+            <LogoutButton isLoading={isLoading} onPress={logout} />
           ),
           animation: "slide_from_right",
         }}

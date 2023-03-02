@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
-import { RoundButton } from "../../components/generalcomponents/roundbutton";
+import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import { useLogout } from "../../utils/customhooks";
 import ForgotPassword from "./forgotpassword";
 import LandingPage from "./landingpage";
@@ -40,7 +40,7 @@ const AuthMain: FC = () => {
               headerShown: true,
               headerTransparent: true,
               headerRight: () => (
-                <RoundButton isLoading={isLoading} onPress={logout} />
+                <LogoutButton isLoading={isLoading} onPress={logout} />
               ),
             }}
             name="verifyemail"
