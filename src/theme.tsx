@@ -1,65 +1,105 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
-import { extendTheme } from "native-base";
+import { LinearGradient } from "expo-linear-gradient";
+import { ColorMode, extendTheme, StorageManager } from "native-base";
+import { ColorSchemeType } from "native-base/lib/typescript/components/types";
 
+export const lightgradient = ["teal.200", 'orange.100', "pink.200"];
+
+export const darkgradient = ["cyan.800", "blueGray.500"];
+
+export const bgDark = "#27272f";
+export const bgLight = "white";
+
+const colorScheme: ColorSchemeType = "teal";
+
+const size = "md";
 export const theme = extendTheme({
   components: {
     FlatList: {
       baseStyle: {
-        _light: { backgroundColor: "white" },
-        _dark: { backgroundColor: "#27272f" },
+        _light: { backgroundColor: bgLight },
+        _dark: { backgroundColor: bgDark },
       },
     },
     ScrollView: {
       baseStyle: {
-        _light: { backgroundColor: "white" },
-        _dark: { backgroundColor: "#27272f" },
+        _light: { backgroundColor: bgLight },
+        _dark: { backgroundColor: bgDark },
       },
     },
     View: {
       baseStyle: {
-        _light: { backgroundColor: "white" },
-        _dark: { backgroundColor: "#27272f" },
+        _light: { backgroundColor: bgLight },
+        _dark: { backgroundColor: bgDark },
       },
     },
     Button: {
       defaultProps: {
-        colorScheme: "teal",
+        colorScheme,
       },
     },
     Checkbox: {
       defaultProps: {
-        colorScheme: "teal",
+        colorScheme,
       },
     },
     IconButton: {
       defaultProps: {
-        colorScheme: "teal",
+        colorScheme,
       },
     },
     Input: {
       defaultProps: {
-        size: "md",
+        size,
       },
     },
     Heading: {
       defaultProps: {
-        size: "md",
+        size,
       },
     },
     TextArea: {
       defaultProps: {
-        size: "md",
+        size,
       },
     },
   },
 });
 
+export const config = {
+  dependencies: {
+    "linear-gradient": LinearGradient,
+  },
+};
+
+export const colorModeManager: StorageManager = {
+  get: async () => {
+    try {
+      let val = await AsyncStorage.getItem("@color-mode");
+      return val === "dark" ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  },
+  set: async (value: ColorMode) => {
+    try {
+      await AsyncStorage.setItem("@color-mode", value);
+    } catch (e) {}
+  },
+};
+
+// Navigator theme
+const bgDarkNav = "#374151";
+const bgDarkCard = "#262626";
+const bgLightCard = "#14b8a6";
+
 export const MyDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    background: "#374151",
-    card: "#262626",
+    background: bgDarkNav,
+    card: bgDarkCard,
   },
 };
 
@@ -67,7 +107,7 @@ export const MyLightTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "white",
-    card: "#14b8a6",
+    background: bgLight,
+    card: bgLightCard,
   },
 };

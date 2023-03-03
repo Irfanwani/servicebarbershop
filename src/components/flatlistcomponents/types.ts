@@ -14,7 +14,7 @@ export type FooterProps = {
   error: string;
 };
 
-export type AppointmentType = {
+export type AppointmentItemType = {
   barber: string;
   bookingID: number;
   datetime: string;
@@ -23,4 +23,8 @@ export type AppointmentType = {
   services: string;
   totalcost: number;
   user: string;
+};
+
+export type AppointmentType = {
+  item: AppointmentItemType;
 };
