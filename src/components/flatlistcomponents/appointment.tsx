@@ -1,9 +1,11 @@
 import {
   Box,
+  Button,
   Divider,
   Heading,
   HStack,
   Icon,
+  IconButton,
   Input,
   Text,
   useColorMode,
@@ -77,14 +79,21 @@ export const ListHeader: FC = () => {
       <Input
         placeholder="Search appointment..."
         placeholderTextColor={theme.colors.text}
-        flex="1"
+        flex="0.9"
         variant="rounded"
         leftElement={<Icon as={MaterialIcons} name="search" size={25} m="2" />}
+      />
+      <IconButton
+        size="10"
+        title="Filters"
+        icon={<Icon as={MaterialIcons} name="filter-list" m="2" />}
+        variant="solid"
+        rounded="full"
       />
     </HStack>
   );
 };
 
 export const Empty: FC = () => {
-  return <></>;
+  return <Text alignSelf="center">Nothing found</Text>;
 };

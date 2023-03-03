@@ -12,7 +12,6 @@ import { errorHandler } from "../../utils/errorhandler";
 const Appointments: FC = () => {
   const {
     data: appointments,
-    isLoading,
     error,
     refetch,
     isFetching,
@@ -22,8 +21,6 @@ const Appointments: FC = () => {
     if (error) errorHandler(error);
   }, [error]);
 
-  if (isLoading) return <Loader />;
-
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -32,7 +29,7 @@ const Appointments: FC = () => {
       refreshing={isFetching}
       onRefresh={refetch}
       ListHeaderComponent={<ListHeader />}
-      ListEmptyComponent={<Empty />}
+      ListEmptyComponent={isFetching ? <Loader /> : <Empty />}
       stickyHeaderIndices={[0]}
       stickyHeaderHiddenOnScroll
     />
