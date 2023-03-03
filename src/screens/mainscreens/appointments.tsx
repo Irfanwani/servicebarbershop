@@ -11,6 +11,8 @@ const Appointments: FC = () => {
     data: appointments,
     isLoading,
     error,
+    refetch,
+    isFetching,
   } = useGetappointmentsQuery(null);
 
   useEffect(() => {
@@ -25,6 +27,8 @@ const Appointments: FC = () => {
       contentContainerStyle={styles.flatlist}
       data={appointments}
       renderItem={renderItem}
+      refreshing={isFetching}
+      onRefresh={refetch}
     />
   );
 };
