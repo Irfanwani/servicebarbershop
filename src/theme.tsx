@@ -58,7 +58,8 @@ export const MyDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    background: "#27272f",
+    background: "#374151",
+    card: "#262626",
   },
 };
 
@@ -67,5 +68,6 @@ export const MyLightTheme = {
   colors: {
     ...DefaultTheme.colors,
     background: "white",
+    card: "#14b8a6",
   },
 };

@@ -4,9 +4,9 @@ import { store } from "../store/store";
 
 export const errorHandler = (err: any) => {
   console.log(JSON.stringify(err), "error");
-  const { status, data } = err;
 
   try {
+    const { status, data } = err;
     let errorString = Object.values(data).join("\n");
 
     if (!Number(status)) throw new Error();

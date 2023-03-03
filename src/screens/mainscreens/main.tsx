@@ -1,4 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { useColorMode } from "native-base";
 import { FC } from "react";
 import { useWindowDimensions } from "react-native";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
@@ -12,6 +13,8 @@ const Drawer = createDrawerNavigator<DrawerProps>();
 const MainApp: FC = () => {
   const { width } = useWindowDimensions();
   const [logout, isLoading] = useLogout();
+
+  const { colorMode } = useColorMode();
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -27,7 +30,12 @@ const MainApp: FC = () => {
       initialRouteName="appointments"
     >
       <Drawer.Screen
-        options={{ headerTitle: "Appointments" }}
+        options={{
+          headerTitle: "Appointments",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerTintColor: colorMode == "light" ? "black" : "white",
+        }}
         name="appointments"
         component={Appointments}
       />

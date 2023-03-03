@@ -13,3 +13,14 @@ export type FooterProps = {
   isLoading: boolean;
   error: string;
 };
+
+export type AppointmentType = {
+  barber: string;
+  bookingID: number;
+  datetime: string;
+  id: number;
+  paid: boolean;
+  services: string;
+  totalcost: number;
+  user: string;
+};
