@@ -21,7 +21,7 @@ const Main: FC = () => {
   const [colormode, setColorMode] = useState(null);
   (async () => {
     let cm = await AsyncStorage.getItem("@color-mode");
-    setColorMode(cm);
+    setColorMode(cm ?? "light");
   })();
 
   if (!colormode) return <Loader />;

@@ -1,10 +1,13 @@
 import { FlatList } from "native-base";
 import { FC, useEffect } from "react";
-import { renderItem } from "../../components/flatlistcomponents/appointment";
+import {
+  Empty,
+  ListHeader,
+  renderItem,
+} from "../../components/flatlistcomponents/appointment";
 import Loader from "../../components/generalcomponents/loader";
 import { useGetappointmentsQuery } from "../../store/apislices/mainapislices";
 import { errorHandler } from "../../utils/errorhandler";
-import styles from "./styles";
 
 const Appointments: FC = () => {
   const {
@@ -24,11 +27,14 @@ const Appointments: FC = () => {
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.flatlist}
       data={appointments}
       renderItem={renderItem}
       refreshing={isFetching}
       onRefresh={refetch}
+      ListHeaderComponent={<ListHeader />}
+      ListEmptyComponent={<Empty />}
+      stickyHeaderIndices={[0]}
+      stickyHeaderHiddenOnScroll
     />
   );
 };

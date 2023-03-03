@@ -3,6 +3,8 @@ import {
   Divider,
   Heading,
   HStack,
+  Icon,
+  Input,
   Text,
   useColorMode,
   VStack,
@@ -10,6 +12,8 @@ import {
 import { FC } from "react";
 import { darkgradient, lightgradient } from "../../theme";
 import { AppointmentType } from "./types";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 export const renderItem = ({ item }: AppointmentType) => {
   return <RenderItem item={item} />;
@@ -29,6 +33,7 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
       borderRadius="2xl"
       my="4"
       p="3"
+      mx="2"
     >
       <HStack justifyContent="space-between">
         <Heading>{item.user}</Heading>
@@ -56,4 +61,30 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
       </Heading>
     </Box>
   );
+};
+
+export const ListHeader: FC = () => {
+  const theme = useTheme();
+  return (
+    <HStack
+      pb="10"
+      pt="5"
+      px="2"
+      bg={theme.colors.card}
+      justifyContent="space-between"
+      borderBottomLeftRadius="30"
+    >
+      <Input
+        placeholder="Search appointment..."
+        placeholderTextColor={theme.colors.text}
+        flex="1"
+        variant="rounded"
+        leftElement={<Icon as={MaterialIcons} name="search" size={25} m="2" />}
+      />
+    </HStack>
+  );
+};
+
+export const Empty: FC = () => {
+  return <></>;
 };

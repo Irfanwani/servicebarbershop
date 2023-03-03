@@ -2,9 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useColorMode } from "native-base";
 import { FC } from "react";
 import { useWindowDimensions } from "react-native";
-import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import { ThemeToggler } from "../../components/generalcomponents/themeToggler";
-import { useLogout } from "../../utils/customhooks";
 import Appointments from "./appointments";
 import { DrawerProps } from "./types";
 
@@ -12,7 +10,6 @@ const Drawer = createDrawerNavigator<DrawerProps>();
 
 const MainApp: FC = () => {
   const { width } = useWindowDimensions();
-  const [logout, isLoading] = useLogout();
 
   const { colorMode } = useColorMode();
   return (
@@ -20,12 +17,7 @@ const MainApp: FC = () => {
       screenOptions={{
         drawerType: "slide",
         swipeEdgeWidth: width / 5,
-        headerRight: () => (
-          <>
-            <LogoutButton isLoading={isLoading} onPress={logout} />
-            <ThemeToggler />
-          </>
-        ),
+        headerRight: () => <ThemeToggler />,
       }}
       initialRouteName="appointments"
     >
