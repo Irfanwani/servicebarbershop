@@ -28,11 +28,15 @@ const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
 
   const [logout, isLoading] = useLogout();
 
+  const gotoprofile = () => {
+    props.navigation.navigate('profile')
+  }
+
   return (
     <DrawerContentScrollView contentContainerStyle={{ flex: 1 }} {...props}>
       <View flex="1">
         <HStack alignItems="flex-start" justifyContent="space-between" p="2">
-          <VStack>
+          <VStack onTouchEnd={gotoprofile}>
             <Avatar size="xl" source={{ uri }} />
             <VStack mt="5" ml="2">
               <Heading size="sm">{username}</Heading>

@@ -56,6 +56,7 @@ const MainApp: FC = () => {
       />
       <Drawer.Screen
         options={{
+          headerTransparent: true,
           drawerIcon: ({ color }) => (
             <Icon as={MaterialIcons} name="settings" color={color} size="lg" />
           ),
