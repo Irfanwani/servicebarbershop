@@ -16,8 +16,9 @@ const styles = StyleSheet.create({
   error: {
     fontSize: 12,
     textAlign: "center",
-    marginTop: 10
+    marginTop: 10,
   },
+  logout: { position: "absolute", bottom: 20, right: 10 },
 });
 
 export default styles;

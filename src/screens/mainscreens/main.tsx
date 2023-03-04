@@ -8,6 +8,7 @@ import Profile from "./profile";
 import Settings from "./settings";
 import { DrawerProps } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
+import { bgLightCard } from "../../theme";
 
 const Drawer = createDrawerNavigator<DrawerProps>();
 
@@ -24,15 +25,20 @@ const MainApp: FC = () => {
         headerTitleAlign: "center",
         headerShadowVisible: false,
         headerTintColor: colorMode == "light" ? "black" : "white",
+        drawerItemStyle: { paddingVertical: 5 },
+        drawerActiveBackgroundColor: bgLightCard,
+        drawerInactiveTintColor: bgLightCard,
+        drawerActiveTintColor: "rgb(255, 250, 250)",
       }}
       initialRouteName="appointments"
     >
       <Drawer.Screen
         options={{
           drawerIcon: ({ color }) => (
-            <Icon as={MaterialIcons} name="work" color={color} />
+            <Icon as={MaterialIcons} name="work" color={color} size="lg" />
           ),
           headerTitle: "Appointments",
+          drawerLabel: "Appointments",
         }}
         name="appointments"
         component={Appointments}
@@ -40,9 +46,10 @@ const MainApp: FC = () => {
       <Drawer.Screen
         options={{
           drawerIcon: ({ color }) => (
-            <Icon as={MaterialIcons} name="person" color={color} />
+            <Icon as={MaterialIcons} name="person" color={color} size="lg" />
           ),
           headerTitle: "Profile",
+          drawerLabel: "Profile",
         }}
         name="profile"
         component={Profile}
@@ -50,9 +57,10 @@ const MainApp: FC = () => {
       <Drawer.Screen
         options={{
           drawerIcon: ({ color }) => (
-            <Icon as={MaterialIcons} name="settings" color={color} />
+            <Icon as={MaterialIcons} name="settings" color={color} size="lg" />
           ),
           headerTitle: "Settings",
+          drawerLabel: "Settings",
         }}
         name="settings"
         component={Settings}

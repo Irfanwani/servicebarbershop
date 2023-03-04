@@ -92,7 +92,7 @@ export const colorModeManager: StorageManager = {
 // Navigator theme
 const bgDarkNav = "#374151";
 const bgDarkCard = "#262626";
-const bgLightCard = "#14b8a6";
+export const bgLightCard = "#14b8a6";
 
 export const MyDarkTheme = {
   ...DarkTheme,
