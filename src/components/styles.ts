@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   logout: { position: "absolute", bottom: 20, right: 10 },
+  settingitem: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 20,
+  },
 });
 
 export default styles;

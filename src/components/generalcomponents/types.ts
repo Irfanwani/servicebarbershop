@@ -1,4 +1,7 @@
-import { ColorSchemeType } from "native-base/lib/typescript/components/types";
+import {
+  ColorSchemeType,
+  ColorType,
+} from "native-base/lib/typescript/components/types";
 
 export type ErrorProps = {
   error: string;
@@ -27,4 +30,12 @@ export type CustomAlertDialogProps = {
   cancelText: string;
   confirmText: string;
   confirmColor: ColorSchemeType;
+};
+
+export type SettingItemType = {
+  icon: string;
+  title: string;
+  onPress: (val: boolean) => void | Promise<void>;
+  bg: ColorType;
+  value: boolean;
 };

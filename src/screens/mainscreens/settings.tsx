@@ -4,11 +4,15 @@ import {
   HStack,
   Text,
   useColorMode,
+  useTheme,
   VStack,
 } from "native-base";
 import { FC } from "react";
 import { useSelector } from "react-redux";
+import { LogoutButton } from "../../components/generalcomponents/roundbutton";
+import SettingItem from "../../components/generalcomponents/settingsitem";
 import { darkgradient, lightgradient } from "../../theme";
+import { useLogout } from "../../utils/customhooks";
 import styles from "./styles";
 import { SettingsProps } from "./types";
 
@@ -23,7 +27,8 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
     navigation.navigate("profile");
   };
 
-  const { colorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [logout, isLoading] = useLogout();
 
   return (
     <VStack>
@@ -36,7 +41,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
           },
         }}
         style={styles.gradient}
-        space='10'
+        space="10"
       >
         <Avatar onTouchEnd={gotoprofile} size="xl" source={{ uri }} />
         <VStack flexShrink={1}>
@@ -45,7 +50,32 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
           </Text>
           <Heading size="2xl">{username}</Heading>
         </VStack>
+        <VStack style={styles.logout}>
+          <LogoutButton onPress={logout} isLoading={isLoading} />
+        </VStack>
       </HStack>
+
+      <VStack
+        style={styles.options}
+        backgroundColor={colorMode == "light" ? "blueGray.100" : "blueGray.600"}
+      >
+        <SettingItem
+          icon="bell-outline"
+          title="Notifications"
+          value={false}
+          onPress={(val) => {
+            console.log(val);
+          }}
+          bg="green.600"
+        />
+        <SettingItem
+          icon="theme-light-dark"
+          title="Dark Mode"
+          value={colorMode == "dark"}
+          onPress={toggleColorMode}
+          bg="black"
+        />
+      </VStack>
     </VStack>
   );
 };

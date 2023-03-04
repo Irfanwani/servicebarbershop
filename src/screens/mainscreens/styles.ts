@@ -10,7 +10,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: height / 2,
     width,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+  },
+  logout: {
+    position: "absolute",
+    overflow: "hidden",
+    bottom: -20,
+    left: width / 2 - 20,
+  },
+  options: {
+    padding: 10,
+    marginVertical: 30,
+    marginHorizontal: 10,
+    borderRadius: 20,
+    elevation: 5,
   },
 });
 
