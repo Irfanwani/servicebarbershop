@@ -5,7 +5,6 @@ import {
   ScrollView,
   Text,
   useColorMode,
-  useTheme,
   VStack,
 } from "native-base";
 import { FC, memo } from "react";
@@ -112,7 +111,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
       </ScrollView>
 
       <Text textAlign="center" mt="auto">
-        Version 1.0.0
+        Version@1.0.0
       </Text>
     </VStack>
   );

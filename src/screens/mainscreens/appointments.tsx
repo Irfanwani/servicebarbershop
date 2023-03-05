@@ -1,5 +1,5 @@
 import { FlatList } from "native-base";
-import { FC, memo, useEffect } from "react";
+import { FC, memo, useEffect, useRef } from "react";
 import {
   Empty,
   ListHeader,
@@ -15,10 +15,17 @@ const Appointments: FC = () => {
     error,
     refetch,
     isFetching,
-  } = useGetappointmentsQuery(null);
+    isError,
+  } = useGetappointmentsQuery(null, { refetchOnMountOrArgChange: true });
+
+  const firstRender = useRef(true);
 
   useEffect(() => {
-    if (error) errorHandler(error);
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    if (isError) errorHandler(error);
   }, [error]);
 
   return (

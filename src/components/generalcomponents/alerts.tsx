@@ -1,4 +1,11 @@
-import { Alert, AlertDialog, Button, HStack, Text, Toast } from "native-base";
+import {
+  Alert,
+  AlertDialog,
+  Button,
+  HStack,
+  Text,
+  Toast,
+} from "native-base";
 import { FC, useRef } from "react";
 import { CustomAlertDialogProps, CustomAlertProps } from "./types";
 
@@ -9,14 +16,16 @@ export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
   return (
     <Alert
       onTouchEnd={closeAllToasts}
-      maxW="99%"
+      maxW="300"
       variant="left-accent"
       status={status}
     >
-      <HStack space="2" alignItems="center">
-        <Alert.Icon size="md" />
-        <Text color="black">{message}</Text>
-      </HStack>
+        <HStack px='2' space="2" alignItems="center">
+          <Alert.Icon size="md" />
+          <Text textAlign="center" color="black">
+            {message}
+          </Text>
+        </HStack>
     </Alert>
   );
 };

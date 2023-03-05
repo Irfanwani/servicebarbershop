@@ -68,9 +68,10 @@ const SettingItem: FC<SettingItemType> = ({
 export default memo(SettingItem);
 
 export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
-  const [deleteAccount, { isLoading }] = useDeleteaccountMutation();
+  const [deleteAccount] = useDeleteaccountMutation();
 
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -84,6 +85,8 @@ export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
 
   const deleteaccount = async () => {
     try {
+      onClose();
+      setLoading(true);
       await deleteAccount(id).unwrap();
       await deleteItemAsync("token");
       dispatch(authApiSlice.util.resetApiState());
@@ -99,8 +102,8 @@ export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
         variant="solid"
         colorScheme="danger"
         onPress={open}
-        isLoading={isLoading}
-        isLoadingText="Removing all the data"
+        isLoading={loading}
+        isLoadingText="Removing account"
       >
         Delete Account
       </Button>
@@ -108,9 +111,9 @@ export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
         isOpen={isOpen}
         onClose={onClose}
         onPress={deleteaccount}
-        header={"This action is irreversible!"}
+        header={"🚨 This action is irreversible!"}
         message={
-          "This will delete all of your data including user data like email, username, appointment data (fixed appointments, ratings and reviews). This action cannot be reverted.\nIf you are facing any issues, please contact us at \n[barbershopservices@gmail.com]\n before deleting the account."
+          "‼️This will delete all of your data including user data like email, username, appointment data (fixed appointments, ratings and reviews). This action cannot be reverted.\nIf you are facing any issues, please contact us at \n[barbershopservices@gmail.com]\n before deleting the account."
         }
         cancelText={"Cancel"}
         confirmText={"Delete Account"}
