@@ -1,5 +1,5 @@
 import { Button, Heading, HStack, Icon, Switch, Text, View } from "native-base";
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import { DeleteProps, SettingItemType } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { bgLightCard } from "../../theme";
@@ -67,11 +67,14 @@ const SettingItem: FC<SettingItemType> = ({
 
 export default memo(SettingItem);
 
-export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
+export const DeleteComponent: FC<DeleteProps> = ({
+  id,
+  loading,
+  setLoading,
+}) => {
   const [deleteAccount] = useDeleteaccountMutation();
 
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -91,7 +94,9 @@ export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
       await deleteItemAsync("token");
       dispatch(authApiSlice.util.resetApiState());
       showToast("info", "Account Deleted successfully. Hope to see you again!");
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       errorHandler(err);
     }
   };

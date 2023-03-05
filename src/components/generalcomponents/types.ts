@@ -2,7 +2,7 @@ import {
   ColorSchemeType,
   ColorType,
 } from "native-base/lib/typescript/components/types";
-import { ReactElement, ReactNode } from "react";
+import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 
 export type ErrorProps = {
   error: string;
@@ -46,4 +46,6 @@ export type SettingItemType = {
 
 export type DeleteProps = {
   id: number;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 };

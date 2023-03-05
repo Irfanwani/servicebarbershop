@@ -7,7 +7,7 @@ import {
   useColorMode,
   VStack,
 } from "native-base";
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import SettingItem, {
@@ -25,6 +25,8 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
     id: state.authApiSlice?.mutations?.logindata?.data?.user?.id,
     location: state.authApiSlice?.mutations?.logindata?.data?.details?.location,
   }));
+
+  const [loading, setLoading] = useState(false);
 
   const gotoprofile = () => {
     navigation.navigate("profile");
@@ -105,7 +107,13 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
             title="Delete Account"
             isSwitch={false}
             bg="red.600"
-            CustomComponent={() => <DeleteComponent id={id} />}
+            CustomComponent={() => (
+              <DeleteComponent
+                id={id}
+                loading={loading}
+                setLoading={setLoading}
+              />
+            )}
           />
         </VStack>
       </ScrollView>
