@@ -90,6 +90,12 @@ const authApiSlice = createApi({
         method: "POST",
       }),
     }),
+    deleteaccount: builder.mutation({
+      query: (id) => ({
+        url: `/api/accounts/deleteuser/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -102,6 +108,7 @@ export const {
   useVerifyemailMutation,
   useLogoutMutation,
   useLogoutallMutation,
+  useDeleteaccountMutation,
 } = authApiSlice;
 
 export default authApiSlice;

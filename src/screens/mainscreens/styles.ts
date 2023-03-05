@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
   },
   options: {
     padding: 10,
-    marginVertical: 30,
     marginHorizontal: 10,
     borderRadius: 20,
     elevation: 5,
+    marginBottom: 10
   },
 });
 

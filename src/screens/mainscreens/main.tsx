@@ -21,7 +21,7 @@ const MainApp: FC = () => {
       drawerContent={(props) => <CustomDrawer {...props} />}
       screenOptions={{
         drawerType: "slide",
-        swipeEdgeWidth: width / 5,
+        swipeEdgeWidth: width,
         headerTitleAlign: "center",
         headerShadowVisible: false,
         headerTintColor: colorMode == "light" ? "black" : "white",

@@ -43,3 +43,7 @@ export type SettingItemType = {
   isSwitch?: boolean;
   CustomComponent?: () => ReactElement;
 };
+
+export type DeleteProps = {
+  id: number;
+};

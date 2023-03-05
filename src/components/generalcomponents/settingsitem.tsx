@@ -1,9 +1,16 @@
-import { Heading, HStack, Icon, Switch, Text, View } from "native-base";
+import { Button, Heading, HStack, Icon, Switch, Text, View } from "native-base";
 import { FC, memo, useEffect, useState } from "react";
-import { SettingItemType } from "./types";
+import { DeleteProps, SettingItemType } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { bgLightCard } from "../../theme";
 import styles from "../styles";
+import authApiSlice, {
+  useDeleteaccountMutation,
+} from "../../store/apislices/authapislices";
+import { errorHandler } from "../../utils/errorhandler";
+import { useDispatch } from "react-redux";
+import { CustomAlertDialog, showToast } from "./alerts";
+import { deleteItemAsync } from "expo-secure-store";
 
 const SettingItem: FC<SettingItemType> = ({
   icon,
@@ -59,3 +66,56 @@ const SettingItem: FC<SettingItemType> = ({
 };
 
 export default memo(SettingItem);
+
+export const DeleteComponent: FC<DeleteProps> = ({ id }) => {
+  const [deleteAccount, { isLoading }] = useDeleteaccountMutation();
+
+  const dispatch = useDispatch();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const open = () => {
+    setIsOpen(true);
+  };
+
+  const deleteaccount = async () => {
+    try {
+      await deleteAccount(id).unwrap();
+      await deleteItemAsync("token");
+      dispatch(authApiSlice.util.resetApiState());
+      showToast("info", "Account Deleted successfully. Hope to see you again!");
+    } catch (err) {
+      errorHandler(err);
+    }
+  };
+  return (
+    <>
+      <Button
+        borderColor="red.500"
+        variant="solid"
+        colorScheme="danger"
+        onPress={open}
+        isLoading={isLoading}
+        isLoadingText="Removing all the data"
+      >
+        Delete Account
+      </Button>
+      <CustomAlertDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onPress={deleteaccount}
+        header={"This action is irreversible!"}
+        message={
+          "This will delete all of your data including user data like email, username, appointment data (fixed appointments, ratings and reviews). This action cannot be reverted.\nIf you are facing any issues, please contact us at \n[barbershopservices@gmail.com]\n before deleting the account."
+        }
+        cancelText={"Cancel"}
+        confirmText={"Delete Account"}
+        confirmColor={"error"}
+      />
+    </>
+  );
+};
