@@ -3,8 +3,8 @@ import { FC } from "react";
 
 const Loader: FC = () => {
   return (
-    <View alignItems="center" flex={1} justifyContent="center">
-      <Spinner color='teal.600' size="lg" />
+    <View alignItems="center" flex={1} p="30" justifyContent="center">
+      <Spinner color="teal.600" size="lg" />
     </View>
   );
 };

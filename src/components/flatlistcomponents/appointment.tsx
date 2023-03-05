@@ -16,6 +16,8 @@ import { darkgradient, lightgradient } from "../../theme";
 import { AppointmentType } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
+import { CustomSvg } from "../svgs/svg";
+import { notfound } from "../../assets/notfound";
 
 export const renderItem = ({ item }: AppointmentType) => {
   return <RenderItem item={item} />;
@@ -95,5 +97,9 @@ export const ListHeader: FC = () => {
 };
 
 export const Empty: FC = () => {
-  return <Text alignSelf="center">Nothing found</Text>;
+  return (
+    <VStack pt='70'> 
+      <CustomSvg xml={notfound} />
+    </VStack>
+  );
 };
