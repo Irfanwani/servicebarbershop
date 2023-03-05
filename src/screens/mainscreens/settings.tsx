@@ -13,18 +13,14 @@ import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import SettingItem, {
   DeleteComponent,
 } from "../../components/generalcomponents/settingsitem";
+import { authDetails, UserType } from "../../store/slice";
 import { darkgradient, lightgradient } from "../../theme";
 import { useLogout } from "../../utils/customhooks";
 import styles from "./styles";
 import { SettingsProps } from "./types";
 
 const Settings: FC<SettingsProps> = ({ navigation }) => {
-  const { uri, username, location, id } = useSelector((state: any) => ({
-    uri: state.authApiSlice?.mutations?.logindata?.data?.details?.image,
-    username: state.authApiSlice?.mutations?.logindata?.data?.user?.username,
-    id: state.authApiSlice?.mutations?.logindata?.data?.user?.id,
-    location: state.authApiSlice?.mutations?.logindata?.data?.details?.location,
-  }));
+  const { user, details } = useSelector<any, UserType[]>(authDetails)?.[0];
 
   const [loading, setLoading] = useState(false);
 
@@ -52,12 +48,16 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
         style={styles.gradient}
         space="10"
       >
-        <Avatar onTouchEnd={gotoprofile} size="xl" source={{ uri }} />
+        <Avatar
+          onTouchEnd={gotoprofile}
+          size="xl"
+          source={{ uri: details?.image }}
+        />
         <VStack flexShrink={1}>
           <Text fontSize={12} flexShrink={1}>
-            {location}
+            {details?.location}
           </Text>
-          <Heading size="2xl">{username}</Heading>
+          <Heading size="2xl">{user?.username}</Heading>
         </VStack>
         <VStack style={styles.logout}>
           <LogoutButton onPress={logout} isLoading={isLoading} />
@@ -109,7 +109,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
             bg="red.600"
             CustomComponent={() => (
               <DeleteComponent
-                id={id}
+                id={user?.id}
                 loading={loading}
                 setLoading={setLoading}
               />

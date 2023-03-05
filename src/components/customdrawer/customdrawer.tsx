@@ -14,33 +14,30 @@ import {
 } from "native-base";
 import { FC } from "react";
 import { useSelector } from "react-redux";
+import { authDetails, UserType } from "../../store/slice";
 import { useLogout } from "../../utils/customhooks";
 import { LogoutButton } from "../generalcomponents/roundbutton";
 import { ThemeToggler } from "../generalcomponents/themeToggler";
 import styles from "../styles";
 
 const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
-  const { uri, username, contact } = useSelector((state: any) => ({
-    uri: state.authApiSlice?.mutations?.logindata?.data?.details?.image,
-    contact: state.authApiSlice?.mutations?.logindata?.data?.details?.contact,
-    username: state.authApiSlice?.mutations?.logindata?.data?.user?.username,
-  }));
+  const { details, user } = useSelector<any, UserType[]>(authDetails)?.[0];
 
   const [logout, isLoading] = useLogout();
 
   const gotoprofile = () => {
-    props.navigation.navigate('profile')
-  }
+    props.navigation.navigate("profile");
+  };
 
   return (
     <DrawerContentScrollView contentContainerStyle={{ flex: 1 }} {...props}>
       <View flex="1">
         <HStack alignItems="flex-start" justifyContent="space-between" p="2">
           <VStack onTouchEnd={gotoprofile}>
-            <Avatar size="xl" source={{ uri }} />
+            <Avatar size="xl" source={{ uri: details?.image }} />
             <VStack mt="5" ml="2">
-              <Heading size="sm">{username}</Heading>
-              <Text fontSize="xs">{contact}</Text>
+              <Heading size="sm">{user?.username}</Heading>
+              <Text fontSize="xs">{details?.contact}</Text>
             </VStack>
           </VStack>
           <ThemeToggler />

@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { authReducer } from "./slice";
 
 const config = {
   key: "root",
@@ -19,6 +20,7 @@ const config = {
 
 const reducer = persistCombineReducers(config, {
   [authApiSlice.reducerPath]: authApiSlice.reducer,
+  authSlice: authReducer
 });
 
 export const store = configureStore({

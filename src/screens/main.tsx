@@ -8,13 +8,12 @@ import { MyDarkTheme, MyLightTheme } from "../theme";
 import { useColorMode } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../components/generalcomponents/loader";
+import { authDetails, UserType } from "../store/slice";
 
 const Main: FC = () => {
-  const { verified, services_added } = useSelector((state: any) => ({
-    verified: state.authApiSlice?.mutations?.logindata?.data?.verified,
-    services_added:
-      state.authApiSlice?.mutations?.logindata?.data?.services_added,
-  }));
+  const { verified, services_added } = useSelector<any, UserType[]>(
+    authDetails
+  )?.[0];
 
   const { colorMode } = useColorMode();
 

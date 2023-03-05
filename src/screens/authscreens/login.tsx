@@ -18,7 +18,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
   const [isSecure, setIsSecure] = useState(true);
 
-  const [loginMutation, { isLoading }] = useLoginMutation({fixedCacheKey: 'logindata'});
+  const [loginMutation, { isLoading }] = useLoginMutation();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);

@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ColorMode, extendTheme, StorageManager } from "native-base";
 import { ColorSchemeType } from "native-base/lib/typescript/components/types";
 
-export const lightgradient = ["teal.200", 'orange.100', "pink.200"];
+export const lightgradient = ["teal.200", "orange.100", "pink.200"];
 
 export const darkgradient = ["cyan.800", "blueGray.500"];
 

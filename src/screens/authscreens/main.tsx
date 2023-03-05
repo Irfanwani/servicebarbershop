@@ -3,6 +3,7 @@ import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import { ThemeToggler } from "../../components/generalcomponents/themeToggler";
+import { authDetails, UserType } from "../../store/slice";
 import { useLogout } from "../../utils/customhooks";
 import ForgotPassword from "./forgotpassword";
 import LandingPage from "./landingpage";
@@ -14,9 +15,7 @@ import VerifyEmail from "./verifyemail";
 const Stack = createNativeStackNavigator<RootAuthStackProps>();
 
 const AuthMain: FC = () => {
-  const { data } = useSelector((state: any) => ({
-    data: state.authApiSlice?.mutations?.logindata?.data,
-  }));
+  const data = useSelector<any, UserType[]>(authDetails)?.[0];
 
   const [logout, isLoading] = useLogout();
   return (
@@ -24,7 +23,7 @@ const AuthMain: FC = () => {
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
       initialRouteName={!data ? "landingpage" : "verifyemail"}
     >
-      {!data ? (
+      {!data?.user ? (
         <>
           <Stack.Screen name="landingpage" component={LandingPage} />
           <Stack.Screen name="login" component={Login} />
