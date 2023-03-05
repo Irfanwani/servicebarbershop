@@ -20,7 +20,7 @@ import styles from "./styles";
 import { SettingsProps } from "./types";
 
 const Settings: FC<SettingsProps> = ({ navigation }) => {
-  const { user, details } = useSelector<any, UserType[]>(authDetails)?.[0];
+  const data = useSelector<any, UserType[]>(authDetails)?.[0];
 
   const [loading, setLoading] = useState(false);
 
@@ -51,13 +51,13 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
         <Avatar
           onTouchEnd={gotoprofile}
           size="xl"
-          source={{ uri: details?.image }}
+          source={{ uri: data?.details?.image }}
         />
         <VStack flexShrink={1}>
           <Text fontSize={12} flexShrink={1}>
-            {details?.location}
+            {data?.details?.location}
           </Text>
-          <Heading size="2xl">{user?.username}</Heading>
+          <Heading size="2xl">{data?.user?.username}</Heading>
         </VStack>
         <VStack style={styles.logout}>
           <LogoutButton onPress={logout} isLoading={isLoading} />
@@ -109,7 +109,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
             bg="red.600"
             CustomComponent={() => (
               <DeleteComponent
-                id={user?.id}
+                id={data?.user?.id}
                 loading={loading}
                 setLoading={setLoading}
               />
