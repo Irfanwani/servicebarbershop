@@ -21,9 +21,11 @@ export const RoundButton: FC<LogoutProps & RoundButtonProps> = ({
   />
 );
 
-// have an alertDialog to show for conirmation
-
-export const LogoutButton: FC<LogoutProps> = ({ onPress, isLoading }) => {
+export const LogoutButton: FC<LogoutProps> = ({
+  onPress,
+  isLoading,
+  logoutall = false,
+}) => {
   let [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => {
@@ -43,7 +45,7 @@ export const LogoutButton: FC<LogoutProps> = ({ onPress, isLoading }) => {
     <>
       <RoundButton
         onPress={openDialog}
-        isLoading={false}
+        isLoading={isLoading}
         colorScheme="rose"
         icon="exit-outline"
       />
@@ -53,7 +55,9 @@ export const LogoutButton: FC<LogoutProps> = ({ onPress, isLoading }) => {
         onClose={onClose}
         onPress={confirm}
         header="Are you sure?"
-        message="Are you sure to Logout?"
+        message={`Are you sure to Logout${
+          logoutall ? " from all devices (If you have logged in on multiple devices, it will log you out from all of them)" : ""
+        }?`}
         cancelText="Cancel"
         confirmText="Logout"
         confirmColor="danger"

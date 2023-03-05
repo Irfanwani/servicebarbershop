@@ -11,6 +11,8 @@ const SettingItem: FC<SettingItemType> = ({
   onPress,
   bg,
   value,
+  isSwitch = true,
+  CustomComponent,
 }) => {
   const [val, setVal] = useState(value);
 
@@ -39,15 +41,19 @@ const SettingItem: FC<SettingItemType> = ({
         </Heading>
       </HStack>
 
-      <HStack space="2" alignItems="center">
-        <Text>{val ? "On" : "Off"}</Text>
-        <Switch
-          value={val}
-          onToggle={onToggle}
-          onTrackColor={bgLightCard}
-          offTrackColor="blueGray.400"
-        />
-      </HStack>
+      {isSwitch ? (
+        <HStack space="2" alignItems="center">
+          <Text>{val ? "On" : "Off"}</Text>
+          <Switch
+            value={val}
+            onToggle={onToggle}
+            onTrackColor={bgLightCard}
+            offTrackColor="blueGray.400"
+          />
+        </HStack>
+      ) : (
+        <CustomComponent />
+      )}
     </HStack>
   );
 };

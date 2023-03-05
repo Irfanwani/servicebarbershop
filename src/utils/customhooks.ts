@@ -4,6 +4,7 @@ import { Keyboard } from "react-native";
 import { useDispatch } from "react-redux";
 import { showToast } from "../components/generalcomponents/alerts";
 import authApiSlice, {
+  useLogoutallMutation,
   useLogoutMutation,
 } from "../store/apislices/authapislices";
 import { errorHandler } from "./errorhandler";
@@ -35,16 +36,22 @@ export const useKeyboardVisible = () => {
 };
 
 interface LogoutProps {
-  (): [() => Promise<void>, boolean];
+  (): [(logoutall?: boolean) => Promise<void>, boolean];
 }
 
 export const useLogout: LogoutProps = () => {
   const [lg, { isLoading }] = useLogoutMutation();
 
+  const [lgall, { isLoading: lgAllLoading }] = useLogoutallMutation();
+
   const dispatch = useDispatch();
-  const logout = async () => {
+  const logout = async (logoutall = false) => {
     try {
-      await lg(null).unwrap();
+      if (logoutall) {
+        await lgall(null).unwrap();
+      } else {
+        await lg(null).unwrap();
+      }
       await deleteItemAsync("token");
       dispatch(authApiSlice.util.resetApiState());
       showToast("info", "Logged out successfully");
@@ -53,5 +60,5 @@ export const useLogout: LogoutProps = () => {
     }
   };
 
-  return [logout, isLoading];
+  return [logout, isLoading ? isLoading : lgAllLoading];
 };

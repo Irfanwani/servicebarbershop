@@ -30,8 +30,12 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [logout, isLoading] = useLogout();
 
+  const logoutall = () => {
+    logout(true);
+  };
+
   return (
-    <VStack>
+    <VStack flex="1">
       <HStack
         background={{
           linearGradient: {
@@ -75,7 +79,25 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
           onPress={toggleColorMode}
           bg="black"
         />
+
+        <SettingItem
+          icon="logout"
+          title="Logout All"
+          isSwitch={false}
+          bg="red.500"
+          CustomComponent={() => (
+            <LogoutButton
+              onPress={logoutall}
+              isLoading={isLoading}
+              logoutall={true}
+            />
+          )}
+        />
       </VStack>
+
+      <Text textAlign="center" mt="auto">
+        Version 1.0.0
+      </Text>
     </VStack>
   );
 };

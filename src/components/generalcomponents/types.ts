@@ -2,6 +2,7 @@ import {
   ColorSchemeType,
   ColorType,
 } from "native-base/lib/typescript/components/types";
+import { ReactElement, ReactNode } from "react";
 
 export type ErrorProps = {
   error: string;
@@ -15,6 +16,7 @@ export type CustomAlertProps = {
 export type LogoutProps = {
   onPress: () => Promise<void> | void;
   isLoading: boolean;
+  logoutall?: boolean;
 };
 export type RoundButtonProps = {
   icon: string;
@@ -35,7 +37,9 @@ export type CustomAlertDialogProps = {
 export type SettingItemType = {
   icon: string;
   title: string;
-  onPress: (val?: boolean) => void | Promise<void>;
+  onPress?: (val?: boolean) => void | Promise<void>;
   bg: ColorType;
-  value: boolean;
+  value?: boolean;
+  isSwitch?: boolean;
+  CustomComponent?: () => ReactElement;
 };
