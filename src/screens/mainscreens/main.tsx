@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Icon, useColorMode } from "native-base";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useWindowDimensions } from "react-native";
 import CustomDrawer from "../../components/customdrawer/customdrawer";
 import Appointments from "./appointments";
@@ -70,4 +70,4 @@ const MainApp: FC = () => {
   );
 };
 
-export default MainApp;
+export default memo(MainApp);

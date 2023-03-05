@@ -1,5 +1,5 @@
 import { FlatList } from "native-base";
-import { FC, useEffect } from "react";
+import { FC, memo, useEffect } from "react";
 import {
   Empty,
   ListHeader,
@@ -36,4 +36,4 @@ const Appointments: FC = () => {
   );
 };
 
-export default Appointments;
+export default memo(Appointments);

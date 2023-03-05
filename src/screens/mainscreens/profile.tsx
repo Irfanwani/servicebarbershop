@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 
 const Profile: FC = () => {
   return <></>;
 };
 
-export default Profile;
+export default memo(Profile);

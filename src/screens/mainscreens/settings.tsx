@@ -7,7 +7,7 @@ import {
   useTheme,
   VStack,
 } from "native-base";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import SettingItem from "../../components/generalcomponents/settingsitem";
@@ -80,4 +80,4 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
   );
 };
 
-export default Settings;
+export default memo(Settings);

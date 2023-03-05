@@ -35,7 +35,7 @@ export type CustomAlertDialogProps = {
 export type SettingItemType = {
   icon: string;
   title: string;
-  onPress: (val: boolean) => void | Promise<void>;
+  onPress: (val?: boolean) => void | Promise<void>;
   bg: ColorType;
   value: boolean;
 };

@@ -1,5 +1,5 @@
 import { Heading, HStack, Icon, Switch, Text, View } from "native-base";
-import { FC } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { SettingItemType } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { bgLightCard } from "../../theme";
@@ -12,6 +12,17 @@ const SettingItem: FC<SettingItemType> = ({
   bg,
   value,
 }) => {
+  const [val, setVal] = useState(value);
+
+  useEffect(() => {
+    setVal(value);
+  }, [value]);
+
+  const onToggle = (v: boolean) => {
+    setVal(v);
+    onPress();
+  };
+
   return (
     <HStack style={styles.settingitem}>
       <HStack space="3">
@@ -29,10 +40,10 @@ const SettingItem: FC<SettingItemType> = ({
       </HStack>
 
       <HStack space="2" alignItems="center">
-        <Text>{value ? "On" : "Off"}</Text>
+        <Text>{val ? "On" : "Off"}</Text>
         <Switch
-          value={value}
-          onToggle={onPress}
+          value={val}
+          onToggle={onToggle}
           onTrackColor={bgLightCard}
           offTrackColor="blueGray.400"
         />
@@ -41,4 +52,4 @@ const SettingItem: FC<SettingItemType> = ({
   );
 };
 
-export default SettingItem;
+export default memo(SettingItem);
