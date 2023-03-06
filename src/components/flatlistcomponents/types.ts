@@ -30,5 +30,5 @@ export type AppointmentType = {
 };
 
 export type AppFooterProps = {
-  isLoading: boolean;
+  endReached: boolean;
 };

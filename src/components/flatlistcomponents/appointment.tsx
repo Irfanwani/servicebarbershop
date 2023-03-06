@@ -104,11 +104,12 @@ export const Empty: FC = () => {
   );
 };
 
-export const Footer: FC<AppFooterProps> = ({ isLoading }) => {
-  if (isLoading) return <Spinner pb="4" />;
-  return (
-    <Heading textAlign="center" pb="4" size="xs">
-      End Reached!
-    </Heading>
-  );
+export const Footer: FC<AppFooterProps> = ({ endReached }) => {
+  if (endReached)
+    return (
+      <Heading textAlign="center" pb="4" size="xs">
+        End Reached!
+      </Heading>
+    );
+  return <Spinner pb="4" />;
 };
