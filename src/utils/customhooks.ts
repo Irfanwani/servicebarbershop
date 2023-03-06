@@ -1,12 +1,18 @@
 import { deleteItemAsync } from "expo-secure-store";
 import { useState, useEffect } from "react";
 import { Keyboard } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../components/generalcomponents/alerts";
 import authApiSlice, {
   useLogoutallMutation,
   useLogoutMutation,
 } from "../store/apislices/authapislices";
+import {
+  authAdapter,
+  authDetails,
+  logoutaction,
+  UserType,
+} from "../store/slice";
 import { errorHandler } from "./errorhandler";
 
 export const useKeyboardVisible = () => {
@@ -52,8 +58,10 @@ export const useLogout: LogoutProps = () => {
       } else {
         await lg(null).unwrap();
       }
+      dispatch(logoutaction());
       await deleteItemAsync("token");
       dispatch(authApiSlice.util.resetApiState());
+
       showToast("info", "Logged out successfully");
     } catch (err) {
       errorHandler(err);

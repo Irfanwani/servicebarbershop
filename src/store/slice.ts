@@ -27,7 +27,11 @@ export const authAdapter = createEntityAdapter({
 const AuthSlice = createSlice({
   name: "authSlice",
   initialState: authAdapter.getInitialState(),
-  reducers: {},
+  reducers: {
+    logoutaction: (state) => {
+      authAdapter.removeAll(state);
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       authApiSlice.endpoints.login.matchFulfilled,
@@ -41,5 +45,7 @@ const AuthSlice = createSlice({
 export const { selectAll: authDetails } = authAdapter.getSelectors(
   (state: any) => state.authSlice
 );
+
+export const { logoutaction } = AuthSlice.actions;
 
 export const { reducer: authReducer } = AuthSlice;
