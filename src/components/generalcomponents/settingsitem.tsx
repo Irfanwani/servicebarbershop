@@ -11,6 +11,7 @@ import { errorHandler } from "../../utils/errorhandler";
 import { useDispatch } from "react-redux";
 import { CustomAlertDialog, showToast } from "./alerts";
 import { deleteItemAsync } from "expo-secure-store";
+import { logoutaction } from "../../store/slice";
 
 const SettingItem: FC<SettingItemType> = ({
   icon,
@@ -91,6 +92,7 @@ export const DeleteComponent: FC<DeleteProps> = ({
       onClose();
       setLoading(true);
       await deleteAccount(id).unwrap();
+      dispatch(logoutaction());
       await deleteItemAsync("token");
       dispatch(authApiSlice.util.resetApiState());
       showToast("info", "Account Deleted successfully. Hope to see you again!");

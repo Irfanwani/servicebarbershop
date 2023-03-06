@@ -26,17 +26,19 @@ export const authAdapter = createEntityAdapter({
   selectId: () => 0,
 });
 
+let initialState = {
+  entities: {
+    0: {},
+  },
+  ids: [0],
+};
+
 const AuthSlice = createSlice({
   name: "authSlice",
-  initialState: authAdapter.getInitialState({
-    entities: {
-      0: {},
-    },
-    ids: [0],
-  }),
+  initialState: authAdapter.getInitialState(initialState),
   reducers: {
     logoutaction: (state) => {
-      authAdapter.removeAll(state);
+      authAdapter.setAll(state, [initialState]);
     },
   },
   extraReducers: (builder) => {
