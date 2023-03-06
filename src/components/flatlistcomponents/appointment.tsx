@@ -1,19 +1,19 @@
 import {
   Box,
-  Button,
   Divider,
   Heading,
   HStack,
   Icon,
   IconButton,
   Input,
+  Spinner,
   Text,
   useColorMode,
   VStack,
 } from "native-base";
 import { FC } from "react";
 import { darkgradient, lightgradient } from "../../theme";
-import { AppointmentType } from "./types";
+import { AppFooterProps, AppointmentType } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { CustomSvg } from "../svgs/svg";
@@ -98,8 +98,17 @@ export const ListHeader: FC = () => {
 
 export const Empty: FC = () => {
   return (
-    <VStack pt='70'> 
+    <VStack pt="70">
       <CustomSvg xml={notfound} />
     </VStack>
+  );
+};
+
+export const Footer: FC<AppFooterProps> = ({ isLoading }) => {
+  if (isLoading) return <Spinner pb="4" />;
+  return (
+    <Heading textAlign="center" pb="4" size="xs">
+      End Reached!
+    </Heading>
   );
 };

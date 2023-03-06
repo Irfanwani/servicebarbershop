@@ -2,6 +2,7 @@ import { FlatList } from "native-base";
 import { FC, memo, useEffect, useRef } from "react";
 import {
   Empty,
+  Footer,
   ListHeader,
   renderItem,
 } from "../../components/flatlistcomponents/appointment";
@@ -39,6 +40,7 @@ const Appointments: FC = () => {
       ListEmptyComponent={isFetching ? <Loader /> : <Empty />}
       stickyHeaderIndices={[0]}
       stickyHeaderHiddenOnScroll
+      ListFooterComponent={<Footer isLoading={isFetching} />}
     />
   );
 };

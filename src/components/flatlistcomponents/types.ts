@@ -28,3 +28,7 @@ export type AppointmentItemType = {
 export type AppointmentType = {
   item: AppointmentItemType;
 };
+
+export type AppFooterProps = {
+  isLoading: boolean;
+};
