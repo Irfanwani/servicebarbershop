@@ -7,6 +7,14 @@ const { BASE_URL, BASE_URL_PROD } = Constants.expoConfig.extra;
 const baseUrl =
   process.env.NODE_ENV == "development" ? BASE_URL : BASE_URL_PROD;
 
+const transformResponse = async (baseQueryReturnValue: any) => {
+  let res = { ...baseQueryReturnValue };
+  res.token = null;
+  res.id = res.user?.id;
+  await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
+  return res;
+};
+
 const authApiSlice = createApi({
   reducerPath: "authApiSlice",
   baseQuery: fetchBaseQuery({
@@ -27,12 +35,7 @@ const authApiSlice = createApi({
         method: "POST",
         body,
       }),
-      async transformResponse(baseQueryReturnValue: any) {
-        let res = { ...baseQueryReturnValue };
-        res.token = null;
-        await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
-        return res;
-      },
+      transformResponse,
     }),
     register: builder.mutation({
       query: (body) => ({
@@ -40,12 +43,7 @@ const authApiSlice = createApi({
         method: "POST",
         body,
       }),
-      async transformResponse(baseQueryReturnValue: any, meta, arg) {
-        let res = { ...baseQueryReturnValue };
-        res.token = null;
-        await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
-        return res;
-      },
+      transformResponse,
     }),
     getresetcode: builder.mutation({
       query: (body) => ({
@@ -60,12 +58,7 @@ const authApiSlice = createApi({
         method: "PUT",
         body,
       }),
-      async transformResponse(baseQueryReturnValue: any, meta, arg) {
-        let res = { ...baseQueryReturnValue };
-        res.token = null;
-        await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
-        return res;
-      },
+      transformResponse,
     }),
     getsignupcode: builder.query({
       query: () => "/api/accounts/verifyemail",

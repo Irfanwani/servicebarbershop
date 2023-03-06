@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import { authDetails, UserType } from "../../store/slice";
 
 const BankDetails: FC = () => {
-  const data = useSelector<any, UserType[]>(authDetails)?.[0];
+  const { user } = useSelector<any, UserType>(authDetails);
 
   const [business_name, setBusinessName] = useState("");
   const [business_type, setBusinessType] = useState("");
@@ -54,7 +54,7 @@ const BankDetails: FC = () => {
     try {
       let body = {
         name: account_name,
-        email: data?.user?.email,
+        email: user?.email,
         tnc_accepted: agreed,
         account_details: {
           business_name,

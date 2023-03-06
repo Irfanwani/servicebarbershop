@@ -1,6 +1,6 @@
 import authApiSlice from "./authapislices";
 
-const detailsApiSlice = authApiSlice.injectEndpoints({
+export const detailsApiSlice = authApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addgeneraldetails: builder.mutation({
       query: (body) => ({

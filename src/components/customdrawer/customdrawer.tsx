@@ -21,7 +21,7 @@ import { ThemeToggler } from "../generalcomponents/themeToggler";
 import styles from "../styles";
 
 const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
-  const data = useSelector<any, UserType[]>(authDetails)?.[0];
+  const { user, details } = useSelector<any, UserType>(authDetails);
 
   const [logout, isLoading] = useLogout();
 
@@ -34,10 +34,10 @@ const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
       <View flex="1">
         <HStack alignItems="flex-start" justifyContent="space-between" p="2">
           <VStack onTouchEnd={gotoprofile}>
-            <Avatar size="xl" source={{ uri: data?.details?.image }} />
+            <Avatar size="xl" source={{ uri: details?.image }} />
             <VStack mt="5" ml="2">
-              <Heading size="sm">{data?.user?.username}</Heading>
-              <Text fontSize="xs">{data?.details?.contact}</Text>
+              <Heading size="sm">{user?.username}</Heading>
+              <Text fontSize="xs">{details?.contact}</Text>
             </VStack>
           </VStack>
           <ThemeToggler />

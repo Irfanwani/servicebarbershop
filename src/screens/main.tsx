@@ -11,7 +11,7 @@ import Loader from "../components/generalcomponents/loader";
 import { authDetails, UserType } from "../store/slice";
 
 const Main: FC = () => {
-  const data = useSelector<any, UserType[]>(authDetails)?.[0];
+  const { verified, services_added } = useSelector<any, UserType>(authDetails);
 
   const { colorMode } = useColorMode();
 
@@ -26,15 +26,7 @@ const Main: FC = () => {
     <NavigationContainer
       theme={colorMode == "dark" ? MyDarkTheme : MyLightTheme}
     >
-      {data?.verified ? (
-        data?.services_added ? (
-          <MainApp />
-        ) : (
-          <DetailsMain />
-        )
-      ) : (
-        <AuthMain />
-      )}
+      {verified ? services_added ? <MainApp /> : <DetailsMain /> : <AuthMain />}
     </NavigationContainer>
   );
 };

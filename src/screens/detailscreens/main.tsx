@@ -13,7 +13,7 @@ import { RootDetailsParmasList } from "./types";
 const Stack = createNativeStackNavigator<RootDetailsParmasList>();
 
 const DetailsMain: FC = () => {
-  const data = useSelector<any, UserType[]>(authDetails)?.[0];
+  const { details, account_added } = useSelector<any, UserType>(authDetails);
 
   const [logout, isLoading] = useLogout();
 
@@ -30,9 +30,9 @@ const DetailsMain: FC = () => {
         animation: "slide_from_right",
       }}
     >
-      {!data?.details ? (
+      {!details ? (
         <Stack.Screen name="generaldetails" component={GeneralDetails} />
-      ) : !data?.account_added ? (
+      ) : !account_added ? (
         <Stack.Screen name="bankdetails" component={BankDetails} />
       ) : (
         <Stack.Screen name="servicedetails" component={ServiceDetails} />

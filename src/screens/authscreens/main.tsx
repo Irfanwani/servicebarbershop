@@ -15,15 +15,15 @@ import VerifyEmail from "./verifyemail";
 const Stack = createNativeStackNavigator<RootAuthStackProps>();
 
 const AuthMain: FC = () => {
-  const data = useSelector<any, UserType[]>(authDetails)?.[0];
+  const { user } = useSelector<any, UserType>(authDetails);
 
   const [logout, isLoading] = useLogout();
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
-      initialRouteName={!data ? "landingpage" : "verifyemail"}
+      initialRouteName={!user ? "landingpage" : "verifyemail"}
     >
-      {!data?.user ? (
+      {!user ? (
         <>
           <Stack.Screen name="landingpage" component={LandingPage} />
           <Stack.Screen name="login" component={Login} />
