@@ -1,5 +1,6 @@
 import { FlatList } from "native-base";
 import { FC, memo, useEffect, useRef, useState } from "react";
+import { RefreshControl } from "react-native";
 import {
   Empty,
   Footer,
@@ -7,12 +8,14 @@ import {
   renderItem,
 } from "../../components/flatlistcomponents/appointment";
 import { useGetappointmentsQuery } from "../../store/apislices/mainapislices";
+import { refreshcolors } from "../../theme";
 import { errorHandler } from "../../utils/errorhandler";
 
 const Appointments: FC = () => {
   const [page_no, setPageNo] = useState(1);
   const [scroll, setScroll] = useState(false);
   const [endReached, setEndReached] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     data: appointments,
@@ -21,6 +24,15 @@ const Appointments: FC = () => {
     isFetching,
     isError,
   } = useGetappointmentsQuery(page_no, { refetchOnMountOrArgChange: true });
+
+  const refetchData = () => {
+    setLoading(true);
+    refetch();
+  };
+
+  useEffect(() => {
+    if (!isFetching) setLoading(false);
+  }, [isFetching]);
 
   const firstRender = useRef(true);
 
@@ -56,13 +68,20 @@ const Appointments: FC = () => {
       showsVerticalScrollIndicator={false}
       data={appointments}
       renderItem={renderItem}
-      refreshing={isFetching}
-      onRefresh={refetch}
+      refreshControl={
+        <RefreshControl
+          colors={refreshcolors}
+          refreshing={loading}
+          onRefresh={refetchData}
+        />
+      }
       ListHeaderComponent={<ListHeader />}
       ListEmptyComponent={isFetching ? null : <Empty />}
       stickyHeaderIndices={[0]}
       stickyHeaderHiddenOnScroll
-      ListFooterComponent={<Footer endReached={endReached} />}
+      ListFooterComponent={
+        <Footer isFetching={isFetching} endReached={endReached} />
+      }
       onEndReached={changePage}
     />
   );

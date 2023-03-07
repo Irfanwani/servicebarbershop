@@ -104,12 +104,11 @@ export const Empty: FC = () => {
   );
 };
 
-export const Footer: FC<AppFooterProps> = ({ endReached }) => {
-  if (endReached)
-    return (
-      <Heading textAlign="center" pb="4" size="xs">
-        End Reached!
-      </Heading>
-    );
-  return <Spinner pb="4" />;
+export const Footer: FC<AppFooterProps> = ({ endReached, isFetching }) => {
+  if (isFetching) return <Spinner pb="4" />;
+  return (
+    <Heading textAlign="center" pb="4" size="xs">
+      {endReached ? "End Reached!" : ""}
+    </Heading>
+  );
 };

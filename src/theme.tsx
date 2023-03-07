@@ -8,6 +8,14 @@ export const lightgradient = ["teal.200", "orange.100", "pink.200"];
 
 export const darkgradient = ["cyan.800", "blueGray.500"];
 
+export const refreshcolors = [
+  "#F87171",
+  "#60A5FA",
+  "#FBBF24",
+  "#10B981",
+  "#C084FC",
+];
+
 export const bgDark = "#27272f";
 export const bgLight = "white";
 

@@ -31,4 +31,5 @@ export type AppointmentType = {
 
 export type AppFooterProps = {
   endReached: boolean;
+  isFetching: boolean;
 };
