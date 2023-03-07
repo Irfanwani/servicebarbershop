@@ -105,7 +105,7 @@ export const Empty: FC = () => {
 };
 
 export const Footer: FC<AppFooterProps> = ({ endReached, isFetching }) => {
-  if (isFetching) return <Spinner pb="4" />;
+  if (isFetching) return <Spinner pb="4" size="lg" />;
   return (
     <Heading textAlign="center" pb="4" size="xs">
       {endReached ? "End Reached!" : ""}

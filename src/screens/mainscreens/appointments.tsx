@@ -20,14 +20,16 @@ const Appointments: FC = () => {
   const {
     data: appointments,
     error,
-    refetch,
     isFetching,
+    refetch,
     isError,
   } = useGetappointmentsQuery(page_no, { refetchOnMountOrArgChange: true });
 
   const refetchData = () => {
     setLoading(true);
-    refetch();
+    if (page_no == 1) refetch();
+    else setPageNo(1);
+    setEndReached(false);
   };
 
   useEffect(() => {
