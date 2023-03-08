@@ -118,8 +118,9 @@ export const CustomSkeleton: FC = () => {
   const { colorMode } = useColorMode();
   return (
     <>
-      {[1, 2, 3].map(() => (
+      {[1, 2, 3].map((item) => (
         <Box
+          key={item}
           background={{
             linearGradient: {
               colors: colorMode == "light" ? lightgradient : darkgradient,

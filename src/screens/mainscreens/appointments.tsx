@@ -22,11 +22,13 @@ const Appointments: FC = () => {
     data: appointments,
     error,
     isFetching,
+    isLoading,
     refetch,
     isError,
   } = useGetappointmentsQuery(page_no, { refetchOnMountOrArgChange: true });
 
   const refetchData = () => {
+    if (isFetching || isLoading) return;
     setLoading(true);
     if (page_no == 1) refetch();
     else setPageNo(1);
@@ -40,7 +42,7 @@ const Appointments: FC = () => {
   const firstRender = useRef(true);
 
   const changePage = () => {
-    if (loading) return;
+    if (isFetching || isLoading) return;
     if (scroll && !endReached) {
       setScroll(false);
       setPageNo((prev) => prev + 1);
