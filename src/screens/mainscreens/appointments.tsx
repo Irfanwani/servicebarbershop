@@ -2,6 +2,7 @@ import { FlatList } from "native-base";
 import { FC, memo, useEffect, useRef, useState } from "react";
 import { RefreshControl } from "react-native";
 import {
+  CustomSkeleton,
   Empty,
   Footer,
   ListHeader,
@@ -39,6 +40,7 @@ const Appointments: FC = () => {
   const firstRender = useRef(true);
 
   const changePage = () => {
+    if (loading) return;
     if (scroll && !endReached) {
       setScroll(false);
       setPageNo((prev) => prev + 1);
@@ -78,11 +80,11 @@ const Appointments: FC = () => {
         />
       }
       ListHeaderComponent={<ListHeader />}
-      ListEmptyComponent={isFetching ? null : <Empty />}
+      ListEmptyComponent={isFetching ? <CustomSkeleton /> : <Empty />}
       stickyHeaderIndices={[0]}
       stickyHeaderHiddenOnScroll
       ListFooterComponent={
-        <Footer isFetching={isFetching} endReached={endReached} />
+        <Footer isFetching={isFetching && !loading} endReached={endReached} />
       }
       onEndReached={changePage}
     />

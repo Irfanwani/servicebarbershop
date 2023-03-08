@@ -72,6 +72,12 @@ export const theme = extendTheme({
         size,
       },
     },
+    Skeleton: {
+      baseStyle: {
+        _light: { backgroundColor: "blueGray.400" },
+        _dark: { backgroundColor: "blueGray.300" },
+      },
+    },
   },
 });
 

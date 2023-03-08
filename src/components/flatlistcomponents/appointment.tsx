@@ -6,6 +6,7 @@ import {
   Icon,
   IconButton,
   Input,
+  Skeleton,
   Spinner,
   Text,
   useColorMode,
@@ -110,5 +111,35 @@ export const Footer: FC<AppFooterProps> = ({ endReached, isFetching }) => {
     <Heading textAlign="center" pb="4" size="xs">
       {endReached ? "End Reached!" : ""}
     </Heading>
+  );
+};
+
+export const CustomSkeleton: FC = () => {
+  const { colorMode } = useColorMode();
+  return (
+    <>
+      {[1, 2, 3].map(() => (
+        <Box
+          background={{
+            linearGradient: {
+              colors: colorMode == "light" ? lightgradient : darkgradient,
+              start: [0, 0],
+              end: [1, 1],
+            },
+          }}
+          borderRadius="2xl"
+          my="4"
+          p="3"
+          mx="2"
+        >
+          <HStack justifyContent="space-between" p="3" alignItems={"center"}>
+            <Skeleton h="4" w="100" />
+            <Skeleton h="10" w="10" />
+          </HStack>
+          <Skeleton.Text lines={4} px="3" />
+          <Skeleton rounded="md" my="5" />
+        </Box>
+      ))}
+    </>
   );
 };
