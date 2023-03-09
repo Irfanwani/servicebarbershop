@@ -3,20 +3,15 @@ import {
   Divider,
   Heading,
   HStack,
-  Icon,
-  IconButton,
-  Input,
   Skeleton,
   Spinner,
   Text,
   useColorMode,
   VStack,
 } from "native-base";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { darkgradient, lightgradient } from "../../theme";
-import { AppFooterProps, AppHeaderProps, AppointmentType } from "./types";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "@react-navigation/native";
+import { AppFooterProps, AppointmentType } from "./types";
 import { CustomSvg } from "../svgs/svg";
 import { notfound } from "../../assets/notfound";
 
@@ -65,46 +60,6 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
         Booking ID: #{item.bookingID}
       </Heading>
     </Box>
-  );
-};
-
-export const ListHeader: FC<AppHeaderProps> = ({ setSearch, loading }) => {
-  const theme = useTheme();
-
-  const [value, setValue] = useState("");
-
-  const search = () => {
-    setSearch(value);
-  };
-
-  return (
-    <HStack
-      pb="10"
-      pt="5"
-      px="2"
-      bg={theme.colors.card}
-      justifyContent="space-between"
-      borderBottomLeftRadius="30"
-    >
-      <Input
-        value={value}
-        onChangeText={setValue}
-        onEndEditing={search}
-        placeholder="Search appointment..."
-        placeholderTextColor={theme.colors.text}
-        flex="0.9"
-        variant="rounded"
-        leftElement={<Icon as={MaterialIcons} name="search" size={25} m="2" />}
-        rightElement={loading ? <Spinner mr="2" /> : null}
-      />
-      <IconButton
-        size="10"
-        title="Filters"
-        icon={<Icon as={MaterialIcons} name="filter-list" m="2" />}
-        variant="solid"
-        rounded="full"
-      />
-    </HStack>
   );
 };
 

@@ -5,9 +5,9 @@ import {
   CustomSkeleton,
   Empty,
   Footer,
-  ListHeader,
   renderItem,
 } from "../../components/flatlistcomponents/appointment";
+import { ListHeader } from "../../components/flatlistcomponents/appointmentheader";
 import { useGetappointmentsQuery } from "../../store/apislices/mainapislices";
 import { refreshcolors } from "../../theme";
 import { errorHandler } from "../../utils/errorhandler";
