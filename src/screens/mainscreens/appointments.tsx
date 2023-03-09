@@ -14,9 +14,13 @@ import { errorHandler } from "../../utils/errorhandler";
 
 const Appointments: FC = () => {
   const [page_no, setPageNo] = useState(1);
+
   const [scroll, setScroll] = useState(false);
   const [endReached, setEndReached] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [searching, setSearching] = useState(false);
+
+  const [search, setSearch] = useState("");
 
   const {
     data: appointments,
@@ -25,10 +29,22 @@ const Appointments: FC = () => {
     isLoading,
     refetch,
     isError,
-  } = useGetappointmentsQuery(page_no, { refetchOnMountOrArgChange: true });
+  } = useGetappointmentsQuery(
+    { page_no, search },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  const changeSearch = (val: string) => {
+    if (isFetching || isLoading) return;
+    setScroll(false);
+    setSearching(true);
+    setPageNo(1);
+    setSearch(val);
+  };
 
   const refetchData = () => {
     if (isFetching || isLoading) return;
+    setSearching(false);
     setLoading(true);
     if (page_no == 1) refetch();
     else setPageNo(1);
@@ -36,7 +52,10 @@ const Appointments: FC = () => {
   };
 
   useEffect(() => {
-    if (!isFetching) setLoading(false);
+    if (!isFetching) {
+      setSearching(false);
+      setLoading(false);
+    }
   }, [isFetching]);
 
   const firstRender = useRef(true);
@@ -81,12 +100,20 @@ const Appointments: FC = () => {
           onRefresh={refetchData}
         />
       }
-      ListHeaderComponent={<ListHeader />}
+      ListHeaderComponent={
+        <ListHeader
+          setSearch={changeSearch}
+          loading={isFetching && searching}
+        />
+      }
       ListEmptyComponent={isFetching ? <CustomSkeleton /> : <Empty />}
       stickyHeaderIndices={[0]}
       stickyHeaderHiddenOnScroll
       ListFooterComponent={
-        <Footer isFetching={isFetching && !loading} endReached={endReached} />
+        <Footer
+          isFetching={isFetching && !loading && !searching}
+          endReached={endReached}
+        />
       }
       onEndReached={changePage}
     />

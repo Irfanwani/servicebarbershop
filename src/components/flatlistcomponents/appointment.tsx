@@ -12,9 +12,9 @@ import {
   useColorMode,
   VStack,
 } from "native-base";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { darkgradient, lightgradient } from "../../theme";
-import { AppFooterProps, AppointmentType } from "./types";
+import { AppFooterProps, AppHeaderProps, AppointmentType } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { CustomSvg } from "../svgs/svg";
@@ -68,8 +68,15 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
   );
 };
 
-export const ListHeader: FC = () => {
+export const ListHeader: FC<AppHeaderProps> = ({ setSearch, loading }) => {
   const theme = useTheme();
+
+  const [value, setValue] = useState("");
+
+  const search = () => {
+    setSearch(value);
+  };
+
   return (
     <HStack
       pb="10"
@@ -80,11 +87,15 @@ export const ListHeader: FC = () => {
       borderBottomLeftRadius="30"
     >
       <Input
+        value={value}
+        onChangeText={setValue}
+        onEndEditing={search}
         placeholder="Search appointment..."
         placeholderTextColor={theme.colors.text}
         flex="0.9"
         variant="rounded"
         leftElement={<Icon as={MaterialIcons} name="search" size={25} m="2" />}
+        rightElement={loading ? <Spinner mr="2" /> : null}
       />
       <IconButton
         size="10"

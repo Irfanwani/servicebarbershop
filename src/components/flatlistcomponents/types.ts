@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type serviceItemProps = {
   item: string;
   selectItem: (item: string, cost: number, selected: boolean) => void;
@@ -32,4 +34,9 @@ export type AppointmentType = {
 export type AppFooterProps = {
   endReached: boolean;
   isFetching: boolean;
+};
+
+export type AppHeaderProps = {
+  setSearch: Dispatch<SetStateAction<string>>;
+  loading: boolean;
 };
