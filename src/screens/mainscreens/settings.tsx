@@ -14,13 +14,13 @@ import SettingItem, {
   DeleteComponent,
 } from "../../components/generalcomponents/settingsitem";
 import { authDetails, UserType } from "../../store/slice";
-import { darkgradient, lightgradient } from "../../theme";
+import { lineargradient } from "../../theme";
 import { useLogout } from "../../utils/customhooks";
 import styles from "./styles";
 import { SettingsProps } from "./types";
 
 const Settings: FC<SettingsProps> = ({ navigation }) => {
-  const {details, user} = useSelector<any, UserType>(authDetails);
+  const { details, user } = useSelector<any, UserType>(authDetails);
 
   const [loading, setLoading] = useState(false);
 
@@ -38,13 +38,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
   return (
     <VStack flex="1">
       <HStack
-        background={{
-          linearGradient: {
-            colors: colorMode == "light" ? lightgradient : darkgradient,
-            start: [0, 0],
-            end: [1, 1],
-          },
-        }}
+        background={lineargradient(colorMode)}
         style={styles.gradient}
         space="10"
       >

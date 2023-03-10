@@ -3,3 +3,7 @@ export type RootDetailsParmasList = {
   bankdetails: undefined;
   servicedetails: undefined;
 };
+
+export type DetailsScreenProps = {
+  updating: boolean;
+};

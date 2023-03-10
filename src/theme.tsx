@@ -8,6 +8,14 @@ export const lightgradient = ["teal.200", "orange.100", "pink.200"];
 
 export const darkgradient = ["cyan.800", "blueGray.500"];
 
+export const lineargradient = (colorMode: "light" | "dark") => ({
+  linearGradient: {
+    colors: colorMode == "light" ? lightgradient : darkgradient,
+    start: [0, 0],
+    end: [1, 1],
+  },
+});
+
 export const refreshcolors = [
   "#F87171",
   "#60A5FA",

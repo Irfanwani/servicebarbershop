@@ -10,7 +10,7 @@ import {
   VStack,
 } from "native-base";
 import { FC } from "react";
-import { darkgradient, lightgradient } from "../../theme";
+import { lineargradient } from "../../theme";
 import { AppFooterProps, AppointmentType } from "./types";
 import { CustomSvg } from "../svgs/svg";
 import { notfound } from "../../assets/notfound";
@@ -23,13 +23,7 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
   const { colorMode } = useColorMode();
   return (
     <Box
-      background={{
-        linearGradient: {
-          colors: colorMode == "light" ? lightgradient : darkgradient,
-          start: [0, 0],
-          end: [1, 1],
-        },
-      }}
+      background={lineargradient(colorMode)}
       borderRadius="2xl"
       my="4"
       p="3"
@@ -87,13 +81,7 @@ export const CustomSkeleton: FC = () => {
       {[1, 2, 3].map((item) => (
         <Box
           key={item}
-          background={{
-            linearGradient: {
-              colors: colorMode == "light" ? lightgradient : darkgradient,
-              start: [0, 0],
-              end: [1, 1],
-            },
-          }}
+          background={lineargradient(colorMode)}
           borderRadius="2xl"
           my="4"
           p="3"

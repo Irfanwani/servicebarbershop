@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-import { Fab, Icon, Text, View } from "native-base";
+import { Fab, Heading, Icon, View } from "native-base";
 
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
@@ -50,12 +50,12 @@ const LandingPage: FC<LandingPageProps> = ({ navigation }) => {
         source={require("../../assets/barbershop.jpeg")}
       >
         <View style={styles.tagview}>
-          <Text style={styles.tagline}>
+          <Heading style={styles.tagline}>
             Manage All your appointments at one place!
-          </Text>
-          <Text style={styles.tagline}>
+          </Heading>
+          <Heading style={styles.tagline}>
             Join the Barbershop Services App to connect with new clients.
-          </Text>
+          </Heading>
 
           <Fab
             renderInPortal={isFocused}

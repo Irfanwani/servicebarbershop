@@ -15,11 +15,10 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontSize: 25,
+    color: 'white',
     textAlign: "center",
-    color: "cyan",
     width: width / 1.5,
     lineHeight: 35,
-    fontStyle: "italic",
   },
   tagview: {
     justifyContent: "space-around",
