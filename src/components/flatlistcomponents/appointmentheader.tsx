@@ -36,25 +36,38 @@ export const ListHeader: FC<AppHeaderProps> = ({ setSearch, loading }) => {
     setIsOpen(true);
   };
 
-  const search = () => {
-    setSearch(value);
-  };
-
   const clearFilters = () => {
     setDate("");
     setPaid(false);
     setToday(false);
+    setSearch(value, "");
+    closeModal();
   };
 
   const showDate = () => {
     DateTimePickerAndroid.open({
+      neutralButtonLabel: "clear",
       mode: "date",
-      value: new Date(),
+      value: date ? new Date(date) : new Date(),
       onChange: (event, date) => {
+        if (event.type == "dismissed") return;
+
+        if (event.type == "neutralButtonPressed") {
+          setDate("");
+          return;
+        }
         let dt = date.toISOString();
         setDate(dt.slice(0, dt.indexOf("T")));
       },
     });
+  };
+
+  const applyfiters = () => {
+    let pd = paid ? paid : "";
+    const currentdate = new Date().toISOString();
+    let td = today ? currentdate.slice(0, currentdate.indexOf("T")) : "";
+    setSearch(value, `${pd} ${td} ${date}`);
+    closeModal();
   };
 
   return (
@@ -69,7 +82,7 @@ export const ListHeader: FC<AppHeaderProps> = ({ setSearch, loading }) => {
       <Input
         value={value}
         onChangeText={setValue}
-        onEndEditing={search}
+        onEndEditing={applyfiters}
         placeholder="Search appointment..."
         placeholderTextColor={theme.colors.text}
         flex="0.9"
@@ -114,7 +127,7 @@ export const ListHeader: FC<AppHeaderProps> = ({ setSearch, loading }) => {
               >
                 Cancel
               </Button>
-              <Button>Apply</Button>
+              <Button onPress={applyfiters}>Apply</Button>
             </Button.Group>
           </Modal.Footer>
         </Modal.Content>

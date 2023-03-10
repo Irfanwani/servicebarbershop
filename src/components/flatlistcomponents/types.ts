@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export type serviceItemProps = {
   item: string;
   selectItem: (item: string, cost: number, selected: boolean) => void;
@@ -37,6 +35,6 @@ export type AppFooterProps = {
 };
 
 export type AppHeaderProps = {
-  setSearch: Dispatch<SetStateAction<string>>;
+  setSearch: (val: string, filters: string) => void;
   loading: boolean;
 };

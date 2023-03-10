@@ -34,12 +34,12 @@ const Appointments: FC = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-  const changeSearch = (val: string) => {
+  const changeSearch = (val: string, filters: string) => {
     if (isFetching || isLoading) return;
     setScroll(false);
     setSearching(true);
     setPageNo(1);
-    setSearch(val);
+    setSearch(`${val} ${filters}`);
   };
 
   const refetchData = () => {
