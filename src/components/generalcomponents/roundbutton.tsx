@@ -9,15 +9,16 @@ export const RoundButton: FC<LogoutProps & RoundButtonProps> = ({
   isLoading,
   icon,
   colorScheme,
+  size = "md",
+  buttonsize = 10,
 }) => (
   <Button
     isLoading={isLoading}
     onPress={onPress}
     colorScheme={colorScheme}
     rounded="full"
-    width="10"
-    h="10"
-    startIcon={<Icon as={Ionicons} name={icon} size="md" />}
+    size={buttonsize}
+    startIcon={<Icon as={Ionicons} name={icon} size={size} />}
   />
 );
 
@@ -56,7 +57,9 @@ export const LogoutButton: FC<LogoutProps> = ({
         onPress={confirm}
         header="Are you sure?"
         message={`Are you sure to Logout${
-          logoutall ? " from all devices (If you have logged in on multiple devices, it will log you out from all of them)" : ""
+          logoutall
+            ? " from all devices (If you have logged in on multiple devices, it will log you out from all of them)"
+            : ""
         }?`}
         cancelText="Cancel"
         confirmText="Logout"

@@ -1,7 +1,7 @@
-import { Actionsheet, HStack, Icon, IconButton } from "native-base";
+import { Actionsheet, HStack } from "native-base";
 import { FC } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { SheetProps } from "./types";
+import { RoundButton } from "../generalcomponents/roundbutton";
 
 export const Sheet: FC<SheetProps> = ({
   isOpen,
@@ -12,30 +12,33 @@ export const Sheet: FC<SheetProps> = ({
   icon1,
   icon2,
   icon3,
+  loading,
 }) => {
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <Actionsheet.Content>
         <HStack space={20} p={3}>
-          <IconButton
-            variant="solid"
-            icon={<Icon as={Ionicons} name={icon1} size="2xl" />}
-            rounded="full"
+          <RoundButton
+            icon={icon1}
             onPress={firstIconCallback}
+            colorScheme="teal"
+            isLoading={loading}
+            size="2xl"
+            buttonsize={16}
           />
-          <IconButton
-            variant="solid"
-            icon={<Icon as={Ionicons} name={icon2} size="2xl" />}
-            colorScheme="rose"
-            rounded="full"
+          <RoundButton
+            icon={icon2}
             onPress={secondIconCallback}
+            colorScheme="rose"
+            size="2xl"
+            buttonsize={16}
           />
-          <IconButton
-            variant="solid"
-            icon={<Icon as={Ionicons} name={icon3} size="2xl" />}
-            colorScheme="red"
-            rounded="full"
+          <RoundButton
+            icon={icon3}
             onPress={thirdIconCallback}
+            colorScheme="blueGray"
+            size="2xl"
+            buttonsize={16}
           />
         </HStack>
       </Actionsheet.Content>

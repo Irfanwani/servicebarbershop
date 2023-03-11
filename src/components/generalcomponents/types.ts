@@ -1,6 +1,7 @@
 import {
   ColorSchemeType,
   ColorType,
+  SizeType,
 } from "native-base/lib/typescript/components/types";
 import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 
@@ -15,12 +16,14 @@ export type CustomAlertProps = {
 
 export type LogoutProps = {
   onPress: () => Promise<void> | void;
-  isLoading: boolean;
+  isLoading?: boolean;
   logoutall?: boolean;
 };
 export type RoundButtonProps = {
   icon: string;
-  colorScheme: string;
+  colorScheme: ColorSchemeType;
+  size?: SizeType;
+  buttonsize?: SizeType;
 };
 
 export type CustomAlertDialogProps = {

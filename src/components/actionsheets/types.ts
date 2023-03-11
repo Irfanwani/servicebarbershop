@@ -9,6 +9,7 @@ export type SheetProps = {
   icon1: string;
   icon2: string;
   icon3: string;
+  loading?: boolean;
 };
 
 export type MapSheetProps = {

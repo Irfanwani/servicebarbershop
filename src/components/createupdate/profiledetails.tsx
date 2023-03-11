@@ -64,6 +64,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
 
   const [coords, setCoords] = useState(coordinates);
 
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     image: null,
     location: null,
@@ -78,7 +79,9 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
   const [isEditing, setEditing] = useState(false);
 
   const getCameraImage = async () => {
+    setLoading(true);
     const capturedImg = await getCameraImageAsync();
+    setLoading(false);
     if (!capturedImg) return;
     setImage(capturedImg);
     onClose();
@@ -114,12 +117,14 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
   };
 
   const getLocation = async () => {
+    setLoading(true);
     const currentLocation = await getCurrentLocation();
     setCoords(currentLocation);
     const address = await reverseGeocode(currentLocation);
     setLocation(address);
     onClose();
     locationRef.current?.blur();
+    setLoading(false);
   };
 
   const focusLocationInput = () => {
@@ -240,6 +245,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
           icon1="location"
           icon2="map"
           icon3="pencil"
+          loading={loading}
         />
       ) : isMapSheet ? (
         <MapSheet
@@ -258,6 +264,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
           icon1="camera"
           icon2="image-sharp"
           icon3="reload"
+          loading={loading}
         />
       )}
 
