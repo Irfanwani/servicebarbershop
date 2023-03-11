@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import authApiSlice from "./apislices/authapislices";
 import { detailsApiSlice } from "./apislices/detailsapislice";
+import { mainApiSlice } from "./apislices/mainapislices";
 
 export type UserType = {
   id?: number;
@@ -72,6 +73,10 @@ const AuthSlice = createSlice({
       )
       .addMatcher(
         detailsApiSlice.endpoints.addserviceDetails.matchFulfilled,
+        updateState
+      )
+      .addMatcher(
+        mainApiSlice.endpoints.updateprofile.matchFulfilled,
         updateState
       );
   },

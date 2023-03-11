@@ -206,7 +206,8 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
     });
 
     try {
-      await detailsMutation(body).unwrap();
+      let res = await detailsMutation(body).unwrap();
+      console.log(res);
       showToast("success", "Details saved successfully!");
     } catch (err) {
       errorHandler(err);

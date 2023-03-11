@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   label: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "bold",
     lineHeight: 30,
     alignSelf: "center",
