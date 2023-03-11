@@ -11,7 +11,11 @@ import { FC, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../styles";
 import { ActionAvatarProps } from "./types";
-import Animated from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { Image, useWindowDimensions } from "react-native";
 import Loader from "../generalcomponents/loader";
 
@@ -20,6 +24,14 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
 
   const [w, setW] = useState(0);
   const [h, setH] = useState(0);
+
+  const [opened, setOpened] = useState(false);
+
+  const scale = useSharedValue(0.7);
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
   const success = (wd: number, ht: number) => {
     setW(wd);
@@ -40,13 +52,16 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
 
   const onClose = () => {
     setIsOpen(false);
+    setOpened(false);
+    scale.value = withSpring(0.7);
   };
   const showImage = () => {
     setIsOpen(true);
   };
 
   const openImage = () => {
-    console.log("opened");
+    setOpened(true);
+    scale.value = withSpring(1);
   };
 
   return (
@@ -66,15 +81,23 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
         </HStack>
       ) : null}
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        closeOnOverlayClick={!opened}
+        bg={opened ? "black" : "transparent"}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <Pressable onPress={openImage}>
           {w && h ? (
             <Animated.Image
-              style={{
-                width: w > h ? width / 1.1 : w,
-                aspectRatio: w / h,
-                maxHeight: height / 1.5,
-              }}
+              style={[
+                {
+                  width: w > h ? width / 1.1 : w,
+                  aspectRatio: w / h,
+                  maxHeight: height / 1.5,
+                },
+                animatedStyles,
+              ]}
               source={{ uri: image }}
             />
           ) : (
