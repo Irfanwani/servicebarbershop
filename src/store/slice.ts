@@ -5,21 +5,23 @@ import { detailsApiSlice } from "./apislices/detailsapislice";
 export type UserType = {
   id?: number;
   account_added?: boolean;
-  details?: {
-    about: string;
-    contact: string;
-    coords: string;
-    employee_count: number;
-    end_time: string;
-    id: number;
-    image: string;
-    location: string;
-    start_time: string;
-  };
+  details?: Details;
   services_added?: boolean;
   token?: null;
   user?: { email: string; id: number; username: string };
   verified?: string;
+};
+
+export type Details = {
+  about: string;
+  contact: string;
+  coords: any;
+  employee_count: number | string;
+  end_time: string;
+  id: number;
+  image: string;
+  location: string;
+  start_time: string;
 };
 
 export const authAdapter = createEntityAdapter({

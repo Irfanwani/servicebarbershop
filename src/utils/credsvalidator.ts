@@ -71,7 +71,7 @@ export const emailvalidator = (email: string) => {
 interface GenProps {
   image: string;
   location: string;
-  employeeNo: string;
+  employeeNo: string | number;
   startend: boolean | string;
 }
 
