@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     height: height / 1.3,
     width,
   },
-  iconbutton: { borderRadius: 40, position: "absolute", bottom: 25, right: 0 },
+  iconbutton: { borderRadius: 40, position: "absolute", bottom: 0, right: 0 },
   error: {
     fontSize: 12,
     textAlign: "center",
@@ -23,6 +23,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: 20,
+  },
+  viewimage: {
+    backgroundColor: "#00000055",
+    justifyContent: "center",
+    position: "absolute",
+    width: "100%",
+    height: "23%",
+    alignItems: "center",
+    overflow: "hidden",
+    alignSelf: "center",
+    borderTopEndRadius: 100,
+    borderTopStartRadius: 100,
   },
 });
 

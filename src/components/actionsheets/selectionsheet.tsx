@@ -17,14 +17,14 @@ export const Sheet: FC<SheetProps> = ({
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <Actionsheet.Content>
-        <HStack space={20} p={3}>
+        <HStack width="full" justifyContent="space-around" p={3}>
           <RoundButton
             icon={icon1}
             onPress={firstIconCallback}
             colorScheme="teal"
             isLoading={loading}
             size="2xl"
-            buttonsize={16}
+            buttonsize={12}
           />
           <RoundButton
             icon={icon2}
@@ -38,7 +38,7 @@ export const Sheet: FC<SheetProps> = ({
             onPress={thirdIconCallback}
             colorScheme="blueGray"
             size="2xl"
-            buttonsize={16}
+            buttonsize={12}
           />
         </HStack>
       </Actionsheet.Content>

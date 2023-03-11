@@ -1,11 +1,11 @@
-import { Spinner, View } from "native-base";
+import { Spinner, VStack } from "native-base";
 import { FC } from "react";
 
 const Loader: FC = () => {
   return (
-    <View alignItems="center" flex={1} p="30" justifyContent="center">
+    <VStack alignItems="center" flex={1} p="30" justifyContent="center">
       <Spinner color="teal.600" size="lg" />
-    </View>
+    </VStack>
   );
 };
 
