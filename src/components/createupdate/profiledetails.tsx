@@ -95,7 +95,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
   };
 
   const removeImage = () => {
-    setImage("");
+    setImage(uri);
     onClose();
   };
 
@@ -194,20 +194,32 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
     )
       return;
 
-    let body = getFormData(image, {
-      lat: coords.latitude,
-      lng: coords.longitude,
+    let img = image == uri ? null : image;
+    let crds = { lat: coords.latitude, lng: coords.longitude };
+    let data = {
       location,
       about: bio,
       contact,
       employee_count: employeeNo,
       start_time: startTime,
       end_time: endTime,
-    });
+    };
+    let finaldata: any = {};
 
+    Object.keys(data).forEach((key) => {
+      if (data[key] != details[key]) finaldata[key] = data[key];
+    });
+    if (crds.lat != coordinates.latitude) finaldata.lat = crds.lat;
+    if (crds.lng != coordinates.longitude) finaldata.lng = crds.lng;
+
+    let body = getFormData(img, finaldata);
+
+    if (body["_parts"].length == 0) {
+      showToast("info", "No details updated!");
+      return;
+    }
     try {
-      let res = await detailsMutation(body).unwrap();
-      console.log(res);
+      await detailsMutation(body).unwrap();
       showToast("success", "Details saved successfully!");
     } catch (err) {
       errorHandler(err);
