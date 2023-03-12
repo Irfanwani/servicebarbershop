@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "../styles";
 import { ActionAvatarProps } from "./types";
 import Animated, {
+  interpolate,
   interpolateColor,
   runOnJS,
   useAnimatedStyle,
@@ -45,8 +46,17 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
       ["#00000000", "#000000ff"]
     );
 
+    let bgy = interpolateColor(
+      transformY.value,
+      [-height / 2, 0, height / 2],
+      ["#00000000", "#000000ff", "#00000000"]
+    );
+
+    let ht = interpolate(scale.value, [0.7, 1], [width, height]);
+
     return {
-      backgroundColor: bg,
+      backgroundColor: opened && scale.value == 1 ? bgy : bg,
+      height: ht,
     };
   });
 
@@ -96,10 +106,19 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
 
   const moveImage = useMemo(
     () =>
-      Gesture.Pan().onTouchesMove((event) => {
-        // console.log(event);
-      }),
-    []
+      Gesture.Pan()
+        .maxPointers(1)
+        .manualActivation(!opened)
+        .activateAfterLongPress(0.01)
+        .onChange((event) => {
+          transformY.value = event.translationY;
+        })
+        .onEnd(() => {
+          if (scale.value == 1) {
+            transformY.value = withTiming(0);
+          }
+        }),
+    [opened, scale.value]
   );
 
   return (
@@ -119,12 +138,7 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
         </HStack>
       ) : null}
 
-      <Modal
-        closeOnOverlayClick={!opened}
-        bg="transparent"
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Modal closeOnOverlayClick={!opened} isOpen={isOpen} onClose={onClose}>
         <Animated.View style={[styles.imageview, viewanimatedStyles]}>
           <GestureHandlerRootView>
             <GestureDetector gesture={Gesture.Exclusive(openImage, moveImage)}>

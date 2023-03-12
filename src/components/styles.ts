@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 100,
   },
   imageview: {
-    height: "100%",
     justifyContent: "center",
   },
 });
