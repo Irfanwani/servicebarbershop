@@ -14,6 +14,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useWindowDimensions } from "react-native";
 import {
+  Directions,
   Gesture,
   GestureDetector,
   GestureHandlerRootView,
@@ -68,6 +69,9 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
     scale.value = withSpring(0.7);
   };
   const showImage = () => {
+    transformY.value = withTiming(0);
+    scale.value = withTiming(0.7);
+
     setIsOpen(true);
   };
 
@@ -109,16 +113,28 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
       Gesture.Pan()
         .maxPointers(1)
         .manualActivation(!opened)
-        .activateAfterLongPress(0.01)
         .onChange((event) => {
           transformY.value = event.translationY;
         })
         .onEnd(() => {
           if (scale.value == 1) {
+            if (
+              transformY.value >= height / 4 ||
+              transformY.value <= -height / 4
+            ) {
+              scale.value = withSpring(0);
+              runOnJS(onClose)();
+              return;
+            }
             transformY.value = withTiming(0);
           }
         }),
     [opened, scale.value]
+  );
+
+  const zoomImage = useMemo(
+    () => Gesture.Pinch().manualActivation(!opened),
+    [opened]
   );
 
   return (
@@ -141,7 +157,9 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
       <Modal closeOnOverlayClick={!opened} isOpen={isOpen} onClose={onClose}>
         <Animated.View style={[styles.imageview, viewanimatedStyles]}>
           <GestureHandlerRootView>
-            <GestureDetector gesture={Gesture.Exclusive(openImage, moveImage)}>
+            <GestureDetector
+              gesture={Gesture.Simultaneous(openImage, moveImage, zoomImage)}
+            >
               <Animated.Image
                 style={[
                   {
