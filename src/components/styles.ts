@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 100,
     borderTopStartRadius: 100,
   },
+  imageview: {
+    height: "100%",
+    justifyContent: "center",
+  },
 });
 
 export default styles;

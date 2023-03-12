@@ -23,6 +23,7 @@ export const getCameraImageAsync = async () => {
   let result = await launchCameraAsync({
     mediaTypes: MediaTypeOptions.Images,
     allowsEditing: true,
+    aspect: [1, 1],
   });
 
   if (result.canceled) return null;
@@ -34,6 +35,7 @@ export const getImageAsync = async () => {
   let result = await launchImageLibraryAsync({
     mediaTypes: MediaTypeOptions.Images,
     allowsEditing: true,
+    aspect: [1, 1],
   });
 
   if (result.canceled) return null;
