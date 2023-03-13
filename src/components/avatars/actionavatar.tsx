@@ -6,7 +6,6 @@ import { ActionAvatarProps } from "./types";
 import Animated, {
   interpolate,
   interpolateColor,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -14,11 +13,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { useWindowDimensions } from "react-native";
 import {
-  Directions,
   Gesture,
   GestureDetector,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
+import {
+  moveImageGesture,
+  openImageGesture,
+  zoomImageGesture,
+} from "../../utils/gestures";
 
 export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
   const { width, height } = useWindowDimensions();
@@ -29,6 +32,8 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
 
   const transformX = useSharedValue(0);
   const transformY = useSharedValue(0);
+
+  const start = useSharedValue({ x: 0, y: 0 });
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [
@@ -67,6 +72,9 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
     setIsOpen(false);
     setOpened(false);
     scale.value = withSpring(0.7);
+    transformX.value = 0;
+    transformY.value = 0;
+    start.value = { x: 0, y: 0 };
   };
   const showImage = () => {
     transformY.value = withTiming(0);
@@ -76,64 +84,18 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
   };
 
   const openImage = useMemo(
-    () =>
-      Gesture.Tap()
-        .numberOfTaps(opened ? 2 : 1)
-        .onEnd((event) => {
-          if (opened) {
-            if (scale.value > 1) {
-              scale.value = withTiming(1);
-              transformX.value = withTiming(0);
-              transformY.value = withTiming(0);
-            } else {
-              scale.value = withTiming(2);
-              const { absoluteX } = event;
-              const x = withTiming(
-                absoluteX < width / 3
-                  ? width / 4
-                  : absoluteX > (2 * width) / 3
-                  ? -width / 4
-                  : 0
-              );
-              transformX.value = x;
-            }
-            return;
-          }
-          scale.value = withSpring(1);
-          runOnJS(setOpened)(true);
-        }),
+    () => openImageGesture(opened, scale, transformX, transformY, setOpened),
     [opened]
   );
 
-  // const zoomImage = useMemo(() =>
-  // Gesture.Pinch().)
-
   const moveImage = useMemo(
     () =>
-      Gesture.Pan()
-        .maxPointers(1)
-        .manualActivation(!opened)
-        .onChange((event) => {
-          transformY.value = event.translationY;
-        })
-        .onEnd(() => {
-          if (scale.value == 1) {
-            if (
-              transformY.value >= height / 4 ||
-              transformY.value <= -height / 4
-            ) {
-              scale.value = withSpring(0);
-              runOnJS(onClose)();
-              return;
-            }
-            transformY.value = withTiming(0);
-          }
-        }),
+      moveImageGesture(opened, transformX, transformY, scale, onClose, start),
     [opened, scale.value]
   );
 
   const zoomImage = useMemo(
-    () => Gesture.Pinch().manualActivation(!opened),
+    () => zoomImageGesture(opened, scale, transformX, transformY),
     [opened]
   );
 
@@ -155,11 +117,11 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
       ) : null}
 
       <Modal closeOnOverlayClick={!opened} isOpen={isOpen} onClose={onClose}>
-        <Animated.View style={[styles.imageview, viewanimatedStyles]}>
-          <GestureHandlerRootView>
-            <GestureDetector
-              gesture={Gesture.Simultaneous(openImage, moveImage, zoomImage)}
-            >
+        <GestureHandlerRootView>
+          <GestureDetector
+            gesture={Gesture.Simultaneous(openImage, moveImage, zoomImage)}
+          >
+            <Animated.View style={[styles.imageview, viewanimatedStyles]}>
               <Animated.Image
                 style={[
                   {
@@ -170,9 +132,9 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
                 ]}
                 source={{ uri: image }}
               />
-            </GestureDetector>
-          </GestureHandlerRootView>
-        </Animated.View>
+            </Animated.View>
+          </GestureDetector>
+        </GestureHandlerRootView>
       </Modal>
     </VStack>
   );
