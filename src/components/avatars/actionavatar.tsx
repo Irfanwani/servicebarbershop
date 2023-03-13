@@ -9,7 +9,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming,
 } from "react-native-reanimated";
 import { useWindowDimensions } from "react-native";
 import {
@@ -77,14 +76,12 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
     start.value = { x: 0, y: 0 };
   };
   const showImage = () => {
-    transformY.value = withTiming(0);
-    scale.value = withTiming(0.7);
-
     setIsOpen(true);
   };
 
   const openImage = useMemo(
-    () => openImageGesture(opened, scale, transformX, transformY, setOpened),
+    () =>
+      openImageGesture(opened, scale, transformX, transformY, setOpened, start),
     [opened]
   );
 
@@ -95,7 +92,7 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
   );
 
   const zoomImage = useMemo(
-    () => zoomImageGesture(opened, scale, transformX, transformY),
+    () => zoomImageGesture(opened, scale, transformX, transformY, start),
     [opened]
   );
 
@@ -119,7 +116,7 @@ export const ActionAvatar: FC<ActionAvatarProps> = ({ image, onOpen }) => {
       <Modal closeOnOverlayClick={!opened} isOpen={isOpen} onClose={onClose}>
         <GestureHandlerRootView>
           <GestureDetector
-            gesture={Gesture.Simultaneous(openImage, moveImage, zoomImage)}
+            gesture={Gesture.Race(openImage, moveImage, zoomImage)}
           >
             <Animated.View style={[styles.imageview, viewanimatedStyles]}>
               <Animated.Image
