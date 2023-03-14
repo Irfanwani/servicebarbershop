@@ -66,15 +66,13 @@ export const moveImageGesture = (
     .onChange((event) => {
       if (scale.value == 1 || width * scale.value > height) {
         let ty = event.translationY + start.value.y;
-        let offset = (width * scale.value - height) / 10 * scale.value; // needs to be fixed
-        
-        let lim = ty > offset ? offset : ty < -offset ? -offset : ty;
+        let lim = gettranslation(ty, scale.value, 2.5);
         transformY.value = width * scale.value > height ? lim : ty;
       }
       if (scale.value != 1) {
         let tx = event.translationX + start.value.x;
 
-        let lim = gettranslation(tx, scale.value);
+        let lim = gettranslation(tx, scale.value, 2);
         transformX.value = lim;
       }
     })
@@ -104,15 +102,19 @@ export const zoomImageGesture = (
   Gesture.Pinch()
     .manualActivation(!opened)
     .onChange((event) => {
-      let newval = scale.value + event.velocity * 50;
+      let newval = scale.value + event.velocity * 40;
       scale.value = newval < 1 ? 1 : newval > 6 ? 6 : newval;
 
-      let tx = gettranslation(width / 2 - event.focalX, scale.value);
+      let tx = gettranslation(width / 2 - event.focalX, scale.value, 2);
       transformX.value = tx;
+
+      let ty = gettranslation(width / 2 - event.focalY, scale.value, 2.5);
+      transformY.value = ty;
+
       start.value = { x: tx, y: 0 };
     })
     .onEnd(() => {
-      if (scale.value == 1) {
+      if (scale.value == 1 || width * scale.value < height) {
         transformX.value = withSpring(0);
         transformY.value = withSpring(0);
 
@@ -120,8 +122,8 @@ export const zoomImageGesture = (
       }
     });
 
-const gettranslation = (tr: number, scale: number) => {
+const gettranslation = (tr: number, scale: number, divisor: number) => {
   "worklet";
-  let lim = (width / (2 * scale)) * (scale - 1);
+  let lim = (width / (divisor * scale)) * (scale - 1);
   return tr > lim ? lim : tr < -lim ? -lim : tr;
 };
