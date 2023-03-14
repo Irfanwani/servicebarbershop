@@ -52,3 +52,7 @@ export type DeleteProps = {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
 };
+
+export type TransitionProps = {
+  loading: boolean;
+};

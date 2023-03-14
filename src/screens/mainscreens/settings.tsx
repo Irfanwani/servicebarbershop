@@ -7,12 +7,13 @@ import {
   useColorMode,
   VStack,
 } from "native-base";
-import { FC, memo, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { LogoutButton } from "../../components/generalcomponents/roundbutton";
 import SettingItem, {
   DeleteComponent,
 } from "../../components/generalcomponents/settingsitem";
+import { CustomTransition } from "../../components/generalcomponents/transition";
 import { authDetails, UserType } from "../../store/slice";
 import { lineargradient } from "../../theme";
 import { useLogout } from "../../utils/customhooks";
@@ -34,6 +35,17 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
   const logoutall = () => {
     logout(true);
   };
+
+  const [changingtheme, setChangingtheme] = useState(false);
+
+  const changetheme = () => {
+    setChangingtheme(true);
+    toggleColorMode();
+  };
+
+  useEffect(() => {
+    setChangingtheme(false);
+  }, [colorMode]);
 
   return (
     <VStack flex="1">
@@ -78,7 +90,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
             icon="theme-light-dark"
             title="Dark Mode"
             value={colorMode == "dark"}
-            onPress={toggleColorMode}
+            onPress={changetheme}
             bg="black"
           />
 
@@ -115,6 +127,8 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
       <Text textAlign="center" mt="auto">
         Version@1.0.0
       </Text>
+
+      <CustomTransition loading={changingtheme} />
     </VStack>
   );
 };
