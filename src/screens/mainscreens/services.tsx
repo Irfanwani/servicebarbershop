@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import Servicedetails from "../../components/createupdate/servicedetails";
 
-const ServiceDetails: FC = () => {
+const Services: FC = () => {
   return <Servicedetails />;
 };
 
-export default ServiceDetails;
+export default memo(Services);

@@ -26,7 +26,7 @@ const Profile: FC = () => {
 
 export default memo(Profile);
 
-const getCoords = (coords) => {
+const getCoords = (coords: string) => {
   let lng = coords.slice(coords.indexOf("(") + 1, coords.lastIndexOf(" "));
 
   let lat = coords.slice(coords.lastIndexOf(" ") + 1, coords.length - 1);

@@ -9,6 +9,7 @@ import Settings from "./settings";
 import { DrawerProps } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import { bgLightCard } from "../../theme";
+import Services from "./services";
 
 const Drawer = createDrawerNavigator<DrawerProps>();
 
@@ -54,6 +55,23 @@ const MainApp: FC = () => {
         }}
         name="profile"
         component={Profile}
+      />
+      <Drawer.Screen
+        options={{
+          headerTransparent: true,
+          drawerIcon: ({ color }) => (
+            <Icon
+              as={MaterialIcons}
+              name="cleaning-services"
+              color={color}
+              size="lg"
+            />
+          ),
+          headerTitle: "",
+          drawerLabel: "Services",
+        }}
+        name="services"
+        component={Services}
       />
       <Drawer.Screen
         options={{
