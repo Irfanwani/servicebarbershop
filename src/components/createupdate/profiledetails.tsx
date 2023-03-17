@@ -33,6 +33,8 @@ import { CustomSvg } from "../svgs/svg";
 import styles from "../../screens/detailscreens/styles";
 import authstyles from "../../screens/authscreens/styles";
 import { DetailsScreenProps } from "./types";
+import { CustomSelect } from "../actionsheets/dropdownsheet";
+import { servicetypes } from "../../screens/detailscreens/constants";
 
 const ProfileDetails: FC<DetailsScreenProps> = ({
   updating = false,
@@ -52,6 +54,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
     start_time,
     end_time,
     coords: coordinates,
+    service_type,
   } = details;
 
   const [image, setImage] = useState(uri);
@@ -64,12 +67,15 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
 
   const [coords, setCoords] = useState(coordinates);
 
+  const [servicetype, setServiceType] = useState(service_type);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     image: null,
     location: null,
     employeeNo: null,
     startend: null,
+    servicetype: null,
   });
 
   const locationRef = useRef(null);
@@ -189,6 +195,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
         location,
         employeeNo,
         startend: !!(startTime && endTime),
+        servicetype,
         setError,
       })
     )
@@ -203,6 +210,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
       employee_count: employeeNo,
       start_time: startTime,
       end_time: endTime,
+      service_type: servicetype,
     };
     let finaldata: any = {};
 
@@ -281,11 +289,19 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
         />
       )}
 
+      <CustomSelect
+        placeholder="Select Service Type"
+        items={servicetypes}
+        value={servicetype}
+        onValueChange={setServiceType}
+      />
+
       <Input
         value={contact}
         onChangeText={setContact}
         placeholder="Contact (Another Email or Phone)"
         keyboardType="email-address"
+        mt="2"
       />
 
       <Input
@@ -326,7 +342,11 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
 
       <ErrorMessage
         error={
-          error.image ?? error.location ?? error.employeeNo ?? error.startend
+          error.image ??
+          error.location ??
+          error.servicetype ??
+          error.employeeNo ??
+          error.startend
         }
       />
 

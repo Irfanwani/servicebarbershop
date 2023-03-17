@@ -8,19 +8,21 @@ import {
   renderItem,
 } from "../flatlistcomponents/servicedetail";
 import { showToast } from "../generalcomponents/alerts";
-import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
 import { serviceDetailsValidator } from "../../utils/credsvalidator";
 import { useKeyboardVisible } from "../../utils/customhooks";
 import { errorHandler } from "../../utils/errorhandler";
 import { services } from "../../screens/detailscreens/constants";
 import styles from "../../screens/detailscreens/styles";
+import { ServiceProps } from "./types";
 
-const ServiceDetails: FC = () => {
-  const [servicetype, setServiceType] = useState("");
-  const [selectedServices, setSelectedServices] = useState({});
+const ServiceDetails: FC<ServiceProps> = ({
+  servicesMutation,
+  isLoading,
+  servicesSelected,
+  message,
+}) => {
+  const [selectedServices, setSelectedServices] = useState(servicesSelected);
   const [error, setError] = useState(null);
-
-  const [servicesMutation, { isLoading }] = useAddserviceDetailsMutation();
 
   const selectItem = (item: string, cost: number, selected: boolean) => {
     if (selected) {
@@ -48,15 +50,14 @@ const ServiceDetails: FC = () => {
     let selservices: any = Object.values(selectedServices).filter(
       (item) => item
     );
-    if (!serviceDetailsValidator(servicetype, selservices, setError)) return;
+    if (!serviceDetailsValidator(selservices, setError)) return;
     try {
       let body = {
-        service_type: servicetype,
         services_list: selservices,
       };
 
       await servicesMutation(body).unwrap();
-      showToast("success", "Registration Completed!");
+      showToast("success", message);
     } catch (err) {
       errorHandler(err);
     }
@@ -73,7 +74,7 @@ const ServiceDetails: FC = () => {
       ItemSeparatorComponent={ItemSeparator}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
-        <ListHeader value={servicetype} onValueChange={setServiceType} />
+        <ListHeader />
       }
       ListFooterComponent={
         <ListFooter onPress={submit} isLoading={isLoading} error={error} />

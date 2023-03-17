@@ -73,6 +73,7 @@ interface GenProps {
   location: string;
   employeeNo: string | number;
   startend: boolean | string;
+  servicetype: string;
 }
 
 interface CallBProps {
@@ -85,6 +86,7 @@ export const generalDetailsValidator = ({
   employeeNo,
   startend,
   setError,
+  servicetype,
 }: GenProps & CallBProps) => {
   if (!image) {
     setError({
@@ -92,6 +94,7 @@ export const generalDetailsValidator = ({
       location: null,
       employeeNo: null,
       startend: null,
+      servicetype: null,
     });
     return false;
   }
@@ -102,6 +105,18 @@ export const generalDetailsValidator = ({
       location: "Please select your location",
       employeeNo: null,
       startend: null,
+      servicetype: null,
+    });
+    return false;
+  }
+
+  if (!servicetype) {
+    setError({
+      image: null,
+      location: null,
+      employeeNo: null,
+      startend: null,
+      servicetype: "Please provide a service type",
     });
     return false;
   }
@@ -112,6 +127,7 @@ export const generalDetailsValidator = ({
       location: null,
       employeeNo: "Please provide the number of employees",
       startend: null,
+      servicetype: null,
     });
 
     return false;
@@ -123,6 +139,7 @@ export const generalDetailsValidator = ({
       location: null,
       employeeNo: null,
       startend: "Please provide both start and end time for a day",
+      servicetype: null,
     });
     return false;
   }
@@ -132,6 +149,7 @@ export const generalDetailsValidator = ({
     location: null,
     employeeNo: null,
     startend: null,
+    servicetype: null,
   });
 
   return true;
@@ -201,22 +219,12 @@ export const bankDetailsValidator: BankProps = (
 
 interface ServiceProps {
   (
-    servicetype: string,
     services: { service: string; cost: number }[],
     setError: (error: string) => void
   ): boolean;
 }
 
-export const serviceDetailsValidator: ServiceProps = (
-  servicetype,
-  services,
-  setError
-) => {
-  if (!servicetype) {
-    setError("Please provide a service type");
-    return false;
-  }
-
+export const serviceDetailsValidator: ServiceProps = (services, setError) => {
   if (!services.length) {
     setError("Please select atleast one service to continue");
     return false;

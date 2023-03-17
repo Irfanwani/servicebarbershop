@@ -10,7 +10,7 @@ export const accounttypes = [
   { label: "Savings", value: "savings" },
 ];
 
-export const servicetype = [
+export const servicetypes = [
   { label: "Barbershop", value: "barbershop" },
   { label: "Hair Salon", value: "hair_salon" },
   { label: "Beauty Salon", value: "beauty_salon" },

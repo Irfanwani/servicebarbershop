@@ -11,10 +11,8 @@ import {
   View,
 } from "native-base";
 import { services } from "../../assets/services";
-import { servicetype } from "../../screens/detailscreens/constants";
-import { CustomSelect } from "../actionsheets/dropdownsheet";
 import { CustomSvg } from "../svgs/svg";
-import { FooterProps, serviceHeaderProps, serviceItemProps } from "./types";
+import { FooterProps, serviceItemProps } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ErrorMessage from "../generalcomponents/error";
 
@@ -86,19 +84,10 @@ export const ItemSeparator: FC = () => {
   return <Divider my="5" />;
 };
 
-export const ListHeader: FC<serviceHeaderProps> = ({
-  value,
-  onValueChange,
-}) => {
+export const ListHeader: FC = () => {
   return (
     <View background="transparent">
       <CustomSvg xml={services} />
-      <CustomSelect
-        placeholder="Select Service Type"
-        items={servicetype}
-        value={value}
-        onValueChange={onValueChange}
-      />
 
       <HStack justifyContent="space-between" mt="5" mb="3">
         <Heading>Service</Heading>
@@ -111,7 +100,7 @@ export const ListHeader: FC<serviceHeaderProps> = ({
 export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error }) => {
   return (
     <>
-    <ErrorMessage error={error} />
+      <ErrorMessage error={error} />
       <Button
         p="3"
         onPress={onPress}

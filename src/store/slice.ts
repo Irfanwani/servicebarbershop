@@ -23,6 +23,7 @@ export type Details = {
   image: string;
   location: string;
   start_time: string;
+  service_type: string;
 };
 
 export const authAdapter = createEntityAdapter({

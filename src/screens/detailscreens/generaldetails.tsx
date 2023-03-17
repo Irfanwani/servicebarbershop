@@ -18,6 +18,7 @@ const GeneralDetails: FC = () => {
     image: "",
     location: "",
     start_time: "",
+    service_type: "",
   };
   return (
     <Profiledetails

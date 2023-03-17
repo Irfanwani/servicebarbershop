@@ -29,3 +29,26 @@ export type DetailsScreenProps = {
   heading: string;
   details: Details;
 };
+
+export type ServiceProps = {
+  servicesMutation: MutationTrigger<
+    MutationDefinition<
+      any,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        {},
+        FetchBaseQueryMeta
+      >,
+      never,
+      any,
+      "authApiSlice"
+    >
+  >;
+  isLoading: boolean;
+  servicesSelected: {
+    [item: string]: { service: string; cost: number };
+  };
+  message: string;
+};
