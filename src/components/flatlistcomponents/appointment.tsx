@@ -88,11 +88,11 @@ export const CustomSkeleton: FC = () => {
           mx="2"
         >
           <HStack justifyContent="space-between" p="3" alignItems={"center"}>
-            <Skeleton h="4" w="100" />
-            <Skeleton h="10" w="10" />
+            <Skeleton h="4" w="100" borderRadius="full" />
+            <Skeleton h="10" w="10" borderRadius="full" />
           </HStack>
           <Skeleton.Text lines={4} px="3" />
-          <Skeleton rounded="md" my="5" />
+          <Skeleton rounded="full" my="5" />
         </Box>
       ))}
     </>
