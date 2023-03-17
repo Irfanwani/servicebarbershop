@@ -35,15 +35,16 @@ import authstyles from "../../screens/authscreens/styles";
 import { DetailsScreenProps } from "./types";
 import { CustomSelect } from "../actionsheets/dropdownsheet";
 import { servicetypes } from "../../screens/detailscreens/constants";
+import { useAddgeneraldetailsMutation } from "../../store/apislices/detailsapislice";
 
 const ProfileDetails: FC<DetailsScreenProps> = ({
   updating,
-  detailsMutation,
-  isLoading,
   heading,
   details,
 }) => {
   const { isOpen, onClose, onOpen } = useDisclose();
+
+  const [detailsMutation, { isLoading }] = useAddgeneraldetailsMutation();
 
   const {
     image: uri,

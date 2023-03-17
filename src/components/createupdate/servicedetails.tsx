@@ -14,16 +14,17 @@ import { errorHandler } from "../../utils/errorhandler";
 import { services } from "../../screens/detailscreens/constants";
 import styles from "../../screens/detailscreens/styles";
 import { ServiceProps } from "./types";
+import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
 
 const ServiceDetails: FC<ServiceProps> = ({
-  servicesMutation,
-  isLoading,
   servicesSelected,
   message,
   updating,
 }) => {
   const [selectedServices, setSelectedServices] = useState(servicesSelected);
   const [error, setError] = useState(null);
+
+  const [servicesMutation, { isLoading }] = useAddserviceDetailsMutation();
 
   const selectItem = (item: string, cost: number, selected: boolean) => {
     if (selected) {
@@ -57,7 +58,10 @@ const ServiceDetails: FC<ServiceProps> = ({
         services_list: selservices,
       };
 
-      await servicesMutation(body).unwrap();
+      await servicesMutation({
+        body,
+        method: updating ? "PUT" : "POST",
+      }).unwrap();
       showToast("success", message);
     } catch (err) {
       errorHandler(err);

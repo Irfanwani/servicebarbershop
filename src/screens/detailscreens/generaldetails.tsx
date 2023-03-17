@@ -1,10 +1,7 @@
 import { FC, memo } from "react";
 import Profiledetails from "../../components/createupdate/profiledetails";
-import { useAddgeneraldetailsMutation } from "../../store/apislices/detailsapislice";
 
 const GeneralDetails: FC = () => {
-  const [detailsMutation, { isLoading }] = useAddgeneraldetailsMutation();
-
   const details = {
     about: "",
     contact: "",
@@ -23,8 +20,6 @@ const GeneralDetails: FC = () => {
   return (
     <Profiledetails
       updating={false}
-      detailsMutation={detailsMutation}
-      isLoading={isLoading}
       heading="Please fill these details"
       details={details}
     />

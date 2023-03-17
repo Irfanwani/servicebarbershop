@@ -20,9 +20,9 @@ export const detailsApiSlice = authApiSlice.injectEndpoints({
       }),
     }),
     addserviceDetails: builder.mutation({
-      query: (body) => ({
+      query: ({ body, method }) => ({
         url: "/api/accounts/addservices",
-        method: "POST",
+        method,
         body,
       }),
     }),
