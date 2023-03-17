@@ -20,6 +20,7 @@ const ServiceDetails: FC<ServiceProps> = ({
   isLoading,
   servicesSelected,
   message,
+  updating,
 }) => {
   const [selectedServices, setSelectedServices] = useState(servicesSelected);
   const [error, setError] = useState(null);
@@ -73,11 +74,14 @@ const ServiceDetails: FC<ServiceProps> = ({
       keyExtractor={(item, index) => index.toString()}
       ItemSeparatorComponent={ItemSeparator}
       showsVerticalScrollIndicator={false}
-      ListHeaderComponent={
-        <ListHeader />
-      }
+      ListHeaderComponent={<ListHeader />}
       ListFooterComponent={
-        <ListFooter onPress={submit} isLoading={isLoading} error={error} />
+        <ListFooter
+          onPress={submit}
+          isLoading={isLoading}
+          error={error}
+          title={updating ? "Update Services" : "Complete Registration"}
+        />
       }
     />
   );

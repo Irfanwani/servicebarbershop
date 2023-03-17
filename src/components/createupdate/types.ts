@@ -51,4 +51,5 @@ export type ServiceProps = {
     [item: string]: { service: string; cost: number };
   };
   message: string;
+  updating: boolean;
 };

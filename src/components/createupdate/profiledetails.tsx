@@ -37,7 +37,7 @@ import { CustomSelect } from "../actionsheets/dropdownsheet";
 import { servicetypes } from "../../screens/detailscreens/constants";
 
 const ProfileDetails: FC<DetailsScreenProps> = ({
-  updating = false,
+  updating,
   detailsMutation,
   isLoading,
   heading,
@@ -227,7 +227,10 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
       return;
     }
     try {
-      await detailsMutation(body).unwrap();
+      await detailsMutation({
+        body,
+        method: updating ? "PUT" : "POST",
+      }).unwrap();
       showToast("success", "Details saved successfully!");
     } catch (err) {
       errorHandler(err);

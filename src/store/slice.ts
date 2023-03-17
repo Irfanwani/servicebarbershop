@@ -75,10 +75,6 @@ const AuthSlice = createSlice({
       .addMatcher(
         detailsApiSlice.endpoints.addserviceDetails.matchFulfilled,
         updateState
-      )
-      .addMatcher(
-        mainApiSlice.endpoints.updateprofile.matchFulfilled,
-        updateState
       );
   },
 });

@@ -16,18 +16,7 @@ export const mainApiSlice = authApiSlice.injectEndpoints({
         currentCacheData.push(...responseData);
       },
     }),
-    updateprofile: builder.mutation({
-      query: (body) => ({
-        url: "/api/accounts/barberdetails",
-        method: "PUT",
-        body,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }),
-    }),
   }),
 });
 
-export const { useGetappointmentsQuery, useUpdateprofileMutation } =
-  mainApiSlice;
+export const { useGetappointmentsQuery } = mainApiSlice;

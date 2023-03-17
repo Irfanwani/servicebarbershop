@@ -97,7 +97,7 @@ export const ListHeader: FC = () => {
   );
 };
 
-export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error }) => {
+export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error, title }) => {
   return (
     <>
       <ErrorMessage error={error} />
@@ -107,7 +107,7 @@ export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error }) => {
         isLoading={isLoading}
         isLoadingText="Saving details"
       >
-        Complete Registration
+        {title}
       </Button>
     </>
   );

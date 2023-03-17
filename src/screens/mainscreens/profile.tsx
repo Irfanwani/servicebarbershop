@@ -2,12 +2,12 @@ import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { authDetails, UserType } from "../../store/slice";
 import Profiledetails from "../../components/createupdate/profiledetails";
-import { useUpdateprofileMutation } from "../../store/apislices/mainapislices";
+import { useAddgeneraldetailsMutation } from "../../store/apislices/detailsapislice";
 
 const Profile: FC = () => {
   const { details } = useSelector<any, UserType>(authDetails);
 
-  const [updateProfile, { isLoading }] = useUpdateprofileMutation();
+  const [updateProfile, { isLoading }] = useAddgeneraldetailsMutation();
 
   let { coords } = details;
 

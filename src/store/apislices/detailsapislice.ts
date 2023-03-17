@@ -3,9 +3,9 @@ import authApiSlice from "./authapislices";
 export const detailsApiSlice = authApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addgeneraldetails: builder.mutation({
-      query: (body) => ({
+      query: ({ body, method }) => ({
         url: "/api/accounts/barberdetails",
-        method: "POST",
+        method,
         body,
         headers: {
           "Content-Type": "multipart/form-data",

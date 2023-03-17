@@ -10,6 +10,7 @@ const ServiceDetails: FC = () => {
       isLoading={isLoading}
       servicesSelected={{}}
       message="Registration Completed!"
+      updating={false}
     />
   );
 };

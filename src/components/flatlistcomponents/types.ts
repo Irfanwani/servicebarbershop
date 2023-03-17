@@ -7,6 +7,7 @@ export type FooterProps = {
   onPress: () => Promise<void>;
   isLoading: boolean;
   error: string;
+  title: string;
 };
 
 export type AppointmentItemType = {
