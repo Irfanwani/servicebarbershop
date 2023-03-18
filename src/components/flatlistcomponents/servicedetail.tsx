@@ -3,10 +3,12 @@ import {
   Button,
   Checkbox,
   Divider,
+  FlatList,
   Heading,
   HStack,
   Icon,
   Input,
+  Skeleton,
   Text,
   View,
 } from "native-base";
@@ -15,6 +17,7 @@ import { CustomSvg } from "../svgs/svg";
 import { FooterProps, serviceItemProps } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ErrorMessage from "../generalcomponents/error";
+import styles from "../../screens/detailscreens/styles";
 
 export const renderItem = (props: any) => {
   return <RenderItem {...props} />;
@@ -125,4 +128,29 @@ export const ListFooter: FC<FooterProps> = ({
   );
 };
 
+export const ServiceSkeleton: FC = () => {
+  return (
+    <FlatList
+      contentContainerStyle={styles.scroll}
+      data={[...Array(10)].map((item, index) => index)}
+      renderItem={rnItem}
+      keyExtractor={(item) => item.toString()}
+      ListHeaderComponent={<ListHeader />}
+      showsVerticalScrollIndicator={false}
+    />
+  );
+};
 
+const rnItem = () => {
+  return <SerSkeleton />;
+};
+
+const SerSkeleton: FC = () => {
+  return (
+    <HStack justifyContent="space-between" py="4">
+      <Skeleton w={50} h={50} borderRadius="full" />
+      <Skeleton.Text lines={2} w={150} />
+      <Skeleton w={70} h={50} borderRadius="sm" />
+    </HStack>
+  );
+};

@@ -5,6 +5,7 @@ export type DrawerProps = {
   profile: undefined;
   services: undefined;
   settings: undefined;
+  addservices: undefined;
 };
 
 export type SettingsProps = DrawerScreenProps<DrawerProps, "settings">;

@@ -10,6 +10,7 @@ import { DrawerProps } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import { bgLightCard } from "../../theme";
 import Services from "./services";
+import addservices from "./addservices";
 
 const Drawer = createDrawerNavigator<DrawerProps>();
 
@@ -68,10 +69,27 @@ const MainApp: FC = () => {
             />
           ),
           headerTitle: "",
-          drawerLabel: "Services",
+          drawerLabel: "Update Services",
         }}
         name="services"
         component={Services}
+      />
+      <Drawer.Screen
+        options={{
+          headerTransparent: true,
+          drawerIcon: ({ color }) => (
+            <Icon
+              as={MaterialIcons}
+              name="add-circle"
+              color={color}
+              size="lg"
+            />
+          ),
+          headerTitle: "",
+          drawerLabel: "Add New Services",
+        }}
+        name="addservices"
+        component={addservices}
       />
       <Drawer.Screen
         options={{
