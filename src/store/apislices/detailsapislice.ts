@@ -25,6 +25,7 @@ export const detailsApiSlice = authApiSlice.injectEndpoints({
         method,
         body,
       }),
+      invalidatesTags: ["services"],
     }),
   }),
 });

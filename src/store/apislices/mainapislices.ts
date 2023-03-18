@@ -18,6 +18,7 @@ export const mainApiSlice = authApiSlice.injectEndpoints({
     }),
     getservices: builder.query({
       query: (id) => `/api/accounts/addservices?id=${id}`,
+      providesTags: ['services']
     }),
   }),
 });

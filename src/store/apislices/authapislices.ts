@@ -26,6 +26,7 @@ const authApiSlice = createApi({
       return headers;
     },
   }),
+  tagTypes: ['services'],
 
   endpoints: (builder) => ({
     login: builder.mutation({

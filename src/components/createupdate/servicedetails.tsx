@@ -63,7 +63,6 @@ const ServiceDetails: FC<ServiceProps> = ({
         services_list: selservices,
       };
 
-      console.log(body);
       await servicesMutation({
         body,
         method: updating ? "PUT" : "POST",
