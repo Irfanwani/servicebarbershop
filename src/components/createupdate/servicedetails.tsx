@@ -43,6 +43,7 @@ const ServiceDetails: FC<ServiceProps> = ({
       selectItem,
       updating,
       oldcost: selectedServices?.[item]?.cost?.toString(),
+      id: selectedServices?.[item]?.id,
     });
   };
 

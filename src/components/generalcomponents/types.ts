@@ -3,7 +3,8 @@ import {
   ColorType,
   SizeType,
 } from "native-base/lib/typescript/components/types";
-import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
+import { Dispatch, ReactElement, SetStateAction } from "react";
+import { StyleProp, ViewStyle, PressableStateCallbackType } from "react-native";
 
 export type ErrorProps = {
   error: string;
@@ -24,6 +25,9 @@ export type RoundButtonProps = {
   colorScheme: ColorSchemeType;
   size?: SizeType;
   buttonsize?: SizeType;
+  style?:
+    | StyleProp<ViewStyle>
+    | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>);
 };
 
 export type CustomAlertDialogProps = {

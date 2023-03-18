@@ -18,6 +18,10 @@ import { FooterProps, serviceItemProps } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ErrorMessage from "../generalcomponents/error";
 import styles from "../../screens/detailscreens/styles";
+import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
+import { errorHandler } from "../../utils/errorhandler";
+import { RoundButton } from "../generalcomponents/roundbutton";
+import { CustomAlertDialog } from "../generalcomponents/alerts";
 
 export const renderItem = (props: any) => {
   return <RenderItem {...props} />;
@@ -28,6 +32,7 @@ const RenderItem: FC<serviceItemProps> = ({
   selectItem,
   updating,
   oldcost,
+  id,
 }) => {
   const [selected, setSelected] = useState(updating);
   const [cost, setCost] = useState(oldcost);
@@ -59,34 +64,79 @@ const RenderItem: FC<serviceItemProps> = ({
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [deleteserviceMutation, { isLoading }] = useAddserviceDetailsMutation();
+
+  const openAlert = () => {
+    setIsOpen(true);
+  };
+
+  const closeAlert = () => {
+    setIsOpen(false);
+  };
+
+  const deleteService = async () => {
+    try {
+      await deleteserviceMutation({
+        body: { service_id: id },
+        method: "DELETE",
+      }).unwrap();
+    } catch (err) {
+      console.log(err);
+      errorHandler(err);
+    }
+  };
+
   return (
-    <Checkbox
-      isDisabled={updating}
-      isChecked={updating ? updating : undefined}
-      rounded="full"
-      size="lg"
-      value={item}
-      justifyContent="space-between"
-      onChange={setSelected}
-    >
-      <Text textAlign="center" flexWrap="wrap" maxW="3xs">
-        {item}
-      </Text>
-      <Input
-        borderColor={!cost && selected ? "red.600" : undefined}
-        ref={(ref) => (inputref.current = ref)}
-        onBlur={setItem}
-        value={selected ? cost : ""}
-        onChangeText={changeCost}
-        keyboardType="numeric"
-        isDisabled={updating ? false : !selected}
-        placeholder="Price"
-        width="20"
-        leftElement={
-          <Icon as={MaterialCommunityIcons} name="currency-inr" size="md" />
-        }
+    <>
+      <Checkbox
+        isDisabled={updating}
+        isChecked={updating ? updating : undefined}
+        rounded="full"
+        size="lg"
+        value={item}
+        justifyContent="space-between"
+        onChange={setSelected}
+      >
+        {updating ? (
+          <RoundButton
+            onPress={openAlert}
+            isLoading={isLoading}
+            icon="trash"
+            colorScheme="red"
+            style={styles.deletebutton}
+          />
+        ) : null}
+        <Text textAlign="center" flexWrap="wrap" maxW="3xs">
+          {item}
+        </Text>
+        <Input
+          borderColor={!cost && selected ? "red.600" : undefined}
+          ref={(ref) => (inputref.current = ref)}
+          onBlur={setItem}
+          value={selected ? cost : ""}
+          onChangeText={changeCost}
+          keyboardType="numeric"
+          isDisabled={updating ? false : !selected}
+          placeholder="Price"
+          width="20"
+          leftElement={
+            <Icon as={MaterialCommunityIcons} name="currency-inr" size="md" />
+          }
+        />
+      </Checkbox>
+      <CustomAlertDialog
+        isOpen={isOpen}
+        header="Are you sure?"
+        message="This service will be deleted from your account. You can add it back from the ADD SERVICES screen"
+        onPress={deleteService}
+        onClose={closeAlert}
+        cancelText="Cancel"
+        confirmText="Remove Service"
+        confirmColor="danger"
       />
-    </Checkbox>
+    </>
   );
 };
 

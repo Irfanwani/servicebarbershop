@@ -11,8 +11,10 @@ export const RoundButton: FC<LogoutProps & RoundButtonProps> = ({
   colorScheme,
   size = "md",
   buttonsize = 10,
+  style
 }) => (
   <Button
+    style={style}
     isLoading={isLoading}
     onPress={onPress}
     colorScheme={colorScheme}
