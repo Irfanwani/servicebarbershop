@@ -11,7 +11,6 @@ import { showToast } from "../generalcomponents/alerts";
 import { serviceDetailsValidator } from "../../utils/credsvalidator";
 import { useKeyboardVisible } from "../../utils/customhooks";
 import { errorHandler } from "../../utils/errorhandler";
-import { services } from "../../screens/detailscreens/constants";
 import styles from "../../screens/detailscreens/styles";
 import { ServiceProps } from "./types";
 import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
@@ -20,6 +19,7 @@ const ServiceDetails: FC<ServiceProps> = ({
   servicesSelected,
   message,
   updating,
+  services,
 }) => {
   const [selectedServices, setSelectedServices] = useState(servicesSelected);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ const ServiceDetails: FC<ServiceProps> = ({
     if (selected) {
       setSelectedServices((prev) => ({
         ...prev,
-        [item]: { service: item, cost },
+        [item]: { ...prev?.[item], service: item, cost },
       }));
     } else {
       setSelectedServices((prev) => ({ ...prev, [item]: null }));
@@ -38,7 +38,12 @@ const ServiceDetails: FC<ServiceProps> = ({
   };
 
   const singleItem = ({ item }) => {
-    return renderItem({ item, selectItem });
+    return renderItem({
+      item,
+      selectItem,
+      updating,
+      oldcost: selectedServices?.[item]?.cost?.toString(),
+    });
   };
 
   const keyboardOn = useKeyboardVisible();
@@ -58,6 +63,7 @@ const ServiceDetails: FC<ServiceProps> = ({
         services_list: selservices,
       };
 
+      console.log(body);
       await servicesMutation({
         body,
         method: updating ? "PUT" : "POST",

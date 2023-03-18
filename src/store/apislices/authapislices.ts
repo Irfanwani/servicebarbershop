@@ -10,7 +10,6 @@ const baseUrl =
 const transformResponse = async (baseQueryReturnValue: any) => {
   let res = { ...baseQueryReturnValue };
   res.token = null;
-  res.id = res.user?.id;
   await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
   return res;
 };

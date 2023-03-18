@@ -16,20 +16,25 @@ import { FooterProps, serviceItemProps } from "./types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ErrorMessage from "../generalcomponents/error";
 
-export const renderItem = ({ item, selectItem }) => {
-  return <RenderItem item={item} selectItem={selectItem} />;
+export const renderItem = (props: any) => {
+  return <RenderItem {...props} />;
 };
 
-const RenderItem: FC<serviceItemProps> = ({ item, selectItem }) => {
-  const [selected, setSelected] = useState(null);
-  const [cost, setCost] = useState("");
+const RenderItem: FC<serviceItemProps> = ({
+  item,
+  selectItem,
+  updating,
+  oldcost,
+}) => {
+  const [selected, setSelected] = useState(updating);
+  const [cost, setCost] = useState(oldcost);
 
   const inputref = useRef(null);
 
   useEffect(() => {
     if (typeof selected != "boolean") return;
 
-    if (selected) {
+    if (selected && !updating) {
       setTimeout(() => {
         inputref.current.focus();
       }, 10);
@@ -53,6 +58,8 @@ const RenderItem: FC<serviceItemProps> = ({ item, selectItem }) => {
 
   return (
     <Checkbox
+      isDisabled={updating}
+      isChecked={updating ? updating : undefined}
       rounded="full"
       size="lg"
       value={item}
@@ -69,7 +76,7 @@ const RenderItem: FC<serviceItemProps> = ({ item, selectItem }) => {
         value={selected ? cost : ""}
         onChangeText={changeCost}
         keyboardType="numeric"
-        isDisabled={!selected}
+        isDisabled={updating ? false : !selected}
         placeholder="Price"
         width="20"
         leftElement={
@@ -97,7 +104,12 @@ export const ListHeader: FC = () => {
   );
 };
 
-export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error, title }) => {
+export const ListFooter: FC<FooterProps> = ({
+  onPress,
+  isLoading,
+  error,
+  title,
+}) => {
   return (
     <>
       <ErrorMessage error={error} />
@@ -112,3 +124,5 @@ export const ListFooter: FC<FooterProps> = ({ onPress, isLoading, error, title }
     </>
   );
 };
+
+

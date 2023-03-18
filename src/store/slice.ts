@@ -1,7 +1,6 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import authApiSlice from "./apislices/authapislices";
 import { detailsApiSlice } from "./apislices/detailsapislice";
-import { mainApiSlice } from "./apislices/mainapislices";
 
 export type UserType = {
   id?: number;

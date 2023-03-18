@@ -6,10 +6,13 @@ export type DetailsScreenProps = {
   details: Details;
 };
 
+export type SelectedServiceType = {
+  [item: string]: { service: string; cost: number; id?: number };
+};
+
 export type ServiceProps = {
-  servicesSelected: {
-    [item: string]: { service: string; cost: number };
-  };
+  servicesSelected: SelectedServiceType;
   message: string;
   updating: boolean;
+  services: Array<string>;
 };

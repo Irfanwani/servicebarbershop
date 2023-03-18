@@ -1,6 +1,8 @@
 export type serviceItemProps = {
   item: string;
   selectItem: (item: string, cost: number, selected: boolean) => void;
+  updating: boolean;
+  oldcost: string;
 };
 
 export type FooterProps = {

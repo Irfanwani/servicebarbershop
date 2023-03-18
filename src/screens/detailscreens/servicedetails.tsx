@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Servicedetails from "../../components/createupdate/servicedetails";
+import { services } from "./constants";
 
 const ServiceDetails: FC = () => {
   return (
@@ -7,6 +8,7 @@ const ServiceDetails: FC = () => {
       servicesSelected={{}}
       message="Registration Completed!"
       updating={false}
+      services={services}
     />
   );
 };

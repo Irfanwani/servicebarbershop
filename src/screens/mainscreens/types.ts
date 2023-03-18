@@ -8,3 +8,9 @@ export type DrawerProps = {
 };
 
 export type SettingsProps = DrawerScreenProps<DrawerProps, "settings">;
+
+export type serviceType = {
+  id: number;
+  cost: number;
+  service: string;
+};

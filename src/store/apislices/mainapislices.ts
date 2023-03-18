@@ -16,7 +16,10 @@ export const mainApiSlice = authApiSlice.injectEndpoints({
         currentCacheData.push(...responseData);
       },
     }),
+    getservices: builder.query({
+      query: (id) => `/api/accounts/addservices?id=${id}`,
+    }),
   }),
 });
 
-export const { useGetappointmentsQuery } = mainApiSlice;
+export const { useGetappointmentsQuery, useGetservicesQuery } = mainApiSlice;
