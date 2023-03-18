@@ -5,7 +5,6 @@ import { ServiceSkeleton } from "../../components/flatlistcomponents/servicedeta
 import { useGetservicesQuery } from "../../store/apislices/mainapislices";
 import { authDetails, UserType } from "../../store/slice";
 import { services } from "../detailscreens/constants";
-import { serviceType } from "./types";
 
 const AddServices: FC = () => {
   const { user } = useSelector<any, UserType>(authDetails);
@@ -18,7 +17,7 @@ const AddServices: FC = () => {
   useEffect(() => {
     if (data) {
       setLoading(true);
-      let oldservices = data.map((item: serviceType) => item.service);
+      let oldservices = Object.keys(data);
       setServices(services.filter((item) => !oldservices.includes(item)));
     }
   }, [data]);

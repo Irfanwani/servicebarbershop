@@ -1,3 +1,4 @@
+import { serviceType } from "../../screens/mainscreens/types";
 import authApiSlice from "./authapislices";
 
 export const mainApiSlice = authApiSlice.injectEndpoints({
@@ -18,7 +19,16 @@ export const mainApiSlice = authApiSlice.injectEndpoints({
     }),
     getservices: builder.query({
       query: (id) => `/api/accounts/addservices?id=${id}`,
-      providesTags: ['services']
+      transformResponse(baseQueryReturnValue: any, meta, arg) {
+        let data = [...baseQueryReturnValue];
+        let res = {};
+        data.forEach(({ service, cost, id }: serviceType) => {
+          res[service] = { service, cost, id };
+        });
+
+        return res;
+      },
+      providesTags: ["services"],
     }),
   }),
 });

@@ -59,6 +59,7 @@ const MainApp: FC = () => {
       />
       <Drawer.Screen
         options={{
+          unmountOnBlur: true,
           headerTransparent: true,
           drawerIcon: ({ color }) => (
             <Icon
