@@ -4,7 +4,7 @@ import * as SecureStore from "expo-secure-store";
 
 const { BASE_URL, BASE_URL_PROD } = Constants.expoConfig.extra;
 
-const baseUrl =
+export const baseUrl =
   process.env.NODE_ENV == "development" ? BASE_URL : BASE_URL_PROD;
 
 const transformResponse = async (baseQueryReturnValue: any) => {
@@ -26,7 +26,7 @@ const authApiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ['services'],
+  tagTypes: ["services"],
 
   endpoints: (builder) => ({
     login: builder.mutation({

@@ -22,6 +22,7 @@ export type AppointmentItemType = {
   services: string;
   totalcost: number;
   user: string;
+  dp: string;
 };
 
 export type AppointmentType = {

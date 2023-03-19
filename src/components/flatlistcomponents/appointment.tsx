@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Divider,
   Heading,
@@ -14,6 +15,7 @@ import { lineargradient } from "../../theme";
 import { AppFooterProps, AppointmentType } from "./types";
 import { CustomSvg } from "../svgs/svg";
 import { notfound } from "../../assets/notfound";
+import { baseUrl } from "../../store/apislices/authapislices";
 
 export const renderItem = ({ item }: AppointmentType) => {
   return <RenderItem item={item} />;
@@ -39,15 +41,19 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
 
       <Text>{item.datetime}</Text>
 
-      <VStack py="2">
-        <Heading size="sm">Services Selected:</Heading>
-        {item.services.split("|").map((service, index) => (
-          <Text px="2" key={index}>
-            {index + 1 + ") "}
-            {service}
-          </Text>
-        ))}
-      </VStack>
+      <HStack alignItems="center" justifyContent="space-between">
+        <VStack py="2">
+          <Heading size="sm">Services Selected:</Heading>
+          {item.services.split("|").map((service, index) => (
+            <Text px="2" key={index}>
+              {index + 1 + ") "}
+              {service}
+            </Text>
+          ))}
+        </VStack>
+
+        <Avatar size="xl" source={{ uri: baseUrl + item.dp }} />
+      </HStack>
 
       <Divider />
       <Heading mt="1" size="xs">
@@ -66,7 +72,7 @@ export const Empty: FC = () => {
 };
 
 export const Footer: FC<AppFooterProps> = ({ endReached, isFetching }) => {
-  if (isFetching) return <Spinner pb="4" size="lg" />;
+  if (isFetching) return <Spinner pb="4" size="lg" color="teal.600" />;
   return (
     <Heading textAlign="center" pb="4" size="xs">
       {endReached ? "End Reached!" : ""}
@@ -91,7 +97,10 @@ export const CustomSkeleton: FC = () => {
             <Skeleton h="4" w="100" borderRadius="full" />
             <Skeleton h="10" w="10" borderRadius="full" />
           </HStack>
-          <Skeleton.Text lines={4} px="3" />
+          <HStack px="3" justifyContent="space-between" alignItems="center">
+            <Skeleton.Text lines={4} width="60%" />
+            <Skeleton h="16" w="16" borderRadius="full" />
+          </HStack>
           <Skeleton rounded="full" my="5" />
         </Box>
       ))}
