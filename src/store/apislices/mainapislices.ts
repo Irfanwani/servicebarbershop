@@ -30,7 +30,15 @@ export const mainApiSlice = authApiSlice.injectEndpoints({
       },
       providesTags: ["services"],
     }),
+
+    getratings: builder.query({
+      query: (id) => `/api/haircut/reviews?barber_id=${id}`,
+    }),
   }),
 });
 
-export const { useGetappointmentsQuery, useGetservicesQuery } = mainApiSlice;
+export const {
+  useGetappointmentsQuery,
+  useGetservicesQuery,
+  useGetratingsQuery,
+} = mainApiSlice;

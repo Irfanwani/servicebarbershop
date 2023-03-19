@@ -8,9 +8,10 @@ import Profile from "./profile";
 import Settings from "./settings";
 import { DrawerProps } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
-import { bgLightCard } from "../../theme";
+import { bgLightCard, bgLight, bgDark } from "../../theme";
 import Services from "./services";
 import addservices from "./addservices";
+import Ratings from "./Ratings";
 
 const Drawer = createDrawerNavigator<DrawerProps>();
 
@@ -31,11 +32,13 @@ const MainApp: FC = () => {
         drawerActiveBackgroundColor: bgLightCard,
         drawerInactiveTintColor: bgLightCard,
         drawerActiveTintColor: "rgb(255, 250, 250)",
+        headerTransparent: true,
       }}
       initialRouteName="appointments"
     >
       <Drawer.Screen
         options={{
+          headerTransparent: false,
           drawerIcon: ({ color }) => (
             <Icon as={MaterialIcons} name="work" color={color} size="lg" />
           ),
@@ -47,7 +50,6 @@ const MainApp: FC = () => {
       />
       <Drawer.Screen
         options={{
-          headerTransparent: true,
           drawerIcon: ({ color }) => (
             <Icon as={MaterialIcons} name="person" color={color} size="lg" />
           ),
@@ -60,7 +62,6 @@ const MainApp: FC = () => {
       <Drawer.Screen
         options={{
           unmountOnBlur: true,
-          headerTransparent: true,
           drawerIcon: ({ color }) => (
             <Icon
               as={MaterialIcons}
@@ -77,7 +78,6 @@ const MainApp: FC = () => {
       />
       <Drawer.Screen
         options={{
-          headerTransparent: true,
           drawerIcon: ({ color }) => (
             <Icon
               as={MaterialIcons}
@@ -94,7 +94,26 @@ const MainApp: FC = () => {
       />
       <Drawer.Screen
         options={{
-          headerTransparent: true,
+          headerTransparent: false,
+          headerStyle: {
+            backgroundColor: colorMode == "light" ? bgLight : bgDark,
+          },
+          drawerIcon: ({ color }) => (
+            <Icon
+              as={MaterialIcons}
+              name="rate-review"
+              color={color}
+              size="lg"
+            />
+          ),
+          headerTitle: "Reviews",
+          drawerLabel: "Reviews",
+        }}
+        name="ratings"
+        component={Ratings}
+      />
+      <Drawer.Screen
+        options={{
           drawerIcon: ({ color }) => (
             <Icon as={MaterialIcons} name="settings" color={color} size="lg" />
           ),
