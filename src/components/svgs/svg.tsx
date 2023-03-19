@@ -1,10 +1,10 @@
-import { Box, HStack, Icon, useColorMode, View } from "native-base";
+import { HStack, Icon } from "native-base";
 import { FC } from "react";
 import { ViewStyle } from "react-native";
 import { SvgXml } from "react-native-svg";
 import styles from "../styles";
 import { Ionicons } from "@expo/vector-icons";
-import { bgDark, bgLight } from "../../theme";
+import { ThemeComponentSizeType } from "native-base/lib/typescript/components/types";
 
 interface CustomSvgProps {
   xml: string;
@@ -17,23 +17,31 @@ export const CustomSvg: FC<CustomSvgProps> = ({ xml, style }) => {
 
 interface StarProps {
   rating: number;
+  size?: ThemeComponentSizeType<"Icon">;
 }
 
-export const StarRating: FC<StarProps> = ({ rating }) => {
-  const { colorMode } = useColorMode();
-
-  const bg = colorMode == "light" ? bgLight : bgDark;
+export const StarRating: FC<StarProps> = ({ rating, size = "sm" }) => {
   return (
-    <HStack bg={bg} overflow="hidden" space="0.5">
-      <View
-        position="absolute"
-        h="100%"
-        width={`${100 * (rating / 5)}%`}
-        bg="yellow.300"
-      />
+    <HStack overflow="hidden">
       {[...Array(5)].map((item, index) => (
-        <Icon key={index} as={Ionicons} name="star" size="sm" />
+        <Icon key={index} as={Ionicons} name="star" size={size} />
       ))}
+
+      <HStack
+        overflow="hidden"
+        position="absolute"
+        width={`${100 * (rating / 5)}%`}
+      >
+        {[...Array(5)].map((item, index) => (
+          <Icon
+            color="yellow.500"
+            key={index}
+            as={Ionicons}
+            name="star"
+            size={size}
+          />
+        ))}
+      </HStack>
     </HStack>
   );
 };

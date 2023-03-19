@@ -104,7 +104,9 @@ const ListHeader: FC<RheaderType> = ({ numreviews, rating }) => {
         {rating}
       </Heading>
 
-      <StarRating rating={rating} />
+      <Box alignSelf="center">
+        <StarRating rating={rating} size="lg" />
+      </Box>
 
       <Text textAlign="center">based on {numreviews} reviews</Text>
     </VStack>
