@@ -17,6 +17,7 @@ import { RefreshControl } from "react-native";
 import { refreshcolors } from "../../theme";
 import { RheaderType } from "./types";
 import { baseUrl } from "../../store/apislices/authapislices";
+import { StarRating } from "../../components/svgs/svg";
 
 const Ratings: FC = () => {
   const { user } = useSelector<any, UserType>(authDetails);
@@ -80,7 +81,10 @@ const RenderItem = ({ item }) => {
           <Avatar source={{ uri: baseUrl + item.dp }} size="md" />
           <VStack>
             <Heading size="sm">{item.user}</Heading>
-            <Text>{item.ratings}</Text>
+            <HStack space="2" alignItems="center">
+              <StarRating rating={item.ratings} />
+              <Text>{item.ratings.toFixed(1)}</Text>
+            </HStack>
           </VStack>
         </HStack>
         <Text alignSelf="flex-end">{item.date}</Text>
@@ -95,12 +99,12 @@ const RenderItem = ({ item }) => {
 
 const ListHeader: FC<RheaderType> = ({ numreviews, rating }) => {
   return (
-    <VStack alignSelf="center" py="50">
+    <VStack justifyContent="center" alignSelf="center" py="50">
       <Heading textAlign="center" size="4xl">
         {rating}
       </Heading>
 
-      <Text textAlign="center">show stars</Text>
+      <StarRating rating={rating} />
 
       <Text textAlign="center">based on {numreviews} reviews</Text>
     </VStack>

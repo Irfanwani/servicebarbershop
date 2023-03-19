@@ -13,7 +13,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 import { TransitionProps } from "./types";
