@@ -50,8 +50,8 @@ const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
         <Divider />
         <DrawerItemList {...props} />
 
-        <TouchableOpacity onPress={shareApp}>
-          <HStack p="5" space="8">
+        <TouchableOpacity style={styles.share} onPress={shareApp}>
+          <HStack h="60" p="5" space="8">
             <Icon
               as={Ionicons}
               name="share-social"

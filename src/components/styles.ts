@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
   },
-  logout: { position: "absolute", bottom: 20, right: 10 },
+  logout: { position: "absolute", bottom: 20, right: 10, borderRadius: 20 },
   settingitem: {
     justifyContent: "space-between",
     alignItems: "center",
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
   },
   imageview: {
     justifyContent: "center",
+  },
+  share: {
+    overflow: "hidden",
   },
 });
 
