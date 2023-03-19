@@ -5,7 +5,7 @@ import Main from "./src/screens/main";
 
 import { Provider } from "react-redux";
 
-import { enableFreeze } from "react-native-screens";
+import { enableFreeze, enableScreens } from "react-native-screens";
 import { persistor, store } from "./src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import Loader from "./src/components/generalcomponents/loader";
@@ -18,6 +18,7 @@ LogBox.ignoreLogs([
 ]);
 
 enableFreeze(true);
+enableScreens(true);
 
 const App: FC = () => {
   return (

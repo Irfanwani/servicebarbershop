@@ -9,7 +9,10 @@ import {
 } from "native-base";
 import { FC, memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { LogoutButton } from "../../components/generalcomponents/roundbutton";
+import {
+  LogoutButton,
+  RoundButton,
+} from "../../components/generalcomponents/roundbutton";
 import SettingItem, {
   DeleteComponent,
 } from "../../components/generalcomponents/settingsitem";
@@ -17,6 +20,7 @@ import { CustomTransition } from "../../components/generalcomponents/transition"
 import { authDetails, UserType } from "../../store/slice";
 import { lineargradient } from "../../theme";
 import { useLogout } from "../../utils/customhooks";
+import { shareApp } from "../../utils/getassets";
 import styles from "./styles";
 import { SettingsProps } from "./types";
 
@@ -94,6 +98,19 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
             bg="black"
           />
 
+          <SettingItem
+            icon="share"
+            title="Share App"
+            isSwitch={false}
+            bg="cyan.600"
+            CustomComponent={() => (
+              <RoundButton
+                onPress={shareApp}
+                icon="share-social"
+                colorScheme="cyan"
+              />
+            )}
+          />
           <SettingItem
             icon="logout"
             title="Logout All"

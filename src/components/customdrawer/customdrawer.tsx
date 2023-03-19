@@ -8,6 +8,7 @@ import {
   Divider,
   Heading,
   HStack,
+  Icon,
   Text,
   View,
   VStack,
@@ -19,6 +20,10 @@ import { useLogout } from "../../utils/customhooks";
 import { LogoutButton } from "../generalcomponents/roundbutton";
 import { ThemeToggler } from "../generalcomponents/themeToggler";
 import styles from "../styles";
+import { Ionicons } from "@expo/vector-icons";
+import { bgLightCard } from "../../theme";
+import { TouchableOpacity } from "react-native";
+import { shareApp } from "../../utils/getassets";
 
 const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
   const { user, details } = useSelector<any, UserType>(authDetails);
@@ -44,6 +49,20 @@ const CustomDrawer: FC<DrawerContentComponentProps> = (props) => {
         </HStack>
         <Divider />
         <DrawerItemList {...props} />
+
+        <TouchableOpacity onPress={shareApp}>
+          <HStack p="5" space="8">
+            <Icon
+              as={Ionicons}
+              name="share-social"
+              size="lg"
+              color={bgLightCard}
+            />
+            <Text fontWeight="medium" color={bgLightCard} size="sm">
+              Share
+            </Text>
+          </HStack>
+        </TouchableOpacity>
 
         <View style={styles.logout}>
           <LogoutButton onPress={logout} isLoading={isLoading} />
