@@ -4,13 +4,16 @@ import Servicedetails from "../../components/createupdate/servicedetails";
 import { ServiceSkeleton } from "../../components/flatlistcomponents/servicedetail";
 import { useGetservicesQuery } from "../../store/apislices/mainapislices";
 import { authDetails, UserType } from "../../store/slice";
+import { useIsReady } from "../../utils/customhooks";
 
 const Services: FC = () => {
   const { user } = useSelector<any, UserType>(authDetails);
 
   const { data, isFetching } = useGetservicesQuery(user.id);
 
-  if (isFetching) return <ServiceSkeleton />;
+  const loading = useIsReady();
+
+  if (isFetching || loading) return <ServiceSkeleton />;
   return (
     <Servicedetails
       servicesSelected={data}

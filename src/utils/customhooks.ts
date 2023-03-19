@@ -70,3 +70,13 @@ export const useLogout: LogoutProps = () => {
 
   return [logout, isLoading ? isLoading : lgAllLoading];
 };
+
+export const useIsReady = () => {
+  const [loading, setLoading] = useState(true);
+
+  requestAnimationFrame(() => {
+    setLoading(false);
+  });
+
+  return loading;
+};
