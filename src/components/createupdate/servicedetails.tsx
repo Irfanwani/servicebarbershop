@@ -90,7 +90,7 @@ const ServiceDetails: FC<ServiceProps> = ({
           onPress={submit}
           isLoading={isLoading}
           error={error}
-          title={updating ? "Update Services" : "Add New Services"}
+          title={updating ? "Update Services" : "Add Services"}
         />
       }
     />

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     opacity: 0.6,
   },
-  deletebutton: { position: "absolute", left: -5 },
+  deletebutton: { position: "absolute" },
 });
 
 export default styles;

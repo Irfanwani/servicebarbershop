@@ -20,7 +20,7 @@ const config = {
 
 const reducer = persistCombineReducers(config, {
   [authApiSlice.reducerPath]: authApiSlice.reducer,
-  authSlice: authReducer
+  authSlice: authReducer,
 });
 
 export const store = configureStore({

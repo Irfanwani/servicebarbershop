@@ -21,7 +21,7 @@ import styles from "../../screens/detailscreens/styles";
 import { useAddserviceDetailsMutation } from "../../store/apislices/detailsapislice";
 import { errorHandler } from "../../utils/errorhandler";
 import { RoundButton } from "../generalcomponents/roundbutton";
-import { CustomAlertDialog, showToast } from "../generalcomponents/alerts";
+import { CustomAlertDialog } from "../generalcomponents/alerts";
 
 export const renderItem = (props: any) => {
   return <RenderItem {...props} />;
@@ -82,7 +82,6 @@ const RenderItem: FC<serviceItemProps> = ({
         body: { service_id: id },
         method: "DELETE",
       }).unwrap();
-      showToast("info", "Service Removed");
     } catch (err) {
       errorHandler(err);
     }

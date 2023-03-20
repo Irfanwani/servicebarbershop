@@ -2,6 +2,7 @@ import "dotenv/config";
 
 export default {
   expo: {
+    jsEngine: "hermes",
     name: "servicebarbershop",
     slug: "servicebarbershop",
     orientation: "portrait",
