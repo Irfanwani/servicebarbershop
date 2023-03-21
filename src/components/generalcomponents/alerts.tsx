@@ -1,13 +1,11 @@
-import {
-  Alert,
-  AlertDialog,
-  Button,
-  HStack,
-  Text,
-  Toast,
-} from "native-base";
+import { Alert, AlertDialog, Button, HStack, Text, Toast } from "native-base";
 import { FC, useRef } from "react";
-import { CustomAlertDialogProps, CustomAlertProps } from "./types";
+import { Linking } from "react-native";
+import {
+  CustomAlertDialogProps,
+  CustomAlertProps,
+  LoginAlertProps,
+} from "./types";
 
 export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
   const closeAllToasts = () => {
@@ -20,12 +18,12 @@ export const CustomAlert: FC<CustomAlertProps> = ({ status, message }) => {
       variant="left-accent"
       status={status}
     >
-        <HStack px='2' space="2" alignItems="center">
-          <Alert.Icon size="md" />
-          <Text textAlign="center" color="black">
-            {message}
-          </Text>
-        </HStack>
+      <HStack px="2" space="2" alignItems="center">
+        <Alert.Icon size="md" />
+        <Text textAlign="center" color="black">
+          {message}
+        </Text>
+      </HStack>
     </Alert>
   );
 };
@@ -70,5 +68,37 @@ export const CustomAlertDialog: FC<CustomAlertDialogProps> = ({
         </AlertDialog.Footer>
       </AlertDialog.Content>
     </AlertDialog>
+  );
+};
+
+export const LoginAlert: FC<LoginAlertProps> = ({ isOpen, setIsOpen }) => {
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onPress = async () => {
+    try {
+      await Linking.openURL(
+        "https://play.google.com/store/apps/details?id=com.barbershop"
+      );
+    } catch (err) {
+      showToast(
+        "error",
+        "There was some error opening the Link. Please install the app manually from your App store"
+      );
+    }
+    onClose();
+  };
+  return (
+    <CustomAlertDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      onPress={onPress}
+      header="Alert!"
+      message="Seems you are trying to login using a client account. Please install the client app of Barbershop to continue or Register with a new account if you want to continue to Services App."
+      cancelText="cancel"
+      confirmText="Get Client App"
+      confirmColor="success"
+    />
   );
 };

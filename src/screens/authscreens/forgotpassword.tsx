@@ -12,11 +12,16 @@ import {
 import { credsvalidator, emailvalidator } from "../../utils/credsvalidator";
 import ErrorMessage from "../../components/generalcomponents/error";
 import { passwordResetErrorType } from "./types";
-import { showToast } from "../../components/generalcomponents/alerts";
+import {
+  LoginAlert,
+  showToast,
+} from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 
 const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,7 +90,11 @@ const ForgotPassword: FC = () => {
       return;
 
     try {
-      await resetMutation({ code, password, email }).unwrap();
+      let res = await resetMutation({ code, password, email }).unwrap();
+      if (!res.is_barber) {
+        setIsOpen(true);
+        return;
+      }
       showToast("success", '"Password Reset! Logged in successfully"');
     } catch (err) {
       errorHandler(err);
@@ -186,6 +195,8 @@ const ForgotPassword: FC = () => {
       >
         Reset Password
       </Button>
+
+      <LoginAlert isOpen={isOpen} setIsOpen={setIsOpen} />
     </ScrollView>
   );
 };

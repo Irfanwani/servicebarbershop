@@ -1,15 +1,20 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import Constants from "expo-constants";
 import * as SecureStore from "expo-secure-store";
+import { UserType } from "../slice";
 
 const { BASE_URL, BASE_URL_PROD } = Constants.expoConfig.extra;
 
 export const baseUrl =
   process.env.NODE_ENV == "development" ? BASE_URL : BASE_URL_PROD;
 
-const transformResponse = async (baseQueryReturnValue: any) => {
+const transformResponse = async (baseQueryReturnValue: UserType) => {
   let res = { ...baseQueryReturnValue };
   res.token = null;
+  if (!res.is_barber) {
+    res = {};
+    return res;
+  }
   await SecureStore.setItemAsync("token", baseQueryReturnValue.token);
   return res;
 };

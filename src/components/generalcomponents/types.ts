@@ -41,6 +41,10 @@ export type CustomAlertDialogProps = {
   confirmColor: ColorSchemeType;
 };
 
+export type LoginAlertProps = {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
 export type SettingItemType = {
   icon: string;
   title: string;

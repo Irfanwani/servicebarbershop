@@ -8,7 +8,10 @@ import { CustomSvg } from "../../components/svgs/svg";
 import { login } from "../../assets/login";
 import { useLoginMutation } from "../../store/apislices/authapislices";
 import ErrorMessage from "../../components/generalcomponents/error";
-import { showToast } from "../../components/generalcomponents/alerts";
+import {
+  LoginAlert,
+  showToast,
+} from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
@@ -17,6 +20,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
   const [error, setError] = useState({ username: null, password: null });
 
   const [isSecure, setIsSecure] = useState(true);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [loginMutation, { isLoading }] = useLoginMutation();
 
@@ -44,7 +49,11 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
     setError({ username: null, password: null });
     try {
-      await loginMutation({ username, password }).unwrap();
+      let res = await loginMutation({ username, password }).unwrap();
+      if (!res.is_barber) {
+        setIsOpen(true);
+        return;
+      }
       showToast("success", "Logged in successfully");
     } catch (err) {
       errorHandler(err);
@@ -114,6 +123,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
           Register Here!
         </Text>
       </Text>
+
+      <LoginAlert isOpen={isOpen} setIsOpen={setIsOpen} />
     </ScrollView>
   );
 };

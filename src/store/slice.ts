@@ -10,6 +10,7 @@ export type UserType = {
   token?: null;
   user?: { email: string; id: number; username: string };
   verified?: string;
+  is_barber?: boolean;
 };
 
 export type Details = {
