@@ -18,6 +18,7 @@
     },
     "preview": {
       "channel": "preview",
+      "developmentClient": true,
       "distribution": "internal",
       "ios": {
         "resourceClass": "m-medium"
