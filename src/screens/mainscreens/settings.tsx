@@ -81,7 +81,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
             colorMode == "light" ? "blueGray.100" : "blueGray.600"
           }
         >
-          <SettingItem
+          {/* <SettingItem
             icon="bell-outline"
             title="Notifications"
             value={false}
@@ -89,7 +89,7 @@ const Settings: FC<SettingsProps> = ({ navigation }) => {
               console.log(val);
             }}
             bg="green.600"
-          />
+          /> */}
           <SettingItem
             icon="theme-light-dark"
             title="Dark Mode"

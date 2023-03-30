@@ -105,8 +105,11 @@ export const registerForPushNotificationsAsync = async () => {
       alert("Failed to get push token for push notification!");
       return;
     }
-    token = (await getExpoPushTokenAsync()).data;
-    console.log(token, "token from function");
+    token = (
+      await getExpoPushTokenAsync({
+        experienceId: "@irfanwani/servicebarbershop",
+      })
+    ).data;
   } else {
     alert("Must use physical device for Push Notifications");
   }

@@ -56,4 +56,3 @@ web-build/
 dist/
 
 .env
-google-services.json
