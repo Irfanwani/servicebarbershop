@@ -1,24 +1,26 @@
 import React, { FC, memo, useRef, useState } from "react";
 import {
-  ScrollView,
-  ImageBackground,
   NativeSyntheticEvent,
   NativeScrollEvent,
   useWindowDimensions,
+  FlatList as FLType,
 } from "react-native";
 
-import { Fab, Heading, Icon, View } from "native-base";
+import { Fab, FlatList, Heading, Icon, Text, VStack } from "native-base";
 
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 import { useIsFocused } from "@react-navigation/native";
 import { LandingPageProps } from "./types";
+import { CustomSvg } from "../../components/svgs/svg";
+import { landingfirst } from "../../assets/landingfirst";
+import { landing2nd } from "../../assets/landing2nd";
 
 const LandingPage: FC<LandingPageProps> = ({ navigation }) => {
   const isFocused = useIsFocused();
   const { width } = useWindowDimensions();
 
-  const scroller = useRef<ScrollView>();
+  const scroller = useRef<FLType>();
 
   const [atEnd, setAtEnd] = useState(false);
 
@@ -37,37 +39,62 @@ const LandingPage: FC<LandingPageProps> = ({ navigation }) => {
     }
   };
   return (
-    <ScrollView
-      onScroll={changescroll}
-      ref={(ref) => (scroller.current = ref)}
-      horizontal
-      style={styles.view}
-      showsHorizontalScrollIndicator={false}
-      pagingEnabled={true}
-    >
-      <ImageBackground
-        style={styles.image}
-        source={require("../../assets/barbershop.jpeg")}
-      >
-        <View style={styles.tagview}>
-          <Heading style={styles.tagline}>
-            Manage All your appointments at one place!
-          </Heading>
-          <Heading style={styles.tagline}>
-            Join the Barbershop Services App to connect with new clients.
-          </Heading>
+    <>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        onScroll={changescroll}
+        ref={scroller}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled={true}
+      />
 
-          <Fab
-            renderInPortal={isFocused}
-            onPress={moveOn}
-            colorScheme="rose"
-            label={atEnd ? `Let's Start` : ""}
-            endIcon={<Icon as={Ionicons} name="arrow-forward" size="lg" />}
-          />
-        </View>
-      </ImageBackground>
-    </ScrollView>
+      <Fab
+        style={[
+          styles.fab,
+          {
+            right: width / 2 - (atEnd ? 60 : 25),
+          },
+        ]}
+        renderInPortal={isFocused}
+        onPress={moveOn}
+        colorScheme="rose"
+        label={atEnd ? `Let's Start` : ""}
+        endIcon={<Icon as={Ionicons} name="arrow-forward" size="lg" />}
+      />
+    </>
   );
 };
 
 export default memo(LandingPage);
+
+interface renderProps {
+  item: { svg: string; heading: string; subheading: string };
+}
+
+const renderItem = ({ item }: renderProps) => {
+  return (
+    <VStack style={styles.landingrender}>
+      <CustomSvg xml={item.svg} />
+      <VStack style={styles.headings}>
+        <Heading style={styles.tagline}>{item.heading}</Heading>
+        <Text style={styles.subheading}>{item.subheading}</Text>
+      </VStack>
+    </VStack>
+  );
+};
+
+const data = [
+  {
+    svg: landingfirst,
+    heading: "All at one place!",
+    subheading:
+      "Now you can Manage all your appointments with the clients at one place!",
+  },
+  {
+    svg: landing2nd,
+    heading: "Join Us!",
+    subheading: "Join the Barbershop Services App to connect with new clients.",
+  },
+];

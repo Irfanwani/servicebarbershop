@@ -6,6 +6,10 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
   },
+  landingrender: {
+    width,
+    justifyContent: "center",
+  },
   animatedview: {
     height,
   },
@@ -13,18 +17,20 @@ const styles = StyleSheet.create({
     height,
     aspectRatio: 4500 / 4507, // copy pasted the dimensions,
   },
+  headings: {
+    alignSelf: "center",
+    width: width - 20,
+  },
   tagline: {
-    fontSize: 25,
-    color: 'white',
+    fontSize: 20,
     textAlign: "center",
-    width: width / 1.5,
-    lineHeight: 35,
+    fontFamily: "sans-serif",
+  },
+  subheading: {
+    textAlign: "center",
   },
   tagview: {
     justifyContent: "space-around",
-    flex: 1,
-    backgroundColor: "#00000055",
-    flexDirection: "row",
     alignItems: "center",
   },
   iconbutton: {
@@ -45,6 +51,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   footer: {
+    alignSelf: "center",
+  },
+  fab: {
+    position: "absolute",
+    bottom: 80,
     alignSelf: "center",
   },
 });
