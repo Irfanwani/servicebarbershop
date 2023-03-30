@@ -5,7 +5,7 @@ import { UserType } from "../slice";
 
 const { BASE_URL, BASE_URL_PROD } = Constants.expoConfig.extra;
 
-export const baseUrl =
+export const baseUrl = 'http://192.168.164.13:8000';
   process.env.NODE_ENV == "development" ? BASE_URL : BASE_URL_PROD;
 
 const transformResponse = async (baseQueryReturnValue: UserType) => {

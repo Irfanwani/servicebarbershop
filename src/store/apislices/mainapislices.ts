@@ -34,6 +34,20 @@ export const mainApiSlice = authApiSlice.injectEndpoints({
     getratings: builder.query({
       query: (id) => `/api/haircut/reviews?barber_id=${id}`,
     }),
+    savetoken: builder.mutation({
+      query: ({ id, token }) => ({
+        url: "/api/haircut/savetoken",
+        body: { user: id, token },
+        method: "POST",
+      }),
+    }),
+    removetoken: builder.mutation({
+      query: ({ body, method }) => ({
+        url: "/api/haircut/removetoken",
+        body,
+        method,
+      }),
+    }),
   }),
 });
 
@@ -41,4 +55,6 @@ export const {
   useGetappointmentsQuery,
   useGetservicesQuery,
   useGetratingsQuery,
+  useSavetokenMutation,
+  useRemovetokenMutation,
 } = mainApiSlice;

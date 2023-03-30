@@ -13,6 +13,7 @@ import {
   showToast,
 } from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
+import { useCustomNotifications } from "../../utils/customhooks";
 
 const Login: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -24,6 +25,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [loginMutation, { isLoading }] = useLoginMutation();
+  const getToken = useCustomNotifications();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
@@ -54,6 +56,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         setIsOpen(true);
         return;
       }
+      await getToken(res.user.id);
       showToast("success", "Logged in successfully");
     } catch (err) {
       errorHandler(err);

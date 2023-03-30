@@ -2,6 +2,16 @@ import "dotenv/config";
 
 export default {
   expo: {
+    plugins: [
+      "@react-native-firebase/app",
+      [
+        "expo-notifications",
+        {
+          icon: "./android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+          color: "#ffffff",
+        },
+      ],
+    ],
     jsEngine: "hermes",
     name: "servicebarbershop",
     slug: "servicebarbershop",
@@ -16,6 +26,7 @@ export default {
       },
     },
     android: {
+      package: "com.servicebarbershop",
       googleServicesFile:
         process.env.GOOGLE_SERVICES_JSON ?? "./google-services.json",
       config: {

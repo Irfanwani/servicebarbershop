@@ -11,6 +11,7 @@ import ErrorMessage from "../../components/generalcomponents/error";
 import { credsvalidator } from "../../utils/credsvalidator";
 import { showToast } from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
+import { useCustomNotifications } from "../../utils/customhooks";
 
 const Register: FC<LoginProps> = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -28,6 +29,7 @@ const Register: FC<LoginProps> = ({ navigation }) => {
   });
 
   const [registerMutation, { isLoading }] = useRegisterMutation();
+  const getToken = useCustomNotifications();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
@@ -41,11 +43,12 @@ const Register: FC<LoginProps> = ({ navigation }) => {
     if (!credsvalidator({ username, email, password, passwordagain, setError }))
       return;
     try {
-      await registerMutation({
+      let res = await registerMutation({
         username,
         email,
         password,
       }).unwrap();
+      await getToken(res.user.id);
       showToast("success", "Account Created Successfully!");
     } catch (err) {
       errorHandler(err);

@@ -17,6 +17,7 @@ import {
   showToast,
 } from "../../components/generalcomponents/alerts";
 import { errorHandler } from "../../utils/errorhandler";
+import { useCustomNotifications } from "../../utils/customhooks";
 
 const ForgotPassword: FC = () => {
   const [isSecure, setIsSecure] = useState(true);
@@ -38,6 +39,7 @@ const ForgotPassword: FC = () => {
     useGetresetcodeMutation();
 
   const [resetMutation, { isLoading }] = useResetpasswordMutation();
+  const getToken = useCustomNotifications();
 
   const changeSecure = () => {
     setIsSecure((prev) => !prev);
@@ -95,6 +97,7 @@ const ForgotPassword: FC = () => {
         setIsOpen(true);
         return;
       }
+      await getToken(res.user.id);
       showToast("success", '"Password Reset! Logged in successfully"');
     } catch (err) {
       errorHandler(err);
