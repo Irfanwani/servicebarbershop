@@ -12,6 +12,10 @@ export default {
         },
       ],
     ],
+    updates: {
+      url: "https://u.expo.dev/19633f78-a9e8-4eaf-b161-5e339c4d4687",
+    },
+    runtimeVersion: "1.0.0",
     jsEngine: "hermes",
     name: "servicebarbershop",
     slug: "servicebarbershop",
@@ -28,7 +32,7 @@ export default {
     android: {
       package: "com.servicebarbershop",
       googleServicesFile:
-        process.env.GOOGLE_SERVICES_JSON ?? "./google-services.json",
+        process.env.GOOGLE_SERVICES_JSON ?? "./android/app/google-services.json",
       config: {
         googleMaps: {
           apiKey: process.env.GOOGLE_API_KEY,
