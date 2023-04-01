@@ -18,6 +18,7 @@ export const timeFormatter = (time: string) => {
     }
     AmPm = "PM";
   } else {
+    hours = +hours < 10 ? `0${hours}` : hours;
     AmPm = "AM";
   }
 

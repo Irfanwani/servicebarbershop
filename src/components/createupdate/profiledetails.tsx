@@ -163,10 +163,13 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
   };
 
   const onChange = (date: Date, type: string) => {
+    let hrs = date.getHours();
+    let mins = date.getMinutes();
+
     if (type == "start") {
-      setStartTime(date.toLocaleTimeString().slice(0, 5));
+      setStartTime(`${hrs}:${mins}`);
     } else {
-      setEndTime(date.toLocaleTimeString().slice(0, 5));
+      setEndTime(`${hrs}:${mins}`);
     }
   };
 
