@@ -11,17 +11,14 @@ export const timeFormatter = (time: string) => {
     AmPm = "AM";
   } else if (+hours > 12) {
     let hr = +hours - 12;
-    if (hr < 10) {
-      hours = `0${hr}`;
-    } else {
-      hours = hr.toString();
-    }
+    hours = hr.toString();
     AmPm = "PM";
   } else {
-    hours = +hours < 10 ? `0${hours}` : hours;
     AmPm = "AM";
   }
 
-  let result = `${hours}:${minutes} ${AmPm}`;
+  let result = `${+hours < 10 ? `0${+hours}` : hours}:${
+    +minutes < 10 ? `0${+minutes}` : minutes
+  } ${AmPm}`;
   return result;
 };

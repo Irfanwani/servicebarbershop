@@ -139,7 +139,7 @@ const ProfileDetails: FC<DetailsScreenProps> = ({
     locationRef.current?.blur();
     setTimeout(() => {
       locationRef.current?.focus();
-    }, 100);
+    }, 350);
   };
 
   const changeLocation = (lc: string) => {
