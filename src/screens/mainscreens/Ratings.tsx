@@ -16,7 +16,6 @@ import { Empty } from "../../components/flatlistcomponents/appointment";
 import { RefreshControl } from "react-native";
 import { refreshcolors } from "../../theme";
 import { RheaderType } from "./types";
-import { baseUrl } from "../../store/apislices/authapislices";
 import { StarRating } from "../../components/svgs/svg";
 
 const Ratings: FC = () => {
@@ -78,7 +77,7 @@ const RenderItem = ({ item }) => {
     <Box py="6" px="5">
       <HStack justifyContent="space-between">
         <HStack space="3">
-          <Avatar source={{ uri: baseUrl + item.dp }} size="md" />
+          <Avatar source={{ uri: item.dp }} size="md" />
           <VStack>
             <Heading size="sm">{item.user}</Heading>
             <HStack space="2" alignItems="center">

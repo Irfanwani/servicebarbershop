@@ -15,7 +15,6 @@ import { lineargradient } from "../../theme";
 import { AppFooterProps, AppointmentType } from "./types";
 import { CustomSvg } from "../svgs/svg";
 import { notfound } from "../../assets/notfound";
-import { baseUrl } from "../../store/apislices/authapislices";
 
 export const renderItem = ({ item }: AppointmentType) => {
   return <RenderItem item={item} />;
@@ -52,7 +51,7 @@ const RenderItem: FC<AppointmentType> = ({ item }) => {
           ))}
         </VStack>
 
-        <Avatar size="xl" source={{ uri: baseUrl + item.dp }} />
+        <Avatar size="xl" source={{ uri: item.dp }} />
       </HStack>
 
       <Divider />
