@@ -79,7 +79,7 @@ export const LoginAlert: FC<LoginAlertProps> = ({ isOpen, setIsOpen }) => {
   const onPress = async () => {
     try {
       await Linking.openURL(
-        "https://play.google.com/store/apps/details?id=com.barbershop"
+        "https://play.google.com/store/apps/details?id=com.clientbarbershop"
       );
     } catch (err) {
       showToast(
