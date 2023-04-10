@@ -181,7 +181,7 @@ export const ServiceSkeleton: FC = () => {
   return (
     <FlatList
       contentContainerStyle={styles.scroll}
-      data={[...Array(10)].map((item, index) => index)}
+      data={[...Array(3)].map((item, index) => index)}
       renderItem={rnItem}
       keyExtractor={(item) => item.toString()}
       ListHeaderComponent={<ListHeader />}
