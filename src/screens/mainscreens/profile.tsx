@@ -2,6 +2,8 @@ import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { authDetails, UserType } from "../../store/slice";
 import Profiledetails from "../../components/createupdate/profiledetails";
+import { useIsReady } from "../../utils/customhooks";
+import Loader from "../../components/generalcomponents/loader";
 
 const Profile: FC = () => {
   const { details } = useSelector<any, UserType>(authDetails);
@@ -9,6 +11,10 @@ const Profile: FC = () => {
   let { coords } = details;
 
   let newcoords = getCoords(coords);
+
+  const notReady = useIsReady();
+
+  if (notReady) return <Loader />;
 
   return (
     <Profiledetails
