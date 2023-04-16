@@ -40,14 +40,16 @@ const RenderItem: FC<serviceItemProps> = ({
   const inputref = useRef(null);
 
   useEffect(() => {
-    if (typeof selected != "boolean") return;
+    requestAnimationFrame(() => {
+      if (typeof selected != "boolean") return;
 
-    if (selected && !updating) {
-      setTimeout(() => {
-        inputref.current.focus();
-      }, 10);
-    }
-    setItem();
+      if (selected && !updating) {
+        setTimeout(() => {
+          inputref.current.focus();
+        }, 10);
+      }
+      setItem();
+    });
   }, [selected]);
 
   const setItem = () => {
